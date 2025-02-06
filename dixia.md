@@ -63,7 +63,16 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
 
 ### 2025.02.06
 
-笔记内容
+Node and EL. But is this a physical scope separation? Need to learn more. 
+
+EOA controlled by key pair. Contract controlled by code.
+
+Every smart contract's persistent storage is just an array of 32bytes. the root is a MPT hash. Does balance take up space of storage?
+
+Message are just tx from contract without signature. but then how does other contracts know the message is from the initial contract?
+And how does EVM or consensus verify the message(virt tx)?
+
+https://cs251.stanford.edu/lectures/lecture7.pdf [0]
 
 ### 2025.02.07
 
