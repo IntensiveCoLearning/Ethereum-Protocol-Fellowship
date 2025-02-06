@@ -91,13 +91,25 @@ def extract_content_between_markers(file_content):
 
 def find_date_in_content(content, local_date):
     date_patterns = [
+        r'#\s*' + local_date.strftime("%Y.%m.%d"),
+        r'##\s*' + local_date.strftime("%Y.%m.%d"),
         r'###\s*' + local_date.strftime("%Y.%m.%d"),
+        r'#\s*' + local_date.strftime("%Y.%m.%d").replace('.0', '.'),
+        r'##\s*' + local_date.strftime("%Y.%m.%d").replace('.0', '.'),
         r'###\s*' + local_date.strftime("%Y.%m.%d").replace('.0', '.'),
+        r'#\s*' + local_date.strftime("%m.%d").lstrip('0').replace('.0', '.'),
+        r'##\s*' + local_date.strftime("%m.%d").lstrip('0').replace('.0', '.'),
         r'###\s*' +
         local_date.strftime("%m.%d").lstrip('0').replace('.0', '.'),
+        r'#\s*' + local_date.strftime("%Y/%m/%d"),
+        r'##\s*' + local_date.strftime("%Y/%m/%d"),
         r'###\s*' + local_date.strftime("%Y/%m/%d"),
+        r'#\s*' + local_date.strftime("%m/%d").lstrip('0').replace('/0', '/'),
+        r'##\s*' + local_date.strftime("%m/%d").lstrip('0').replace('/0', '/'),
         r'###\s*' +
         local_date.strftime("%m/%d").lstrip('0').replace('/0', '/'),
+        r'#\s*' + local_date.strftime("%m.%d").zfill(5),
+        r'##\s*' + local_date.strftime("%m.%d").zfill(5),
         r'###\s*' + local_date.strftime("%m.%d").zfill(5)
     ]
     combined_pattern = '|'.join(date_patterns)

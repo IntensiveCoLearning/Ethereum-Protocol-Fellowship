@@ -26,10 +26,26 @@ timezone: Asia/Shanghai # 中国标准时间 (UTC+8)
 
 <!-- Content_START -->
 
-### 2024.07.11
+### 2025.02.06
 
-笔记内容
+今天先过了下 [epf.wiki/](https://epf.wiki/) 的大概内容和脉络，暂时还没开始深入
 
-### 2024.07.12
+通过 了解到
+
+- EPF-The Ethereum Protocol Fellowship 是一个以太坊协议奖学金计划，旨在降低开发者对于 ETH 核心协议的进入门槛
+- EPSsg-Ethereum Protocol Studies group 是一个社区，旨在收集知识，学习和教育以太坊协议
+
+今年的 EPFsg 是2周intense introduction(之前研究组的一些资料后顾)，然后6周的现场演讲在线课程
+
+跟着 [Ethereum Protocol Studies - github](https://github.com/eth-protocol-fellows/protocol-studies/blob/main/docs/eps/intro.md) 可以查看之前每周的内容，已经分好类了
+
+[Week 0](https://github.com/eth-protocol-fellows/protocol-studies/blob/main/docs/eps/week0.md)主要是关于一些技术相关的前置基础知识，这块先就不看了
+
+1. 查看[Introducing the EPF Study Group - blog](https://blog.ethereum.org/2024/02/07/epf-study-group)
+2. 填写 survey: https://forms.gle/7TqmryC217EPwgqr9
+3. 快速过一下[EPF 2024年的学习大纲](https://epf.wiki/#/eps/SG2024)
+
+
+### 2025.02.07
 
 <!-- Content_END -->

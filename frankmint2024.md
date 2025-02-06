@@ -21,7 +21,32 @@ timezone: Asia/Shanghai
 
 ### 2025.02.06
 
-笔记内容
+#### 以太坊发展史
+以太坊根植于早期互联网的开放精神，其设计理念呼应了 Unix 的“专心做好一件事”理念。GNU/Linux 所代表的自由开源运动的兴起再次确立了软件的开放标准。与此同时，公钥加密技术的突破和密码朋克的倡导为比特币等安全、透明和去中心化的系统奠定了基础，最终激发了以太坊的愿景，即构建一个无边界、自主的数字经济平台。
+2012年，Vitalik Buterin和 Mihai Alisie 创办了比特币杂志，这是第一本专注于数字货币的严肃出版物。Vitalik 很快发现了比特币的局限性，并提出了一个支持通用金融应用的平台。
+2014年，在Gavin Wood的帮助下，以太坊的设计得以正式化。
+2015年7月30日，以太坊作为一个平台上线，旨在利用数字货币构建自主经济的工具。
+
+#### 以太坊架构
+当前的协议架构是多年演进的结果。该协议由两个主要部分组成 - 执行层和共识层。执行层 (EL) 处理实际交易和用户交互，它是全球计算机执行其程序的地方。共识层 (CL) 提供权益证明共识机制 - 一种加密经济安全性，确保所有节点遵循相同的提示并驱动执行层的规范链。
+实际上，这些层是通过 API 连接的客户端来实现的。每个客户端都有自己的 p2p 网络来处理不同类型的数据。
+
+![image](https://github.com/user-attachments/assets/6d37ca1d-a6d9-4730-9c4e-c29d73f0c793)
+![image](https://github.com/user-attachments/assets/ec520d9a-c675-49ec-b8ef-c02a77e68b5e)
+
+#### 以太坊协议
+协议设计理念
+Simplicity
+Universality
+Modularity
+Non-discriminant
+Agility
+
+协议设计原则
+Managing Complexity
+Freedom
+Generalization
+We have no features
 
 ### 2025.02.07
 
