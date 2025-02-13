@@ -530,6 +530,114 @@ $$\text{总Gas成本} = \text{固有成本} + \sum(\text{操作码Gas} \times \t
 
 
 
+### 2025.02.13
+
+#### 以太坊执行层架构学习笔记（第2天）
+
+------
+
+##### **引擎API（Engine API）**
+
+###### 核心接口
+
+```go
+type EngineAPI interface {
+    NewPayloadV1(payload ExecutionPayload) (PayloadStatusV1, error)
+    ForkchoiceUpdatedV1(state ForkchoiceState, attr PayloadAttributes) (ForkchoiceUpdatedResult, error)
+}
+```
+
+###### 工作流程
+
+1. **共识层触发**
+   - 接收`ForkchoiceUpdated`调用
+   - 确定规范链头（head block）
+2. **有效载荷验证**
+   - 检查父块哈希一致性
+   - 验证时间戳序列
+3. **状态同步**
+   - 执行区块内交易
+   - 更新全局状态树
+
+------
+
+##### **同步机制**
+
+###### 同步模式对比
+
+| 模式     | 特点                     | 适用场景         |
+| -------- | ------------------------ | ---------------- |
+| 全量同步 | 从创世块开始验证所有交易 | 新节点初始化     |
+| 快速同步 | 下载最新状态快照         | 追赶网络最新状态 |
+| 轻同步   | 仅同步区块头+Merkle证明  | 移动设备/浏览器  |
+
+###### 状态同步公式
+
+$$\text{同步进度} = \frac{\text{已验证区块高度}}{\text{网络最新高度}} \times 100\%$$
+
+------
+
+##### **有效载荷验证流程**
+
+###### 验证步骤
+
+1. **区块头验证**
+
+   $$H_{\text{gasLimit}} \in \left[P(H)_{\text{gasLimit}} \pm \left\lfloor \frac{P(H)_{\text{gasLimit}}}{1024} \right\rfloor\right]$$
+
+2. **随机数验证**
+
+   - $$H_{\text{difficulty}} = 0$$ (PoS区块)
+   - $$H_{\text{nonce}} = 0x0000000000000000$$
+
+3. **时间戳验证**
+
+   
+
+   $$H_{\text{timestamp}} > P(H)_{\text{timestamp}}$$
+
+###### 客户端实现差异
+
+| 检查项       | Geth实现位置              | Reth实现位置        |
+| ------------ | ------------------------- | ------------------- |
+| Gas限制验证  | `core/block_validator.go` | `crates/engine/src` |
+| 基础费用计算 | `core/fee_history.go`     | `crates/revm/src`   |
+
+------
+
+##### **交易池管理**
+
+###### 双池架构
+
+<img src=".starrydeserts_image/Dual-pool_architecture.png" alt="Dual-pool_architecture" style="zoom: 33%;" />
+
+###### 淘汰机制对比
+
+| 池类型 | 排序依据                  | 淘汰策略           |
+| ------ | ------------------------- | ------------------ |
+| Legacy | 有效小费（Effective Tip） | 大顶堆淘汰低优先级 |
+| Blob   | 对数时间衰减              | 滑动窗口淘汰       |
+
+------
+
+##### **共识引擎集成**
+
+###### 多引擎支持
+
+```go
+type ConsensusEngine interface {
+    VerifyHeaders(chain BlockChain, headers []*Header) (chan<- struct{}, <-chan error)
+    Finalize(chain BlockChain, header *Header, state *state.StateDB, txs []*Transaction)
+}
+```
+
+###### 验证流程示例
+
+1. 分离PoW/PoS区块头
+2. 预合并区块使用Ethash验证
+3. 后合并区块通过Beacon链验证
+4. 检查终态性（Finality）标记
+
 
 
 <!-- Content_END -->

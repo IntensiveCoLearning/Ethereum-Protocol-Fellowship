@@ -223,7 +223,63 @@ The ideas and proposed changes from the community are coordinated using EIP proc
 
 TODO https://notes.ethereum.org/@mikeneuder/rcr2vmsvftv
 
-TODO https://epf.wiki/#/eps/week2
+# 2025.02.13
+
+## https://epf.wiki/#/eps/week2
+
+### https://github.com/ethereum/consensus-specs/blob/dev/specs/deneb/beacon-chain.md#modified-process_execution_payload
+
+```
+class ExecutionPayload(Container):
+    # Execution block header fields
+    parent_hash: Hash32 # 上一个区块的 hash，连起来
+    fee_recipient: ExecutionAddress  # 'beneficiary' in the yellow paper 执行层中，是区块提交者的地址
+    state_root: Bytes32
+    receipts_root: Bytes32
+    logs_bloom: ByteVector[BYTES_PER_LOGS_BLOOM] # 用于日志过滤的 bloom 过滤器，用于快速查找日志
+    prev_randao: Bytes32  # 'difficulty' in the yellow paper
+    block_number: uint64  # 'number' in the yellow paper
+    gas_limit: uint64
+    gas_used: uint64
+    timestamp: uint64
+    extra_data: ByteList[MAX_EXTRA_DATA_BYTES]
+    base_fee_per_gas: uint256
+    # Extra payload fields
+    block_hash: Hash32  # Hash of execution block
+    transactions: List[Transaction, MAX_TRANSACTIONS_PER_PAYLOAD]
+    withdrawals: List[Withdrawal, MAX_WITHDRAWALS_PER_PAYLOAD] # 目前区块的提款列表
+    blob_gas_used: uint64  # [New in Deneb:EIP4844]
+    excess_blob_gas: uint64  # [New in Deneb:EIP4844]
+```
+
+需要进行能力扩展和数据增加，就是通过类似 EIP4844 这样的标准，创建新的标准，然后客户端来实现读取和保存记录。
+
+真实的信息和数据：
+
+![image](https://github.com/user-attachments/assets/185dcd23-b49a-4980-8c9a-f6f66d365543)
+
+![image](https://github.com/user-attachments/assets/51da5284-ff7a-44af-8b53-b286f9e35555)
+
+![image](https://github.com/user-attachments/assets/7861ddc2-dc22-4da3-84aa-406d639f2eda)
+
+logs_bloom 的工作原理：
+
+- logs_bloom 是一个固定大小的位数组，通常为256字节，即2048位。
+- 当一个新的日志被添加到区块中时，计算该日志的哈希值，并使用多个哈希函数（如3个）生成多个哈希值。
+- 将这些哈希值映射到logs_bloom的位数组中，将对应的位设置为1。
+- 查询某个日志是否存在于某个区块的时候，只需要计算日志的 hash，然后快速检查 logs_bloom 的对应的位置是否全部为 1，如果是，那么日志可能在当前区块。可能会存在误报
+- 通过这个，可以快速过滤不包含特定日志的区块，提高检索效率，比如查询 event 发生在哪些区块，从而仅仅加载和处理相关区块
+
+TODO Hackerscan 可以加入查看原始区块信息的功能，没有找到 logs_bloom 的原始数据
+
+TODO Contract Internal Transactions 是什么？跟 Block 的 transactions 区别是什么？
+
+TODO 明天把整个区块的所有信息和内容过一下 https://etherscan.io/block/21833528 https://eth.blockscout.com/block/21833528?tab=index
+
+TODO randao
+TODO withdrawals 提款工作原理？
+
+
 
 
 

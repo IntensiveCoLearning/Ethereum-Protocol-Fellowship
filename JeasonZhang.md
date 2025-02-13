@@ -706,6 +706,92 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 
 ### 2025.02.13
 
-##### **EPF WIKI WEEK6**
+##### **EPF WIKI WEEK6: Consensus and Execution spec**
+
+#### **I. 核心学习目标**
+
+**主题**: 共识层与执行层技术规范深度解析
+**目标**: 掌握规范实现原理，参与协议改进提案（EIP）开发。
+
+------
+
+#### **II. 课程大纲重点**
+
+##### **1. 共识层规范（CL Specs）**
+
+- Gasper协议实现：
+  - 结合LMD-GHOST分叉选择规则与Casper FFG最终性机制
+  - 状态转换逻辑：见证打包、检查点证明、验证者奖惩
+- Python参考实现：
+  - [共识层规范代码库](https://github.com/ethereum/consensus-specs)
+  - 测试框架：通过`pytest`验证区块生成与状态转换
+- 关键测试场景：
+  - 分叉场景模拟（7节点网络测试）
+  - 罚没条件触发验证（双重签名检测）
+
+##### **2. 执行层规范（EELS）**
+
+- EVM对象格式（EOF）：
+  - 分离代码与数据段，优化合约存储结构
+  - 支持版本化合约部署（向后兼容）
+- 操作码扩展实践：
+  - 在[execution-specs](https://github.com/ethereum/execution-specs)中添加自定义操作码
+  - 生成一致性测试向量（JSON测试用例）
+- 黄皮书对照：
+  - 状态转换函数的数学形式化验证
+  - Gas计算模型与预编译合约实现
+
+------
+
+#### **III. 关键学习资源**
+
+##### **必读材料**：
+
+- [EELS规范解析](https://blog.ethereum.org/2023/08/29/eel-spec)：执行层演进逻辑
+- [Vitalik注释版规范](https://github.com/ethereum/annotated-spec)：协议设计思想解读
+
+##### **实践指南**：
+
+- 共识层开发：
+
+  ```python
+  # 测试分叉场景
+  def test_multiple_forks():
+      genesis_state = initialize_beacon_state()
+      fork1_blocks = generate_alt_chain(genesis_state, length=3)
+      fork2_blocks = generate_alt_chain(genesis_state, length=5)
+      assert get_head(fork1_blocks) != get_head(fork2_blocks)
+  ```
+
+- 执行层扩展：
+
+  - 修改`src/ethereum/[frontier|homestead]/vm/opcodes.py`
+  - 在`tests/[frontier|homestead]/test_opcodes.py`添加测试
+
+------
+
+#### **IV. 技术术语对照**
+
+| 英文术语             | 中文解释               |
+| -------------------- | ---------------------- |
+| LMD-GHOST            | 最新消息驱动的最重子树 |
+| Casper FFG           | 友好最终性小工具       |
+| EOF                  | EVM对象格式            |
+| Precompiled Contract | 预编译合约             |
+
+------
+
+#### **V. 实践建议**
+
+1. **共识层实验**：
+   - 修改`beacon-chain.md`中的`process_attestation`逻辑
+   - 运行`make test`验证状态转换正确性
+2. **执行层扩展**：
+   - 添加`OP_CALLDATA`操作码实现数据直接访问
+   - 生成并提交EIP草案至[EIPs仓库](https://github.com/ethereum/EIPs)
+
+------
+
+通过本课程的系统学习，开发者将具备直接参与以太坊核心协议开发的能力。建议结合[Eth2 Book](https://eth2book.info)深化共识层知识，通过[黄皮书教程](https://ethereum.org/en/developers/tutorials/yellow-paper-evm/)理解EVM底层原理。
 
 <!-- Content_END -->

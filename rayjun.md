@@ -232,5 +232,38 @@ EVM 中有一些关键的组件：
         - 如果网络的 Validator 少于 8192 个，那么就会有一些 slot 的委员会人数不足，如果 Validator 的数量超过 8192 ，那么每个 slot 都至少有两个完整的委员会
         - 如果委员会的规则不足 128，整个网络的 validator 人数少于 4096 时，网络的安全性就会很低
     - Blob 中的数据实际存储在共识层，执行层只存储 blob 的 KZG commitments
-     
+
+### 2025.02.13
+ - Checkpoints 和 Finality
+    - 在每个 epoch 结束的时候，都会创建 Checkpoint，Checkpoint 为每个 epoch 中 第一个 slot 中的区块，如果没有这个区块，那么 Checkpoint 就是前一个最近的区块，每个 epoch 都需要指定一个 Checkpoint
+    - Validator 的投票有两类：
+        - 用于 LMD GHOST 的投票
+            - 只有分配到对应 slot 中的 validator 需要投 LMD GHOST 的投票
+        - 用于 Checkpoint 的 Casper FFG 投票
+            - 所有的 Validator 都需要投这个票
+            - 指定 source Checkpoint 和 target Checkpoint
+            - 同一个委员会中的验证者作出相同的 LMD-GHOST 和 FFG 投票时，他们的签名可以合并
+    - 如果要让一个 Checkpoint 转成 justified，就需要获得超过 2/3 的验证者投票，当前的这个 Checkpoint 转成 justified后，那么前一个 Checkpoint 就会变成 Finality
+        - 一半来说，区块会在 epoch 的中间变成 Finality，这样也就意味着交易最终性达成需要2.5 个 epoch，大约 16分钟
+    - Staking Rewards and Penalties
+        - 处罚场景
+            - penalties：节点离线会被罚钱，保持 42.5% 的时间在线收益会为正
+            - inactivity leak：网络出现重大问题，节点不投票时会被罚，出现的概率很小
+            - slashing：作恶时被罚
+                - 重复提议区块
+                - LMD GHOST 双重投票
+                - FFG 环绕投票
+                - FFG 双重投票 
+        - 奖励场景
+            - 持续投票和证明会获得奖励
+            - 提议区块会获得奖励
+            - 举报可 slashing 的行为也会获得奖励
+    - Validator 生命周期如下
+        - 存款
+        - 进入排队队列
+        - 激活 validator，就可以进行投票和提议区块
+        - 被 slashed 退出，需要等待 36 天左右才能提款
+        - 正常退出，27 小时左右就可以提款
+
+
 <!-- Content_END -->

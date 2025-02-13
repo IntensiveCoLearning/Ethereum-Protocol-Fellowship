@@ -191,7 +191,7 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- In an Ethereum context, a dApp refers to the smart contract plus the non-blockchain technologies it combines with to aid the user experience.
 
 ### 2025.02.12
-- The Concensus Layer(CL)
+- The Concensus Layer(CL) -1 
 	- Proof of Staking(PoS) or Staking
 		- 2015~2022 PoW
 		- The Merge: transitioned to staking from mining in September 2022
@@ -222,7 +222,44 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 				- The other validators are involved in attestation.
 		-
 ### 2025.02.13
-
+- The Concencus Layer(CL) -2
+	- Epochs and Casper-FFG
+		- two Checkpoints
+			- the first is the *target*, refers to the checkpoint at the start of the current epoch
+			- the second is the *source*, refers to the checkpoint in the epoch prior.
+			- 2/3 supermajority votes
+	- Aggregation
+		- To improve the efficiency of attestations, validators use the **Boneh-Lynn-Shacham (BLS)**  digital signature scheme. it is similar to **ECDSA**.
+	- Rewards and Penalties
+		- Rewards:
+			- Block proposal: priority fees and MEV
+			- Attestations: Attesting to the block, to the checkpoints
+			- Sync committee: participation in a sync committee
+			- Slashing reward: Reporting malicious behaviour
+		- Penalties:
+			- Missed Proposal: No penalty
+			- Missed Attestations: Failure to attest
+			- Missed Committee: Failure to participate in sync committee
+	- Beacon Block
+		- Merkle Patricia Tree
+	- Staking Pools
+		- combine smaller amounts of ETH to create shared validators.
+		- Centralised staking pool, (Binance)
+		- Decentralised pool, smart contract protocols (Lido, Rocket Pool)
+			- deposit ETH and receive **Liquid Staking Derivative(LSD)** in return
+	- Maximum Extractable Value(MEV)
+		- refers to the extracting of value by manipulating how transactions are ordered within a block.
+		- a complex ecosystem of MEV specialists:
+			- Searchers, are users who watch the mempool for transactions
+			- block builders, use the mempool to build an execution payload, but they also include the oportimised MEV transactions form searchers.
+			- relayers, passes the block builder blocks to proposers, who select the most profitable one of them.
+		- Proposer-Builder-Separation(PBS) will be enshrined into the protocol, but for now it is a semi-formal distinction.
+	- Blockchain Forks
+		- Temporary chain split
+		- Soft fork
+		- Hard fork
+		- Contentious Hard Fork
+		- Malicious hard fork
 ### 2025.02.14
 
 ### 2025.02.15

@@ -117,4 +117,17 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
     - LMD-GHOST 和 Casper FFG：PoS 机制支持的核心协议。
   - 新共识机制：PoS 下的共识是通过质押、验证者的证明以及随机选择区块提议者和委员会的算法来实现的，以确保网络保持安全并高效地处理交易。
 
+### 2025.02.13
+**学习主题：Beacon Chain as Consensus Manager**
+- Validators as PoS Participants
+  - Staking ETH
+  - Proposing Blocks
+  - Attesting Blocks
+- Committees and Randomness
+
+![](https://epf.wiki/images/cl/slots-and-epochs.png)
+![](https://epf.wiki/images/cl/validators.png)
+![](https://epf.wiki/images/cl/RANDAO.png)
+![](https://epf.wiki/images/cl/committees.png)
+
 <!-- Content_END -->
