@@ -31,4 +31,7 @@ Today, start learning some fundamentals for Pectra's next upgrade, which will in
 ### 2025.02.10
 Watching the video for introducing the EOF and some examples in the update: https://www.youtube.com/watch?v=WKVgCoNp39g.
 
+### 2025.02.13
+Watch this video to learn stack validation algorithm in EOF upgrade: https://www.youtube.com/watch?v=80szRrNW0MM It is hard to learn purely from EIP, but the video demonstration is clear.
+
 <!-- Content_END -->
