@@ -141,4 +141,8 @@ keep reading https://eth2book.info/capella/part2/consensus/preliminaries/#fork-c
 
 Execution layer validate cryptographic perspective of safty and together with consensus layer it make sure the validation rule (cryptographic rule ) are follow (safty) and working (liveness)?
 
+### 2025.02.13
+
+read more about fork choice rules particular about casper & LMD GHOST
+
 <!-- Content_END -->
