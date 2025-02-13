@@ -50,7 +50,13 @@ timezone: Asia/Shanghai
 ### 2025.02.11
 > 周二
 
-笔记内容
+- https://epf.wiki/#/eps/week6-dev
+- Consensus specs:
+  - Index: https://github.com/ethereum/consensus-specs
+  - Pyspec tutorial: https://github.com/ethereum/consensus-specs/blob/dev/tests/README.md
+- Execution specs:
+  - https://blog.ethereum.org/2023/08/29/eel-spec
+  - https://github.com/ethereum/execution-specs
 
 ### 2025.02.12
 > 周三

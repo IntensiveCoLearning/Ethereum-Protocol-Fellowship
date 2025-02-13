@@ -135,9 +135,9 @@ The "Hash with Zeros" and the Nonce are exactly the Proof of Work.
 1. Because of the "Chain", once a certain block in the middle is changed, all subsequent blocks will be changed, Moreover, there are many copy of ledger, the forged ledger will be overwhelmed by the correct version.
 2. Of cause, the latest block maybe untrustworthy, or perhaps the latest ledger you received was indeed forged by someone else, who mined out in the fastest time. But this won't last long, other miners will soon surpass it, and the ledger will return to its correct state.
 
-#### Proof of stake (PoS)
+#### Proof of stake
 
-TODO
+[TODO](#proof-of-stake-pos)
 
 #### Gas
 
@@ -324,8 +324,54 @@ more income for those block proposer.
 > - block proposer incentivized to not create fake Tx, and
 > - disincentivize off chain agreements.
 
-a solution: [ Transaction Fee Mechanism Design, by T. Roughgarden, 2021 ]
+Links:
+|Title|Year|Authors|
+|---|---|---|
+|[Transaction Fee Mechanism Design](https://arxiv.org/abs/2106.01340)|2021|T. Roughgarden|
+|[Empirical Analysis of EIP-1559: Transaction Fees, Waiting Time, and Consensus Security](https://arxiv.org/abs/2201.05574)|2023|Yulin Liu, et al.|
 
 ### 2025.02.12
 
+#### Proof of stake (PoS)
+> See also:
+>    - [PoW](#proof-of-work-pow)
+>    - [The Beacon Chain Ethereum 2.0 explainer you need to read first](https://ethos.dev/beacon-chain)
+
+**Slots and Epochs: the heartbeat to Ethereum’s consensus**
+
+- Each *slot* is 12 seconds and an *epoch* is 32 slots: 6.4 minutes.
+- the index of each slot is start at 0
+- Every slots, one block is added when the system is running optimally
+- slots can be empty
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Slots-and-Epochs.png.webp)
+
+**Validators and Attestations**
+
+- A block proposer is a validator that has been **pseudorandomly** selected to build a block.
+- Most of the time, validators are **attesters** that vote on blocks, just like
+a committee, [with each person randomly sitting in power](# "随机坐庄").
+- Validators is police each other and are rewarded for reporting other validators that make conflicting votes, or propose multiple blocks.
+- An **attestation** is a validator’s vote, weighted by the validator’s balance. 
+- The validators not only broadcasts new blocks, but also Attestation to indicate their recognition of the block.
+
+> Beacon Chain is different from World State Chain!!!
+
+### 2025.02.13
+
+#### Stakers and Validators
+
+1. Stakers（质押者）：
+   Stakers like "capitalist", wich mean those who holding "money".
+   - Everyone can become a staker.
+   - If you have ETH over 32, such as 55, you can stake all, the part of 32 is to activate one validator,
+     and the remain is to activate another one. Of course, you will get the all reward from the 32-voted one,
+     and get the part from the another one.
+   - If you have ETH less than 32, you can also stake into a pool to activate a validator and get the part
+     reward.
+2. Validators(验证者)：
+   The only requirement to become a validator is the certain "money"(ETH)
+   - You should become a staker before validator(Means that holding ETH in fact)
+
+### 2025.02.14
 <!-- Content_END -->

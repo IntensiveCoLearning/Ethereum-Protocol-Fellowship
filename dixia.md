@@ -101,11 +101,44 @@ a validator run a beacon node
 
 still not sure why a committe concept is needed after watch all these video
 
-PoW consensus use economic (hash power) to reach consensus which looks a lot simpler. Through it does give entity who has most computing power an advantage so it is more close to "real" economy where PoS could at certain time depeg from real economy power. As long as stakeholder/token holder has a little real world economy power(pay for server and bandwdith). (eth will have price but it is less impact by commodity price such as electricity
- ) it is easier to develop as independent set of stakerholders on its own economy compare to Bitcoin i.e. if someone is very good at investing/trading, he or she could acquire ether at lower price. But you alway need to pay for a market price for electricity. PoW resets the game each time but does make bitcoin's opeartion more close to "real world"
+PoW consensus use economic (hash power) to reach consensus which looks a lot simpler. Through it does give entity who has most computing power an advantage so it is more close to "real" economy where PoS could at certain time depeg from real economy power. As long as stakeholder/token holder has a little real world economy power(pay for server and bandwdith). (eth will have price but it is less impact by commodity price such as electricity) it is easier to develop as independent set of stakerholders on its own economy compare to Bitcoin i.e. if someone is very good at investing/trading, he or she could acquire ether at lower price. But you alway need to pay for a market price for electricity. PoW resets the game each time but does make bitcoin's opeartion more close to "real world".
 
 ### 2025.02.12
 
 fork choice rule == LMD GHOST 
+
+"Node and EL. But is this a physical scope separation? Need to learn more."
+
+EL execute EVM and validate evm related logic and generate a block. It also maintain mempool for sharing the txs which has not been included in the block. EL also handle RPC requests. So CL node and EL software are sperated. 
+
+"The challenge a consensus protocol seeks to solve is that of building a reliable distributed system on top of unreliable infrastructure." 
+
+"the nodes must agree, and they must come to agreement swiftly."
+
+"So, if I have 1 ETH and I simultaneously tell the network that I am sending that 1 ETH to Alice and also to Bob, we expect that eventually the network will agree that either I sent it to Alice or I sent it to Bob. It would be a failure if both Alice and Bob received my Ether, or if neither received it."
+
+https://eth2book.info/capella/part2/consensus/preliminaries/
+
+#### fork choice rule == Gasper
+
+when consensus prevent are issue:
+
+network delay (probably most common cases)
+code error/conflict
+bad actors
+
+mostly preventing forks
+
+liveness vs. safty. PBFT is always safe (so not fork?)
+
+goal is select most likely linear chain
+
+first rule of fork rule is the block and ancestor of the block are vaild
+
+todo:
+
+keep reading https://eth2book.info/capella/part2/consensus/preliminaries/#fork-choice-rules
+
+Execution layer validate cryptographic perspective of safty and together with consensus layer it make sure the validation rule (cryptographic rule ) are follow (safty) and working (liveness)?
 
 <!-- Content_END -->

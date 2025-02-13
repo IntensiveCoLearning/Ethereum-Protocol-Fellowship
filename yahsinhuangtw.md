@@ -62,4 +62,11 @@ https://youtu.be/UihMqcj-cqc?si=MqL3ac9Xg30LPJmE
 
 還有一段提到 EIP-7702 這個改進，最關鍵的改動是，之後 EOA 可以搖身一變成合約。老師文中舉例，如果你填一個 Safe 合約地址，那你的 EOA 就會變身成為 Safe 合約。
 
+### 2025.02.13
+晚上殘酷學習時間，聽完整整一個半小時的 matt 老師報告（Study Group Week 2 | Execution Layer）https://epf.wiki/#/eps/week2 
+覺得老師好厲害，可以這樣邊打字邊解釋說明很多細節。同時也感覺到整個系統的複雜性。
+
+<img width="937" alt="Screenshot 2025-02-13 at 10 42 55 PM" src="https://github.com/user-attachments/assets/9b5a7902-1cf2-437b-ab47-44dea1d7906a" />
+
+
 <!-- Content_END -->

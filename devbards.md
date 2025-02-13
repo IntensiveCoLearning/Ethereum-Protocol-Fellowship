@@ -55,6 +55,7 @@ Ethereum, on the other hand, is gradually replacing PoW with a PoS mechanism, wh
 Understanding these concepts gives me a deeper appreciation of the motivations behind founding this study group—it’s truly fascinating!
 
 ### 2025.02.12
+Today was abit late for updating. Will update it late~
 
 ### 2025.02.13
 

@@ -191,9 +191,75 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- In an Ethereum context, a dApp refers to the smart contract plus the non-blockchain technologies it combines with to aid the user experience.
 
 ### 2025.02.12
-
+- The Concensus Layer(CL) -1 
+	- Proof of Staking(PoS) or Staking
+		- 2015~2022 PoW
+		- The Merge: transitioned to staking from mining in September 2022
+	- Validators
+		- superphiz.eth is a well-known staker
+		- 32ETH deposited to the *deposit contract*( a list of participating validators)
+		- The first task , the head of the blockchain, is decided using a **Latest Message Driven Greedy Heaviest-Observe Sub-Tree(LMD GHOST)** vote.
+		- The second task, to finalise blocks, is decided using a **Casper the Friendly Finality Gadget(Casper-FFG)** vote.
+			- justification
+			- finalisation
+		- Validators work within a timeframe split up into slots and epochs.
+			- **LMD GHOST** vote happens in a slot
+			- **Gasper-FFG** vote happens across epochs
+		- A slot = 12 seconds
+		- An epoch = 32 slots ≈ 6.4 minutes
+		- Slots and LMD GHOST
+			- In every slot , a block proposer is randomly selected as the leader. Only one validator is assigned as the block proposer for a slot.
+			- Block proposers are chosen in advance using a pseudo-random algorithm called **RANDAO**.
+			- The block proposer's job:
+				- look back at the last slot and find the previous block with the most attestations, the "heaviest" block
+				  logseq.order-list-type:: number
+				- construct a new Beacon block with contextual information, such as entering and exiting validators, penalties for misbehaving validators, that transitions Ethereum to a new Beacon state.
+				  logseq.order-list-type:: number
+				- in their execution layer, transition the world state by gathering transactions from the mempool, execution them in the EVM, and producing the execution payload, in the form of an execution block
+				  logseq.order-list-type:: number
+				- sign the block and then present it to the validators to attest to. Don't present it to the entire validator set.
+				  logseq.order-list-type:: number
+				- The other validators are involved in attestation.
+		-
 ### 2025.02.13
-
+- The Concencus Layer(CL) -2
+	- Epochs and Casper-FFG
+		- two Checkpoints
+			- the first is the *target*, refers to the checkpoint at the start of the current epoch
+			- the second is the *source*, refers to the checkpoint in the epoch prior.
+			- 2/3 supermajority votes
+	- Aggregation
+		- To improve the efficiency of attestations, validators use the **Boneh-Lynn-Shacham (BLS)**  digital signature scheme. it is similar to **ECDSA**.
+	- Rewards and Penalties
+		- Rewards:
+			- Block proposal: priority fees and MEV
+			- Attestations: Attesting to the block, to the checkpoints
+			- Sync committee: participation in a sync committee
+			- Slashing reward: Reporting malicious behaviour
+		- Penalties:
+			- Missed Proposal: No penalty
+			- Missed Attestations: Failure to attest
+			- Missed Committee: Failure to participate in sync committee
+	- Beacon Block
+		- Merkle Patricia Tree
+	- Staking Pools
+		- combine smaller amounts of ETH to create shared validators.
+		- Centralised staking pool, (Binance)
+		- Decentralised pool, smart contract protocols (Lido, Rocket Pool)
+			- deposit ETH and receive **Liquid Staking Derivative(LSD)** in return
+	- Maximum Extractable Value(MEV)
+		- refers to the extracting of value by manipulating how transactions are ordered within a block.
+		- a complex ecosystem of MEV specialists:
+			- Searchers, are users who watch the mempool for transactions
+			- block builders, use the mempool to build an execution payload, but they also include the oportimised MEV transactions form searchers.
+			- relayers, passes the block builder blocks to proposers, who select the most profitable one of them.
+		- Proposer-Builder-Separation(PBS) will be enshrined into the protocol, but for now it is a semi-formal distinction.
+	- Blockchain Forks
+		- Temporary chain split
+		- Soft fork
+		- Hard fork
+		- Contentious Hard Fork
+		- Malicious hard fork
 ### 2025.02.14
 
 ### 2025.02.15

@@ -619,4 +619,20 @@ func build(env Environment, pool txpool.Pool, state state.StateDB) (types.Block,
 
 - **量子抗性**: 长期规划中替换BLS签名，采用抗量子算法（如STARKs）。
 - **路线图复杂性**: 未来可能面临协议僵化（Ossification）风险，需平衡创新与稳定性。
+
+### 2025.02.13
+
+##### Study Group Week 5 | Using Ethereum clients
+
+##### **客户端选择与安装**
+
+- **客户端多样性**：建议根据开发语言偏好（如Java开发者可选Besu）或生态贡献需求选择客户端。
+- **签名验证**：通过PGP验证客户端二进制文件的安全性。
+- **编译客户端**：演示从源码编译Geth的过程。
+
+##### **节点配置与运行**
+
+- **数据目录与网络配置**：指定数据存储路径及网络参数（如`--datadir`和`--network`）
+- **同步模式**：解释全同步（Full Sync）与快照同步（Snap Sync）的区别
+- **JWT认证**：配置执行层与共识层通信的JWT密钥
 <!-- Content_END -->

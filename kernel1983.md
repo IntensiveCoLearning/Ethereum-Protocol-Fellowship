@@ -126,4 +126,8 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 
 改进方法：在我们 Zentra 中，会利用全局状态的稀缺性，设计代币。这样的设计将鼓励链上繁荣，币价上涨不会抑制链上活跃度。
 
+### 2025.02.13
+
+学习BLS的过程中，重新理解一下pairing https://epf.wiki/#/wiki/Cryptography/bls?id=how-bls-works 看看经典的 pairing 可以设计什么有意思的方案。
+
 <!-- Content_END -->
