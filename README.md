@@ -178,7 +178,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [JeasonZhang](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/JeasonZhang.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | | | | | | |   |   |
 | [LikKee](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/LikKee.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [phoebe-dot](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/phoebe-dot.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | | | | | | | | | | | | | | |   |   |
-| [PubYuCHe](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/PubYuCHe.md) | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ✅ | ⭕️ | ✅ |   | | | | | | | | | | | | | | |   |   |
+| [PubYuCHe](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/PubYuCHe.md) | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | | | | | | | | | | | | | | |   |   |
 | [evanwu](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/evanwu.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
 | [lknxt1995](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/lknxt1995.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
 | [nooma42](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/nooma42.md) | ✅ | ⭕️ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
@@ -191,6 +191,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/pillowtalk-Qy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
