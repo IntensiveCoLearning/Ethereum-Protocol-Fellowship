@@ -67,6 +67,23 @@ Note
 
 ### 2025.02.13
 
+reading a paper Ethereum Data Structures from KAMIL JEZEK, University of Sydney...  move forward hardly 😎 
+
+### 2025.02.14
+
+finished read the paper  
+ <a href="https://www.youtube.com/watch?v=7L1270CWjXw"> Ethereum Protocol Studies 2025 Town Hall</a> 
+ 
+### 2025.02.15
+
+Note
+
+### 2025.02.16
+
+Note
+
+### 2025.02.17
+
 Note
 
 <!-- Content_END -->
