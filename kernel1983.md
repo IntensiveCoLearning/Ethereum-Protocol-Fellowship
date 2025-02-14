@@ -130,4 +130,9 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 
 学习BLS的过程中，重新理解一下pairing https://epf.wiki/#/wiki/Cryptography/bls?id=how-bls-works 看看经典的 pairing 可以设计什么有意思的方案。
 
+### 2025.02.14
+
+发现 https://github.com/ethereum/execution-specs/tree/master/src/ethereum 里面有一些宝库，有完整的所有 fork 的 python 实现，并且这个是权威的。
+这个应该就是 py-evm 的各个版本快照。找时间运行一下，看看需不需要魔改。
+
 <!-- Content_END -->
