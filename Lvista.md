@@ -135,9 +135,9 @@ The "Hash with Zeros" and the Nonce are exactly the Proof of Work.
 1. Because of the "Chain", once a certain block in the middle is changed, all subsequent blocks will be changed, Moreover, there are many copy of ledger, the forged ledger will be overwhelmed by the correct version.
 2. Of cause, the latest block maybe untrustworthy, or perhaps the latest ledger you received was indeed forged by someone else, who mined out in the fastest time. But this won't last long, other miners will soon surpass it, and the ledger will return to its correct state.
 
-#### Proof of stake (PoS)
+#### Proof of stake
 
-TODO
+[TODO](#proof-of-stake-pos)
 
 #### Gas
 
@@ -239,7 +239,152 @@ happened about Tx.
 
 ### 2025.02.11
 
+**An Example contract: NameSystem**
+
+A name system on Eth: [uniswap -> addr]
+> is a simplified ENS, like DNS
+
+Need to support three operations:
+- `Name.new`(OwnerAddr, Name): intent to register
+- `Name.update`(Name, newVal, newOwner)
+- `Name.lookup`(Name)
+
+``` solidity
+contract nameSys{
+    struct nameEntry{
+        address owner;
+        bytes32 value;
+    }
+    mapping(bytes32=> nameEntry) data;
+
+    function nameNew(bytes32 name){
+        //registration fee is 100 Wei
+        if(data[name]==0 && msg.value >=100){
+            data[name].owner = msg.sender
+            emit Register(msg.sender, name)
+        }
+    }
+
+    function nameUpdate(bytes32 name, 
+                        bytes32 newValue, 
+                        address newOwner) {
+        // check if message is from domain owner,
+        // and update cost of 10 Wei is paid
+        if (data[name].owner == msg.sender && msg.value >= 10) {
+            data[name].value = newValue; // record new value
+            data[name].owner = newOwner; // record new owner
+        }
+    }
+
+    function nameLookup(bytes32 name) {
+        return data[name];
+    }
+}
+
+```
+1. ⚠️ Here the `nameNew`func is unsafe, Anyone can use this function to peek into the database or steal certain names and resell them.
+2. The `nameLookup` is used by contracts, humans do not need this.(use etherscan.io)
+
+**EVM mechanics: execution environment**
+
+- The EVM is **Ethereum’s execution engine**, ensuring that smart contracts run **securely, in a decentralized, and deterministic manner**, making it the backbone of DeFi, NFTs, and DApps.
+- EVM is compiled to bytecode
+
+| Function | Description |
+|----------|------------|
+| Running Smart Contracts | Interprets and executes Solidity, Vyper-based contracts |
+| Decentralized Computing | Executes on all Ethereum nodes, ensuring consistency |
+| Transaction Processing | Verifies transactions, updates balances and contract states |
+| Maintaining Blockchain State | Manages contract storage, account data, and logs |
+| Gas Fee Management | Prevents excessive computation, incentivizes validators |
+| Security & Isolation | Runs contracts in a safe environment to prevent exploits |
+
+**Gas**
+
+- Every instruction costs gas.
+- Different instruction costs different gas.(See https://www.evm.codes/)
+    > eg. SLOAD, SSTORE VS MLOAD, MSTORE, the former operate on blockchain(like disk), and the latter operate for single Tx(like RAM)
+- Tx fees (gas) prevents submitting Tx that runs for many steps.
+- During high load: block proposer chooses Tx from mempool
+that maximize its income.
+- Reducing on chain storage is advocated
+    ![](https://files.catbox.moe/pcntjb.png)
+
+**Gas prices spike during congestion**
+
+**Congestion** can result in an increase in gas prices, which can bring 
+more income for those block proposer.
+
+![](https://files.catbox.moe/k63zc7.png)
+
+**EIP1559: How to figure out this congestion issue?**
+
+> EIP1559, since8/2021, goal: 
+> - users incentivized to bid their true utility for posting Tx,
+> - block proposer incentivized to not create fake Tx, and
+> - disincentivize off chain agreements.
+
+Links:
+|Title|Year|Authors|
+|---|---|---|
+|[Transaction Fee Mechanism Design](https://arxiv.org/abs/2106.01340)|2021|T. Roughgarden|
+|[Empirical Analysis of EIP-1559: Transaction Fees, Waiting Time, and Consensus Security](https://arxiv.org/abs/2201.05574)|2023|Yulin Liu, et al.|
 
 ### 2025.02.12
 
+#### Proof of stake (PoS)
+> See also:
+>    - [PoW](#proof-of-work-pow)
+>    - [The Beacon Chain Ethereum 2.0 explainer you need to read first](https://ethos.dev/beacon-chain)
+
+**Slots and Epochs: the heartbeat to Ethereum’s consensus**
+
+- Each *slot* is 12 seconds and an *epoch* is 32 slots: 6.4 minutes.
+- the index of each slot is start at 0
+- Every slots, one block is added when the system is running optimally
+- slots can be empty
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Slots-and-Epochs.png.webp)
+
+**Validators and Attestations**
+
+- A block proposer is a validator that has been **pseudorandomly** selected to build a block.
+- Most of the time, validators are **attesters** that vote on blocks, just like
+a committee, [with each person randomly sitting in power](# "随机坐庄").
+- Validators is police each other and are rewarded for reporting other validators that make conflicting votes, or propose multiple blocks.
+- An **attestation** is a validator’s vote, weighted by the validator’s balance. 
+- The validators not only broadcasts new blocks, but also Attestation to indicate their recognition of the block.
+
+> Beacon Chain is different from World State Chain!!!
+
+### 2025.02.13
+
+#### Stakers and Validators
+
+1. Stakers（质押者）：
+   Stakers like "capitalist", wich mean those who holding "money".
+   - Everyone can become a staker.
+   - If you have ETH over 32, such as 55, you can stake all, the part of 32 is to activate one validator,
+     and the remain is to activate another one. Of course, you will get the all reward from the 32-voted one,
+     and get the part from the another one.
+   - If you have ETH less than 32, you can also stake into a pool to activate a validator and get the part
+     reward.
+2. Validators(验证者)：
+   The only requirement to become a validator is the certain "money"(ETH)
+   - You should become a staker before validator(Means that holding ETH in fact)
+
+### 2025.02.14
+
+#### Why is the committee set to 128 people
+[Minimum Committee Size Explained](https://medium.com/@chihchengliang/minimum-committee-size-explained-67047111fa20)
+> See also: https://ethos.dev/beacon-chain
+
+This photo is one from the article above. 
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hoRCxFzkTaHZuXdo1kfqyQ.png)
+- A constant `TARGET_COMMITTEE_SIZE` of 128 is chosen as an approximate number of 111 because every constant in the specification is defined as a power of 2. 
+- $\frac{1}{3}$：Supposing the rate of attackers😈 in all validators is $\frac{1}{3}$.
+- $k = [\frac{2}{3}n]$: k means the num of attackers😈 when a new committee 
+with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of honest validators😇 in all validators($1-\frac{2}{3}$). In PoS of ethereum,  it needs 2/3rd majority to attest and block on to the beacon chain.
+
+### 2025.02.15
 <!-- Content_END -->

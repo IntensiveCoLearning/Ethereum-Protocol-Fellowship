@@ -14,6 +14,12 @@ timezone: Asia/Shanghai
 ## Notes
 
 <!-- Content_START -->
+### 2025.02.10
+接下来重要研究 consensus layer 的内容，先从 EIP 官方对 POS 的解释开始。
+通过阅读 https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/ 理解 ETH 的 POS 机制设计，由于都是相对较熟的内容，不做过多的笔记。
+这里记录一个疑问：当 EIP7251 上线后，POS机制将做什么改变？
+
+
 ### 2025.02.08
 今天直接开始从 week2 的内容开始学习。
 通过观看视频中伪代码的演示，对 validator 在 execution layer 中如何校验 transactions 和如何产生一个 block 有了更清晰的认识。

@@ -70,6 +70,7 @@ web3 developer, 朋友推坑第一次嘗試參加
 Finished week0 and week1
 
 The week1 contains a lot of useful info, despite the vedio recording of somehow hard to focus on. The [quiz](https://ethereum.org/zh/quizzes/) is extremely helpful
+
 Picked up/strengthened some key concepts
 - Pretty Good Privacy (PGP) protocol, Signal protocol (both asymatric)
 - Stacking offline panelty
@@ -87,4 +88,40 @@ Picked up/strengthened some key concepts
 
 Further study:
 - Transaction Fee Mechanism Design (About EIP1559)
+
+### 2025.02.10
+Finished week2
+
+Picked up/strengthened some key concepts
+- No more uncle blocks after the Merge
+- The withdrawal functionality in the Beacon Chain allows stakers (validators) to receive their staking rewards (interest) automatically when blocks are finalized.
+- p2p protocol broadcast tx to square root of peers
+- snap sync protocol: contrast to full sync
+
+### 2025.02.11
+Finished week3
+
+Picked up/strengthened some key concepts
+- Each "slot" has a block unless a validator failed/missed to propose
+- Every blocks have a bunch of "attestation"
+- Attestations of a block are included into the next block
+- Every 32 slots forms a "Epoch" (for mainnet)
+- Slashes and rewards are evaluated at the end of every epoch
+- The full validator set is randomly shuffled and distributed to one of slots in a epoch
+- Each validator only verifies once in a epoch
+- Justification: 2/3 of validators attested
+- Finialize: Justifying a justified block
+
+### 2025.02.12
+Finished week4
+
+It's talking about all the different ways/frameworks of testing. Without some concrete examples, it's really hard to get the merits of each of them
+
+Picked up/strengthened some key concepts
+- Execution Spec tests: Generate tests for EL clients
+- Fuzzy Differential State Testing: Run a fuzzy smart contract and compares resulting state root of differenet clients
+- Blockchain Testing: Similar to the previous test but on the scope of block hashes
+- Hive Test: generate CL and EL for specific tests
+- Shallow-fork: Early hard-fork from limited nodes
+
 <!-- Content_END -->

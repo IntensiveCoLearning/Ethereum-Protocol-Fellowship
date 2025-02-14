@@ -43,12 +43,20 @@ timezone: Asia/Shanghai
 ### 2025.02.10
 > 周一
 
-笔记内容
+- [x] [以太坊路线图](https://ethereum.org/zh/roadmap/)
+- [/] [Annotated Ethereum Roadmap](https://domothy.com/roadmap/)
+- [x]  https://vitalik.eth.limo/general/2021/12/06/endgame.html
 
 ### 2025.02.11
 > 周二
 
-笔记内容
+- https://epf.wiki/#/eps/week6-dev
+- Consensus specs:
+  - Index: https://github.com/ethereum/consensus-specs
+  - Pyspec tutorial: https://github.com/ethereum/consensus-specs/blob/dev/tests/README.md
+- Execution specs:
+  - https://blog.ethereum.org/2023/08/29/eel-spec
+  - https://github.com/ethereum/execution-specs
 
 ### 2025.02.12
 > 周三
@@ -58,12 +66,17 @@ timezone: Asia/Shanghai
 ### 2025.02.13
 > 周四
 
-笔记内容
+- https://epf.wiki/#/eps/week7-dev
+- Reth docs https://paradigmxyz.github.io/reth/
+- Intro to Reth by Georgios https://www.youtube.com/watch?v=zntRpCKHyDc
+- Deeper insight by Dragan https://www.youtube.com/watch?v=pxhq7YrySRM
 
 ### 2025.02.14
 > 周五
 
-笔记内容
+- https://epf.wiki/#/eps/week7-research
+- [Data structures in Ethereum](https://epf.wiki/#/wiki/EL/data-structures)
+- [Guillaume Ballet - The Verge](https://www.youtube.com/watch?v=F1Ne19Vew6w)
 
 ### 2025.02.15
 > 周六

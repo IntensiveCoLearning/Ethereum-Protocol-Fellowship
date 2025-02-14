@@ -119,9 +119,113 @@ timezone: Europe/Berlin
         - Different testing tools for state transition testing, fuzzing, shadow forks, RPC tests, client unit tests and CI/CD, etc.
     - Coordination
 
-### 2025.02.08
+### 2025.02.10
+- Protocol architecture
+    - Graph: https://epf.wiki/#/wiki/protocol/architecture
+    - What's user APIs and beacon APIs
+        - User API (aka JSON-RPC API)
+            - primary interface for interacting with the EL
+            - used by wallet, dapps etc.
+            - Key features
+                - JSON-RPC protocol: a lightweight remote procedure call (RPC) protocol, that allows clients to send & receive response in JSON format
+                - Common use: send tx, query blockchain data (eg. balance, contract states), deploy & interact with smart conracts, listen for events (logs emitted by smart contract)
+                - Endpoints: expose endpoints eg. eth_sendTransaction, eth_getBalance, eth_call, eth_getLogs
+        - Beacon API
+            - interface to interact with the beacon chain, which coordinate validators and achieve consensus
+            - Key features
+                - RESTful interface
+                - Common use: query info about the beacon chain (block headers, validator status), submmit attestations & block proposals from validators, monitor the status of the beacon network
+                - Endpoints: eg. /eth/v1/beacon/blocks (retrive beacon chain blocks), /eth/v1/validator/attestation (submit an attestation from a validator)
+                - Staking pools & monitor tools use the api to track validator performance and network health
+    - Issue with JSON RPC api
+        - Centralization
+            - rely on centralized infra provider (eg. infura, alchemy, quicknode) to access Ethereum nodes via json rpc. These service act as intermediaries, reducing the need for developers to run their own nodes
+            - barrier to run full nodes: it requires significiant resources (storage, bandwidth, computation power) to run a full node, so many devs opt for centralized service instread
+        - Scalability
+            - high load on nodes: can lead to performance bottlenecks and increased cost for node operators
+            - inefficient data retrieval: not optimized for querying large amounts of data, can result in slow response time and high latency
+        - Security
+            - json-rpc endpoints can expose sensitive info if not properly secured (eg. account balance, tx history)
+            - public json-rpc endpoints are often targeted by DDoS attacks
+            - by default json-rpc don't require authentication, making it easy for unauthorized user to access node data
+        - Lack of modern features
+            - No RESTful design
+            - limited tool: lack support for features like filtering, sorting etc.
+            - verbose and complex
+        - Potential Alternative/ Solution
+            - Decentralized node infra: eg. the Graph, EPNS
+            - Light clients and stateless: reduce the resource required for running nodes
+            - RESTful api: eg. Besu
+            - Improved json-rpc: add support for batch request, better error handling etc.
+### 2025.02.11
+- Blockchain level protocol
+    - reference link: https://epf.wiki/#/wiki/protocol/design-rationale
+  - Accounts over UTXOs
+      - UTXO (unspent tx output)
+      - Account
+      - What's the pros/ cons of account vs UTXO? Why Ethereum chooses account-based model?
+  - Merkle patricia trie
+      - a modified MPT
+      - deterministic and cryptographically verifiable
+  - Verkle tree
+      - vector commitments allow for much smaller proofs (aka witness)
+  - RLP (recursive length prefix)
+  - SSZ (simple serialize)
+  - Hunt for finality: Casper FFG + LMD GHOST
+  - Discv5: the discovery protocol
+      - a kademlia based DHT to store ENR records
+      - ENR (ethereum node record) contain routing info to establish connections between peers
+### 2025.02.12
+- Pros Cons of Account vs UTXO
+    - Account: How it works in high level
+        - the blockchain maintains a global state composed of accounts
+        - each account has a balance (in smart contract, storage and code)
+        - tx directly modify the state of these accounts
+    - UTXO: How it works in high level
+        - the blockchain tracks unspent tx outputs
+        - a UTXO represents a chunk of crypto that has been created as an output of a tx, but has not yet been spent
+        - tx consume existing UTXO and create new ones
+    - Comparison
+  
+    |         | Account-based | UTXO-based |
+    | -------- | ------- | ------- |
+    | state representation | global state of accounts & balances   | set of unspent tx outputs    |
+    | tx logic  | directly modify account balance   | consume UTXOs and create new ones    |
+    | complexity  | easier for dev, esp. for smart contractss   | more complex for devs, esp. for advanced logic   |
+    | parallelizability  | limited, as txs modifying the same account must be processed sequentially   | high, as independent UTXOs can be processed in parallel    |
 
-
-
+- Why MPT then Verkle tree
+    - MPT
+        - a data structure, that combines merkle tree (provide cryptographic proofs to verify the data integrity) and patricia trie (a compressed trie that stores key-value pairs)
+    - Verkle tree
+        - more advanced data structure to address the issue of MPT
+        - vector commitment + merkle tree, it uses vector commitment (eg. polynomial commitments) to create smaller & more efficient proofs
+    - Comparison
+ 
+    |         | MPT | Verkle tree |
+    | -------- | ------- | ------- |
+    | proof size | large (scale with tree depth)   | small (constant or logarithmic)   |
+    | efficiency | less efficient for deep trees   | more efficient for deep trees   |
+    | stateless clients | inefficient due to large proof   | efficient due to compact proof   |
+    | scalability | limited by proof size & depth   | better scalability for large states   |
+    | cryptographic basis | merkle proof (hash-based)   | vector commitment (eg. polynomial)   |
+- What's RLP? What's its purpose? Why want to convert to SSZ?
+    - Recursive length prefix: a serialization format, to encode & decode data structure into compact byte array
+    - Where is it used in Ethereum
+        - transaction: txs are serialized using RLP before being broadcasted or stored in blocks
+        - block: seralized for storage and transmission
+        - state trie: stored in a MPT, where keys and values are RLP-encoded
+        - p2p networking protocol: RLP is used to encode data for p2p networking
+    - Issue
+        - don't natively support some data type (Eg. int, float, boolean), but treat everything byte arrays
+        - not optimized for merkleization
+        - add overhead for small data structure due to length-prefixing scheme
+        - not human-readable
+        - variable-length coding makes it harder for light clients to parse and verify data
+- What's SSZ? What's its purpose?
+    - simple serialize is a serialization format designed specifically for eth2
+    - encode & decode data structure in a more efficient, type-aware, optimized for merkleization style
+### 2025.02.13
+Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 
 <!-- Content_END -->

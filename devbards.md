@@ -43,15 +43,24 @@ Week 3 covered consensus mechanisms, but to be honest, I didn’t fully grasp ev
 Week 5's content is much more complex than I expected. It seems like I need to fully understand and integrate the concepts from the first four weeks before I can make sense of it… So, I’ve decided to spend more time reviewing the previous weeks.
 
 ### 2025.02.10
+I realized that my fundamental knowledge of cryptocurrencies is too limited, and jumping straight into BFT feels like taking on a boss fight way beyond my level—everything just seems vague and confusing. So, I’ve decided to borrow some introductory books on cryptocurrencies to build a stronger foundation. Additionally, I noticed that writing notes in English might not be as helpful for the Chinese-speaking community. Therefore, once I have a more complete understanding, the recording style would change somehow.
 
 ### 2025.02.11
+From the reading on the history of cryptocurrencies, blockchain techniques, and consensus mechanisms:
+
+Bitcoin uses a reward mechanism to incentivize miners to become nodes in its P2P network. However, this raises the question—once the total supply of Bitcoin reaches its limit and no more Bitcoin can be "mined," how will the network continue to operate? The alternative mechanism I found is that transaction fees will sustain network operations, which in turn creates the necessity for higher fees. This has led to the development of off-chain solutions like the Lightning Network.
+
+Ethereum, on the other hand, is gradually replacing PoW with a PoS mechanism, where participants stake ETH to take part in consensus and earn rewards. To enhance security, the slashing mechanism punishes malicious actors. Unlike Bitcoin, Ethereum does not have a fixed supply limit, but by implementing Base Fee burning, it introduces a deflationary aspect to ETH.
+
+Understanding these concepts gives me a deeper appreciation of the motivations behind founding this study group—it’s truly fascinating!
 
 ### 2025.02.12
+Today was abit late for updating. Will update it late~
 
 ### 2025.02.13
 
 ### 2025.02.14
-
+After the weekly meeting, it might be a time to adjust the way recording. Would start in next one.
 ### 2025.02.15
 
 <!-- Content_END -->

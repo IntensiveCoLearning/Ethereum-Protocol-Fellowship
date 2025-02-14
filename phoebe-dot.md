@@ -63,9 +63,26 @@ Note
 
 ### 2025.02.12
 
-Note
+向AI 老师请教了一下关于ZK技术的底层逻辑，好难理解啊，是怎么把中文组成这样让人看不懂的句子的 😎 慢慢理解吧 大脑吸收需要时间
 
 ### 2025.02.13
+
+reading a paper Ethereum Data Structures from KAMIL JEZEK, University of Sydney...  move forward hardly 😎 
+
+### 2025.02.14
+
+finished read the paper  
+ <a href="https://www.youtube.com/watch?v=7L1270CWjXw"> Ethereum Protocol Studies 2025 Town Hall</a> 
+ 
+### 2025.02.15
+
+Note
+
+### 2025.02.16
+
+Note
+
+### 2025.02.17
 
 Note
 

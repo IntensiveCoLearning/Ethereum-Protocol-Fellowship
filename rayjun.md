@@ -173,4 +173,131 @@ EVM 中有一些关键的组件：
     - RLP：主要为以太坊早期的工作量证明（PoW）阶段设计，侧重于简单性和通用性，能对任意嵌套的二进制数据进行编码，满足当时以太坊基本数据结构的序列化需求。
     - SSZ：（Simple Serialize，简单序列化）是为以太坊共识层设计的，其提供更高效、更安全且确定性更强的序列化方案。
 
+### 2025.02.11
+- 共识协议主要的挑战在于在一个不可靠的基础设施上构造一个可靠的分布式系统，这里的不可靠有几个方面：
+    - 网络是公开的，可能会被各种攻击
+    - 运行节点的基础设施参差不齐，并且有随时宕机的可能，大多数是消费级硬件
+    - 网络可能会丢包
+    - 节点的运营者可能会配置错误或者作出一些恶意的行为
+- 共识协议的研究起源于 1970 年代， 以太坊的共识层的目标是让世界上几十万独立的节点保持有序的同步，每个节点所保存的状态都能达成一致，从而构成一个可靠的分布式系统。
+- 拜占庭容错（BFT）和拜占庭将军问题，https://hackmd.io/@kira50/SknuPZMIC
+   - BFT 时分布式系统的一个特性，即使某些组件发生故障或者恶意行为，该系统也可以正常运行
+   - BFT 在去中心化网络中很重要，因为节点之间的没有信任关系
+   - 具有 BFT 的系统可以容忍拜占庭故障
+   - 在这类的分布式系统中，达成共识的唯一方式是至少要拥有 2/3 的诚实节点，所以对于以太坊来说，很怕某个质押供应商的占比超过 33%，比如 Lido
+   - 常见的解决拜占庭将军问题的算法有：
+        - PBFT（Practical Byzantine Fault Tolerance）：基于多数投票的三阶段协议（预准备、准备、提交），要求节点通信达成共识。
+            - 应用：Hyperledger Fabric
+        - FBA（Federated Byzantine Agreement）：节点自行选择信任的节点集合（法定人数），通过局部共识达成全局一致。
+            - 应用：Stellar、Ripple（RPCA）
+        - PoW（Proof of Work）：通过计算密集型难题竞争出块权，最长链为有效链，其实 PoW 本身不是共识协议，但是可以实现共识协议
+            - 应用：比特币、The Merge 之前的以太坊
+        - PoS（Proof of Stake）：根据持币比例选择验证者，降低能耗，PoS 同理，本身不是共识协议，但是可以实现共识协议
+            - 应用：The Merge 之后的以太坊（Casper FFG）
+         - DPoS（Delegated PoS）：持币者投票选举代表节点负责出块，提升效率
+            - 应用：EOS、TRON
+        - HoneyBadgerBFT：基于异步网络的拜占庭容错协议，通过阈值加密和随机化排序容忍网络延迟
+        - Tendermint：结合PBFT与PoS，通过两轮投票达成共识，支持即时最终性。
+            - 应用：Cosmos、Binance Chain
+        - Algorand（Pure PoS + VRF）：使用可验证随机函数（VRF）随机选择验证者，避免中心化并提升效率
+            - 应用：Algorand
+        - DBFT（Delegated BFT）：改进PBFT，通过选举少数代表节点降低通信开销
+            - 应用：NEO
+        - RBFT（Redundant BFT）：在PBFT基础上引入冗余节点和动态主节点切换，提升鲁棒性
+            - 应用：Hyperledger Indy
+        - Hotstuff：相比于 PBFT 更适合大规模分布式系统，消息复杂度低并有着确定性的共识机制，在节点数据增加是，仍然能保持较好的性能
+            - 应用：Celo 
+- 在以太坊协议中，节点和验证者是共识系统的参与者，slot 和 epoch 控制共识时间，Block 和 Attestations 是共识系统中的核心要素，达成共识需要依赖这些数据
+
+### 2025.02.12
+- 以太坊从 PoW 转成 PoS 的核心原因：能耗高且扩展性有限
+    - 以太坊当前的共识协议：LMD GHOST + Casper FFG = Gasper
+    - PoW 和 PoS 本身不是共识协议，而是一线共识协议的机制，主要作用是用来抵抗 Sybil 攻击，让参与网络有一定的成本
+    - PoW 和 PoS 都是通过分叉选择来选择链的方向：
+        - PoW：依据完成的总计算量
+        - PoS：依据特定链的总质押价值
+- The Merge 在升级的时候使用的是 TTD 而不是区块高度， TTD 其实就是每个区块难度的累加，之所以不使用区块高度，是为了方式有人恶意加速或者减缓 The Merge 升级的进度 
+- 以太坊的共识层称之为 Beacon Chain，它负责监督提出和证明新区块的验证者，确保网络的完整性和安全性。
+    - Validator 的限制
+        - 当前需要质押 32 个 ETH 才能成为 Validator
+        - Block Proposer 的选择过程依赖 RANDAO 和 VDF 来保证随机性
+        - Validator 会被分成多个委员会，负责区块提议和证明
+        - 如果 Validator 作恶，那么他们的资金就会面临处罚
+    - slot 和 epoch：每个 slot 12 秒，一个 epoch 为 32 个 slot，每个 slot 都需要指定一名 validator 来提议区块，而验证委员会者证明该区块的有效性
+        - Block Proposer 由 RANDAO 选出，选择的过程中，会加权计算 Validator 的余额
+        - Validator 可以同时成为 Block Proposer 和 Committees 成员，这种情况很少，概率为 1/32
+    - Validator 和 Attestations：Blocker Proposer 时被伪随机（因为缺乏真正的随机院）选择来构建区块的验证者，大多数情况下，验证者时对区块进行投票的 asstester，这些投票记录在信标链中
+    - Committees：委员会至少由 128 名验证者组成，在一个 epoch 中，每个 slot 都会分配至少一个 Committees，也就是说在一个 epoch 中，validator 只会存在一个 Committees 中，所以这里也就说明了为什么一个 Validator 在一个 slot 中 同时为 Block Proposer 和 Committees 成员的概率很小
+        - Committees 中 Validator 的数量至少要有 128 个
+        - 如果网络的 Validator 少于 8192 个，那么就会有一些 slot 的委员会人数不足，如果 Validator 的数量超过 8192 ，那么每个 slot 都至少有两个完整的委员会
+        - 如果委员会的规则不足 128，整个网络的 validator 人数少于 4096 时，网络的安全性就会很低
+    - Blob 中的数据实际存储在共识层，执行层只存储 blob 的 KZG commitments
+
+### 2025.02.13
+ - Checkpoints 和 Finality
+    - 在每个 epoch 结束的时候，都会创建 Checkpoint，Checkpoint 为每个 epoch 中 第一个 slot 中的区块，如果没有这个区块，那么 Checkpoint 就是前一个最近的区块，每个 epoch 都需要指定一个 Checkpoint
+    - Validator 的投票有两类：
+        - 用于 LMD GHOST 的投票
+            - 只有分配到对应 slot 中的 validator 需要投 LMD GHOST 的投票
+        - 用于 Checkpoint 的 Casper FFG 投票
+            - 所有的 Validator 都需要投这个票
+            - 指定 source Checkpoint 和 target Checkpoint
+            - 同一个委员会中的验证者作出相同的 LMD-GHOST 和 FFG 投票时，他们的签名可以合并
+    - 如果要让一个 Checkpoint 转成 justified，就需要获得超过 2/3 的验证者投票，当前的这个 Checkpoint 转成 justified后，那么前一个 Checkpoint 就会变成 Finality
+        - 一半来说，区块会在 epoch 的中间变成 Finality，这样也就意味着交易最终性达成需要2.5 个 epoch，大约 16分钟
+    - Staking Rewards and Penalties
+        - 处罚场景
+            - penalties：节点离线会被罚钱，保持 42.5% 的时间在线收益会为正
+            - inactivity leak：网络出现重大问题，节点不投票时会被罚，出现的概率很小
+            - slashing：作恶时被罚
+                - 重复提议区块
+                - LMD GHOST 双重投票
+                - FFG 环绕投票
+                - FFG 双重投票 
+        - 奖励场景
+            - 持续投票和证明会获得奖励
+            - 提议区块会获得奖励
+            - 举报可 slashing 的行为也会获得奖励
+    - Validator 生命周期如下
+        - 存款
+        - 进入排队队列
+        - 激活 validator，就可以进行投票和提议区块
+        - 被 slashed 退出，需要等待 36 天左右才能提款
+        - 正常退出，27 小时左右就可以提款
+
+### 2025-02-14
+- 分叉选择机制：LMD GHOST + Casper FFG
+    - Casper FFG 确定检查点，确保已经 Finality 的检查点永远不会撤销
+    - LMD GHOST 会确定当前最新的区块应该基于哪个分支去构建，基于哪个分支的累加投票数量去决定
+    - 所有正常运行的节点都会根据同一条链追溯到 Genesis 区块
+    - 由于网络延迟等问题，节点可能会对最新的几个区块进行重组，几回到之前的某个区块，重新开始同步区块，而废弃已经构建了的几个区块
+    - 在共识系统了，有两个概念很重要：Safety 和 Liveness
+        - Safety：它保证一致性，意味着所有诚实节点应该始终就区块链的状态达成一致
+        - Liveness：确保区块链可以持续产生新的区块
+        - Safety 和 Liveness 对应 CAP 中的一致性和可用性，所以当区块链网络出现问题时，一致性就很难得到保证了，这样就保证了可用性和分区容忍性，但这样做的结果就是让链分叉
+        - LMD GHOST 保证 Liveness，Casper FFG 通过定期确定 Checkpoint 来保证 Safety，保护区块链不被逆转
+- 控制流程：
+    - 但共识客户端不是 Block Proposer 时
+        - 通过 Gossip 协议接收一个区块
+        - 验证区块的有效性
+        - 将区块中的交易发送到执行层
+        - 执行层执行交易并验证区块状态
+        - 执行层将验证数据发回共识层
+        - 共识层将区块添加到区块链并对其进行证明，并通过网络广播该证明
+    - 但共识客户端作为 Block Proposer
+        - 收到成为下一个区块生产者的通知
+        - 调用客户端中创建区块的创建方法
+        - 执行层访问交易内存池
+        - 执行层将交易打包层区块，并执行交易，生成区块 hash
+        - 共识客户端就交易和区块 hash 驾到信标链区块
+        - 共识客户端通过 gossip 协议广播这个区块
+        - 其他客户端验证这个区块并为它提供投票证明
+        - 一旦得到足够多的 Validator 的证明，改区块就会被添加到链的头部，得到证明和完成最终性（Finality）
+- 网络层
+    - libp2p 作为点对点协议
+    - discv5 作为对等发现
+    - libp2p-noise 用作加密
+    - SSZ 作为序列化协议
+    - Snappy 作为压缩协议
+
 <!-- Content_END -->

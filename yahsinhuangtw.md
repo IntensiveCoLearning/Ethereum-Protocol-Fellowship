@@ -50,4 +50,48 @@ https://youtu.be/UihMqcj-cqc?si=MqL3ac9Xg30LPJmE
 
 這裡要強調的重點是，merkle tree 在以太坊驗證資料上持續扮演重要角色。以太坊技術底層中到處都有使用到 merkle tree，主要用途是在以太坊的驗證資料方面。你要驗證有龐大的 40 gb 的 state 資料的某一塊小小的資料時，你不需要全部 40 gb 都撈出來驗證，只要一小塊 tree 的某些節點資料拿出來就可以驗證。
 
+### 2025.02.12
+
+今日晚上殘酷學習時間，拜讀了 Nic Lin 林老師今天發表的新文章「Ethereum Pectra 硬分叉介紹」https://medium.com/taipei-ethereum-meetup/ethereum-pectra-eips-introduction-1f90f4ea25d5  
+
+<img width="749" alt="Screenshot 2025-02-12 at 9 12 55 PM" src="https://github.com/user-attachments/assets/888b2f3c-3dfc-4114-bd1f-c0e2fdab1206" />
+
+中間段落提到，EIP-7251: Increase the MAX_EFFECTIVE_BALANCE 這段，提及 EIP-7251 之後，質押下限（MIN_ACTIVATION_BALANCE）仍然是 32 ETH，但上限（MAX_EFFECTIVE_BALANCE）大幅調高為 2048 ETH。這裡意思是之後就可以質押 32~2048 ETH 這麼大一個範圍。
+
+<img width="713" alt="Screenshot 2025-02-12 at 9 12 16 PM" src="https://github.com/user-attachments/assets/a230bed3-ce10-44b8-8c71-37e1b5e6e618" />
+
+還有一段提到 EIP-7702 這個改進，最關鍵的改動是，之後 EOA 可以搖身一變成合約。老師文中舉例，如果你填一個 Safe 合約地址，那你的 EOA 就會變身成為 Safe 合約。
+
+### 2025.02.13
+晚上殘酷學習時間，聽完整整一個半小時的 matt 老師報告（Study Group Week 2 | Execution Layer）https://epf.wiki/#/eps/week2 
+覺得老師好厲害，可以這樣邊打字邊解釋說明很多細節。同時也感覺到整個系統的複雜性。
+
+<img width="937" alt="Screenshot 2025-02-13 at 10 42 55 PM" src="https://github.com/user-attachments/assets/9b5a7902-1cf2-437b-ab47-44dea1d7906a" />
+
+### 2025.02.14
+
+今晚的殘酷學習時間聽了 Alex Stokes 老師怎麼介紹「狀態機複製 State machine replication」概念。https://en.wikipedia.org/wiki/State_machine_replication 
+
+很多年前，曾經和 Alex 老師有一面之緣，簡單打過招呼，可能是在 2019 年澳洲雪梨的那次。記得當時他沒有留鬍子，看起來很年輕，有種獨特的優雅氣質。現在好像全然變一個人的樣子，似乎個人風格有變化，覺得有點奇妙。
+
+<img width="866" alt="Screenshot 2025-02-14 at 7 30 46 PM" src="https://github.com/user-attachments/assets/95226fbb-fa03-4c17-9379-ad2a249aca9a" />
+
+以下這邊開始就是我邊聽邊打字出來的內容，一方面練習英文聽力，一方面期望進一步強化 狀態機複製 State machine replication 的概念理解。
+
+Ethereum Consensus Layer | Alex Stokes | Week 3
+https://www.youtube.com/live/FqKjWYt6yWk?si=w0jmYFctZtqgVG7G
+
+https://epf.wiki/#/eps/week3
+
+One topic being discussed by the lecturer, Alex Stokes, was the concept of consensus via “state machine replication.” The following are his words introducing this concept in about 2 minutes (lecture video time 20:13–21:39).
+
+This concept is called “state machine replication.” The “replication” here refers to the fact that we have multiple nodes in the system; they essentially all duplicate the same work. This is like an input log to get the same output. In particular, this is what we mean by consensus: every node in the system should eventually agree on the outputs.
+
+You write your program or protocol as a deterministic function of the inputs. Imagine then that if you have an honest node, they’re going to run the same function on the same inputs, and they have to get the same output, right? This is assuming there are no bugs or anything in the protocol. For the same set of inputs, you get the same output.
+
+This is useful to get rid of our single trusted operator because as the number of nodes increases, this becomes harder to attack. Rather than exploring a bug on one node and taking down the whole system, you now have to attack, say, two or three, or maybe all of them. And there’s this notion of a majority in the system. This is really what we mean when we say consensus: at any point in time, there should be some majority of nodes that all have the same view, the same output, or the same state.
+
+When they do this, then, even if some of the nodes are faulty, you still have a majority of them saying, "This is the state of the world." So, the idea is that it becomes much harder now to attack our system as we have more nodes who are doing the same thing.
+
+
 <!-- Content_END -->

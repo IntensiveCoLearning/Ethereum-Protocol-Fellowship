@@ -33,5 +33,19 @@ https://epf.wiki/#/wiki/protocol/design-rationale
 ### 2025.02.10
 今天学习协议更新进化迭代，每次软分叉添加了哪些eip
 https://epf.wiki/#/wiki/protocol/history
+### 2025.02.11
+今天学习执行层数据规范最初被指定是根据黄皮书来设计的
+https://epf.wiki/#/wiki/EL/el-specs
 
+### 2025.02.12
+今天学习执行层客户端的架构设计
+https://epf.wiki/#/wiki/EL/el-architecture
+
+### 2025.02.13
+今天学习不同的客户端，不同开发语言的实现，不同平台比如联盟链和公链平台的客户端实现
+https://epf.wiki/#/wiki/EL/el-clients
+
+### 2025.02.14
+今天学习evm层
+https://epf.wiki/#/wiki/EL/evm
 <!-- Content_END -->

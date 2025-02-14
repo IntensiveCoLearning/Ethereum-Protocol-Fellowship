@@ -28,4 +28,13 @@ Read the week2 recording on the study group wiki and read the content regarding 
 ### 2025.02.09
 Today, start learning some fundamentals for Pectra's next upgrade, which will include the EOF updates. The changes are documented in EIP-7692. This upgrade significantly impacts the execution layer, so it includes a large number of EIPs!
 
+### 2025.02.10
+Watching the video for introducing the EOF and some examples in the update: https://www.youtube.com/watch?v=WKVgCoNp39g.
+
+### 2025.02.13
+Watch this video to learn stack validation algorithm in EOF upgrade: https://www.youtube.com/watch?v=80szRrNW0MM It is hard to learn purely from EIP, but the video demonstration is clear.
+
+### 2025.02.14
+Start reviewing the EEST codebase and try to find an issue I could contribute to, and dive deeper into the EOF implementation.
+
 <!-- Content_END -->

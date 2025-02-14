@@ -313,6 +313,331 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
 
 
 
+### 2025.02.10
+
+#### 以太坊执行层规范（第2天）
+
+##### **经济模型与Gas动态**
+
+- **EIP-1559机制**：
+
+  - **基础费用调整公式**：
+    $$\nu = 
+    \begin{cases}
+    \left\lfloor \frac{P(H)_{\text{baseFeePerGas}} \times (\tau - P(H)_{\text{gasUsed}})}{\tau \times \xi} \right\rfloor & \text{if } P(H)_{\text{gasUsed}} < \tau \\
+    \max\left(\left\lfloor \frac{P(H)_{\text{baseFeePerGas}} \times (P(H)_{\text{gasUsed}} - \tau)}{\tau \times \xi} \right\rfloor, 1\right) & \text{if } P(H)_{\text{gasUsed}} > \tau
+    \end{cases}$$
+    - $$\xi= 8$$（控制基础费用最大变化率）
+  
+- **模拟分析**：
+  - 基础费用在目标附近呈线性变化（见下图）：
+    <img src=".starrydeserts_image/gasused-basefee.png" alt="gasused-basefee" style="zoom: 67%;" />
+
+------
+
+##### **Blob Gas定价机制**
+
+- **超额Blob Gas计算**：
+  
+  $$\text{CalcExcessBlobGas}(P(H)) = 
+  \begin{cases}
+  0 & \text{if } P(H)_{\text{blobGasUsed}} < \text{TargetBlobGasPerBlock} \\
+  P(H)_{\text{blobGasUsed}} - \text{TargetBlobGasPerBlock} & \text{otherwise}
+  \end{cases}$$
+  
+  - $$\text{TargetBlobGasPerBlock} = 393,216$$
+  
+- **Blob Gas价格公式**：
+  $$\text{BlobGasPrice} = \text{fake\_exponential}\left(1, \frac{\text{excessBlobGas}}{3,338,477}\right)$$
+
+  - 模拟显示持续超额时价格指数上升（见下图）：
+    ![blob-gas-and-price](.starrydeserts_image/blob-gas-and-price.png)
+
+
+
+### 2025.02.11
+
+#### 以太坊执行层规范（第3天）
+
+------
+
+##### **交易执行与EVM机制**
+
+- **执行阶段**：
+
+  1. **检查点状态（$$\sigma_0$$）**：
+     $$\sigma_0 \equiv \sigma \quad \text{except:} \quad 
+     \begin{cases}
+     \sigma_0[\text{Sender}]_{\text{balance}} = \sigma[\text{Sender}]_{\text{balance}} - \text{upfrontCost} \\
+     \sigma_0[\text{Sender}]_{\text{nonce}} = \sigma[\text{Sender}]_{\text{nonce}} + 1
+     \end{cases}$$
+
+- **EVM状态机**：
+  - **寄存器定义**：
+    $$\mu \equiv (\mu_{\text{gasAvailable}}, \mu_{\text{programCounter}}, \mu_{\text{memoryContents}}, \mu_{\text{activeWordsInMemory}}, \mu_{\text{stackContents}})$$
+
+------
+
+##### **合约创建流程**
+
+1. **地址生成**：
+   $$\text{地址} = \text{KEC}(\text{RLP}([\text{Sender}_{\text{address}}, \text{Sender}_{\text{nonce}} - 1]))[-20:]$$
+
+2. **账户初始化**：
+   $$\sigma^*[\text{newAccount}] \equiv (\text{Nonce}=1, \text{Balance}=T_{\text{value}}, \text{Storage}=\text{TRIE}(\emptyset), \text{CodeHash}=\text{KEC}(()))$$
+
+------
+
+##### **Gas计算模型**
+
+- **内存扩展成本**：
+  $$\text{MemoryExpansionCost} = 3 \times \Delta_{\text{expansion}} + \left\lfloor \frac{\Delta_{\text{expansion}}^2}{512} \right\rfloor$$
+  - $$\Delta_{\text{expansion}}$$：新增内存块数
+
+------
+
+##### **R代码：基础费用模拟**
+
+```R
+calculate_base_fee_per_gas <- function(
+  parent_gas_limit, parent_gas_used, parent_base_fee_per_gas,
+  max_change_denom = 8, elasticity_multiplier = 2
+) {
+  parent_gas_target <- parent_gas_limit %/% elasticity_multiplier
+  if (parent_gas_used == parent_gas_target) {
+    parent_base_fee_per_gas
+  } else if (parent_gas_used > parent_gas_target) {
+    gas_used_delta <- parent_gas_used - parent_gas_target
+    base_fee_per_gas_delta <- max(
+      (parent_base_fee_per_gas * gas_used_delta %/% parent_gas_target) %/% max_change_denom,
+      1
+    )
+    parent_base_fee_per_gas + base_fee_per_gas_delta
+  } else {
+    gas_used_delta <- parent_gas_target - parent_gas_used
+    base_fee_per_gas_delta <- (parent_base_fee_per_gas * gas_used_delta %/% parent_gas_target) %/% max_change_denom
+    parent_base_fee_per_gas - base_fee_per_gas_delta
+  }
+}
+```
+
+
+
+### 2025.02.12
+
+#### 以太坊执行层架构（第1天）
+
+------
+
+##### **客户端架构概览**
+
+###### 核心职责
+
+1. **区块链数据验证与存储**
+   - 维护本地区块链副本
+   - 通过默克尔树验证数据完整性
+2. **网络通信**
+   - 使用DevP2P协议进行点对点通信
+   - 交易池（mempool）管理
+3. **共识层协作**
+   - 实现Engine API接口
+   - 响应`forkChoiceUpdated`和`newPayload`调用
+
+##### 分层架构
+
+<img src=".starrydeserts_image/Layered-Architecture.png" alt="Layered-Architecture" style="zoom: 33%;" />
+
+------
+
+##### **EVM设计原理**
+
+###### 虚拟机核心特征
+
+- **硬件无关性**
+  通过`EVM字节码`实现跨平台一致性，类似JVM设计理念
+- **沙盒环境**
+  每个交易在隔离环境中执行，保证状态变更原子性
+
+###### 三明治复杂性模型
+
+1. **外层（简单）**
+   - Solidity/Yul等高级语言
+   - JSON-RPC接口
+2. **中间层（复杂）**
+   - 编译器（Solidity→EVM字节码）
+   - Gas计量系统
+3. **内层（简单）**
+   - EVM指令集（约140个操作码）
+
+------
+
+##### **状态管理机制**
+
+###### 全局状态组成
+
+| 组件     | 存储内容                | 数据结构        |
+| -------- | ----------------------- | --------------- |
+| 账户状态 | 余额/Nonce/合约代码哈希 | Merkle-Patricia |
+| 合约存储 | 智能合约变量数据        | Merkle-Patricia |
+| 交易收据 | 交易执行日志            | Bloom Filter    |
+
+###### 状态转换公式
+$$\sigma_{t+1} \equiv \Upsilon(\sigma_t, T)$$
+
+- $$\sigma_t$$: 当前状态
+- $$T$$: 交易集合
+- $$\Upsilon$$: 状态转换函数
+
+------
+
+##### **交易生命周期**
+
+###### 处理流程
+
+1. **接收**
+   通过JSON-RPC接口接收签名交易
+2. **验证**
+   - 签名有效性
+   - Nonce连续性
+   - Gas预算充足
+3. **传播**
+   通过DevP2P协议广播至全网节点
+4. **打包**
+   被矿工/验证者选入候选区块
+5. **执行**
+   在EVM中触发状态转换
+
+###### Gas计算模型
+$$\text{总Gas成本} = \text{固有成本} + \sum(\text{操作码Gas} \times \text{执行次数})$$
+
+------
+
+##### **网络层（DevP2P）**
+
+###### 关键协议
+
+| 协议   | 功能         | 传输内容      |
+| ------ | ------------ | ------------- |
+| eth/66 | 区块同步     | 区块头/体数据 |
+| eth/67 | 交易传播     | 原始交易数据  |
+| les/4  | 轻客户端支持 | 状态证明      |
+
+###### 节点发现机制
+
+1. 使用Kademlia DHT协议
+2. 通过ENR记录存储节点元数据
+3. 维护动态路由表（Bucket结构）
+
+
+
+### 2025.02.13
+
+#### 以太坊执行层架构学习笔记（第2天）
+
+------
+
+##### **引擎API（Engine API）**
+
+###### 核心接口
+
+```go
+type EngineAPI interface {
+    NewPayloadV1(payload ExecutionPayload) (PayloadStatusV1, error)
+    ForkchoiceUpdatedV1(state ForkchoiceState, attr PayloadAttributes) (ForkchoiceUpdatedResult, error)
+}
+```
+
+###### 工作流程
+
+1. **共识层触发**
+   - 接收`ForkchoiceUpdated`调用
+   - 确定规范链头（head block）
+2. **有效载荷验证**
+   - 检查父块哈希一致性
+   - 验证时间戳序列
+3. **状态同步**
+   - 执行区块内交易
+   - 更新全局状态树
+
+------
+
+##### **同步机制**
+
+###### 同步模式对比
+
+| 模式     | 特点                     | 适用场景         |
+| -------- | ------------------------ | ---------------- |
+| 全量同步 | 从创世块开始验证所有交易 | 新节点初始化     |
+| 快速同步 | 下载最新状态快照         | 追赶网络最新状态 |
+| 轻同步   | 仅同步区块头+Merkle证明  | 移动设备/浏览器  |
+
+###### 状态同步公式
+
+$$\text{同步进度} = \frac{\text{已验证区块高度}}{\text{网络最新高度}} \times 100\%$$
+
+------
+
+##### **有效载荷验证流程**
+
+###### 验证步骤
+
+1. **区块头验证**
+
+   $$H_{\text{gasLimit}} \in \left[P(H)_{\text{gasLimit}} \pm \left\lfloor \frac{P(H)_{\text{gasLimit}}}{1024} \right\rfloor\right]$$
+
+2. **随机数验证**
+
+   - $$H_{\text{difficulty}} = 0$$ (PoS区块)
+   - $$H_{\text{nonce}} = 0x0000000000000000$$
+
+3. **时间戳验证**
+
+   
+
+   $$H_{\text{timestamp}} > P(H)_{\text{timestamp}}$$
+
+###### 客户端实现差异
+
+| 检查项       | Geth实现位置              | Reth实现位置        |
+| ------------ | ------------------------- | ------------------- |
+| Gas限制验证  | `core/block_validator.go` | `crates/engine/src` |
+| 基础费用计算 | `core/fee_history.go`     | `crates/revm/src`   |
+
+------
+
+##### **交易池管理**
+
+###### 双池架构
+
+<img src=".starrydeserts_image/Dual-pool_architecture.png" alt="Dual-pool_architecture" style="zoom: 33%;" />
+
+###### 淘汰机制对比
+
+| 池类型 | 排序依据                  | 淘汰策略           |
+| ------ | ------------------------- | ------------------ |
+| Legacy | 有效小费（Effective Tip） | 大顶堆淘汰低优先级 |
+| Blob   | 对数时间衰减              | 滑动窗口淘汰       |
+
+------
+
+##### **共识引擎集成**
+
+###### 多引擎支持
+
+```go
+type ConsensusEngine interface {
+    VerifyHeaders(chain BlockChain, headers []*Header) (chan<- struct{}, <-chan error)
+    Finalize(chain BlockChain, header *Header, state *state.StateDB, txs []*Transaction)
+}
+```
+
+###### 验证流程示例
+
+1. 分离PoW/PoS区块头
+2. 预合并区块使用Ethash验证
+3. 后合并区块通过Beacon链验证
+4. 检查终态性（Finality）标记
+
 
 
 <!-- Content_END -->

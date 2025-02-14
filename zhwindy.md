@@ -45,8 +45,57 @@ timezone: Asia/Shanghai
 1. 执行层的核心功能
 2. 执行客户端架构
     * 常用的执行客户端
-    * EVM
+    * 以太坊虚拟机EVM
 
 ### 2025.02.10
+
+今天深入学习第二部分 以太坊虚拟机EVM的内容:
+* 以太坊状态机(state machine)
+* 虚拟机范式(virtual machine paradigm)
+* EVM 和 EVM bytecode
+* 程序计数器(program counter)
+* Gas
+* 栈(Stack)
+* 内存(Memory)
+* Storage
+* Wrapping up
+* EVM upgrades
+* EVM实现: Go(Geth), Rust(revm), Python(py-evm), C++(EVMONE)
+* 预编译合约
+
+### 2025.02.11
+
+今天继续学习第二部分以太坊虚拟机的细节:
+* 数据结构MPT: Merkle Patricia Trie
+* Transaction剖析
+* JSON-RPC API
+* 数据序列化RLP
+* 区块构建
+
+### 2025.02.12
+
+今天学习第三部分: 以太坊共识层
+
+### 2025.02.13
+
+今天复习第三部分以太坊共识层的客户端架构, 走读部分实现代码.
+
+至此:
+* 共识层的概念和发展历史
+* 以太坊的共识变迁
+* 共识层的工作原理和架构
+* 部分共识层实现代码的阅读
+都已完成
+
+今晚有共学周会, 总结交流本周的学习内容, 规划下一步学习路线
+
+### 2025.02.14
+
+今天了解[https://epf.wiki]的development部分, 分3个板块内容:
+1. 核心开发
+2. 开发协作
+3. 开发资源资料库
+
+### 2025.02.15
 
 <!-- Content_END -->
