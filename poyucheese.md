@@ -82,4 +82,23 @@ week 4 是有關 Ethereum 測試的內容。
 - 用於確保 Ethereum 執行客戶端的正確性，避免因實作差異導致的鏈分叉，需要 EVM testing 進行測試，為客戶端提供相同 pre-state (賬戶餘額、nonce、合約代碼和存儲)、環境、輸入 (交易) 、規則，預期得到相同的 post-state。
 - Test Filling 可以跨客戶端執行，確保所有實作遵循相同的行為。
 
+### 2025.02.13
+
+#### [SGweek4](https://epf.wiki/#/eps/week4)
+
+##### EVM 測試格式
+
+- 狀態測試（State Testing）：
+    - 透過比對狀態根（State Root）來驗證不同客戶端的結果是否一致。
+    - 狀態根是一種加密計算結果，可確保狀態完整性。
+
+- 模糊測試（Fuzzy Differential State Testing）：
+    - 使用工具 FuzzyVM 在交易中加入隨機智能合約代碼，測試不同客戶端是否仍能保持相同的狀態根。
+
+- 區塊鏈測試（Blockchain Testing）：
+    - 測試不僅限於 EVM 執行，還包括 1559 費用機制等完整區塊驗證。
+
+- 區塊鏈負測試（Blockchain Negative Testing）：
+    - 插入無效區塊，檢查客戶端是否能正確拒絕此區塊並 revert 到先前的有效區塊。
+
 <!-- Content_END -->

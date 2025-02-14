@@ -117,4 +117,39 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
     - LMD-GHOST 和 Casper FFG：PoS 机制支持的核心协议。
   - 新共识机制：PoS 下的共识是通过质押、验证者的证明以及随机选择区块提议者和委员会的算法来实现的，以确保网络保持安全并高效地处理交易。
 
+### 2025.02.13
+**学习主题：Beacon Chain as Consensus Manager**
+- Validators as PoS Participants
+  - Staking ETH
+  - Proposing Blocks
+  - Attesting Blocks
+- Committees and Randomness
+
+![](https://epf.wiki/images/cl/slots-and-epochs.png)
+![](https://epf.wiki/images/cl/validators.png)
+![](https://epf.wiki/images/cl/RANDAO.png)
+![](https://epf.wiki/images/cl/committees.png)
+
+
+### 2025.02.14
+**学习主题：Beacon Chain**
+
+- **Design for Scalability and L2 Solutions (EIP-4844 and Blobs):** EIP-4844 (proto-danksharding) addresses Ethereum's scalability needs by introducing Blobs, enabling a separate data availability layer.
+
+- **Validators as the Core Participants:** Central to PoS are validators, who replace miners. Validators stake ETH and are tasked with proposing and attesting to blocks, ensuring the network’s integrity.
+
+- **Validator Selection and Committees:** Validators are pseudo-randomly chosen as block proposers. They are also organized into committees for attestation and validation duties. This randomization is secured using RANDAO and VDF, and also offers advantages from a scaling mechanism to ensure better chain validation due to size limits.There are mechanisms are put in place to help regulate the number of active validators, such as limiting the number of validations and rewards/penalties.
+
+- **Attestation as Voting Mechanism:** Each validator attests, or vote, to the blocks they see as the correct one with this, a new type of way to provide security is created.
+
+- **Checkpoints and Finality:** The blocks on the chain become valid and secure with two thirds majority vote.
+
+- **Storage costs:** In Ethereum, storing the information from 1 chain creates long term costs. All blob data is designed to be stored temporarily on the chain.
+
+- **Incentives and Disincentives (Rewards and Penalties):** The core principle of Ethereum's PoS relies on incentivizing honest behavior and punishing malicious actors.
+
+- **Epochs and Slots:** The system operates based on slots and epochs, to help regulate the chain and implement PoS.
+
+- **Validator Lifecycle Management:** They are subject to the system's rewards and penalties, are monitored for malicious behavior, have their movements monitored, and are all recorded in the state of the network.
+
 <!-- Content_END -->

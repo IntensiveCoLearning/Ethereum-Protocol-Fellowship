@@ -226,6 +226,6 @@ timezone: Europe/Berlin
     - simple serialize is a serialization format designed specifically for eth2
     - encode & decode data structure in a more efficient, type-aware, optimized for merkleization style
 ### 2025.02.13
-
+Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 
 <!-- Content_END -->

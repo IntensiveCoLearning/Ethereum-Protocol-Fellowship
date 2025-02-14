@@ -359,4 +359,19 @@ a committee, [with each person randomly sitting in power](# "随机坐庄").
 
 ### 2025.02.13
 
+#### Stakers and Validators
+
+1. Stakers（质押者）：
+   Stakers like "capitalist", wich mean those who holding "money".
+   - Everyone can become a staker.
+   - If you have ETH over 32, such as 55, you can stake all, the part of 32 is to activate one validator,
+     and the remain is to activate another one. Of course, you will get the all reward from the 32-voted one,
+     and get the part from the another one.
+   - If you have ETH less than 32, you can also stake into a pool to activate a validator and get the part
+     reward.
+2. Validators(验证者)：
+   The only requirement to become a validator is the certain "money"(ETH)
+   - You should become a staker before validator(Means that holding ETH in fact)
+
+### 2025.02.14
 <!-- Content_END -->
