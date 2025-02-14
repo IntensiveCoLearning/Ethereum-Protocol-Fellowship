@@ -60,7 +60,7 @@ Today was abit late for updating. Will update it late~
 ### 2025.02.13
 
 ### 2025.02.14
-
+After the weekly meeting, it might be a time to adjust the way recording. Would start in next one.
 ### 2025.02.15
 
 <!-- Content_END -->
