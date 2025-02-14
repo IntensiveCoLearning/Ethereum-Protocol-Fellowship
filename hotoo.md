@@ -66,7 +66,10 @@ timezone: Asia/Shanghai
 ### 2025.02.13
 > 周四
 
-笔记内容
+- https://epf.wiki/#/eps/week7-dev
+- Reth docs https://paradigmxyz.github.io/reth/
+- Intro to Reth by Georgios https://www.youtube.com/watch?v=zntRpCKHyDc
+- Deeper insight by Dragan https://www.youtube.com/watch?v=pxhq7YrySRM
 
 ### 2025.02.14
 > 周五

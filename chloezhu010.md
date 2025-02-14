@@ -209,11 +209,23 @@ timezone: Europe/Berlin
     | stateless clients | inefficient due to large proof   | efficient due to compact proof   |
     | scalability | limited by proof size & depth   | better scalability for large states   |
     | cryptographic basis | merkle proof (hash-based)   | vector commitment (eg. polynomial)   |
-- What's RLP? What's its purpose?
+- What's RLP? What's its purpose? Why want to convert to SSZ?
+    - Recursive length prefix: a serialization format, to encode & decode data structure into compact byte array
+    - Where is it used in Ethereum
+        - transaction: txs are serialized using RLP before being broadcasted or stored in blocks
+        - block: seralized for storage and transmission
+        - state trie: stored in a MPT, where keys and values are RLP-encoded
+        - p2p networking protocol: RLP is used to encode data for p2p networking
+    - Issue
+        - don't natively support some data type (Eg. int, float, boolean), but treat everything byte arrays
+        - not optimized for merkleization
+        - add overhead for small data structure due to length-prefixing scheme
+        - not human-readable
+        - variable-length coding makes it harder for light clients to parse and verify data
 - What's SSZ? What's its purpose?
-    - What's union?
-    - What's ephemeral header?
-- What's discv5?
-- 
+    - simple serialize is a serialization format designed specifically for eth2
+    - encode & decode data structure in a more efficient, type-aware, optimized for merkleization style
+### 2025.02.13
+Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 
 <!-- Content_END -->
