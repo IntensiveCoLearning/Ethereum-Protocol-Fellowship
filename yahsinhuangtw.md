@@ -89,11 +89,7 @@ This concept is called “state machine replication.” The “replication” he
 
 You write your program or protocol as a deterministic function of the inputs. Imagine then that if you have an honest node, they’re going to run the same function on the same inputs, and they have to get the same output, right? This is assuming there are no bugs or anything in the protocol. For the same set of inputs, you get the same output.
 
-This is useful to get rid of our single trusted operator because as the number of nodes increases, this becomes harder to attack.
-
-Rather than exploring a bug on one node and taking down the whole system, you now have to attack, say, two or three, or maybe all of them.
-
-And there’s this notion of a majority in the system. This is really what we mean when we say consensus: at any point in time, there should be some majority of nodes that all have the same view, the same output, or the same state.
+This is useful to get rid of our single trusted operator because as the number of nodes increases, this becomes harder to attack. Rather than exploring a bug on one node and taking down the whole system, you now have to attack, say, two or three, or maybe all of them. And there’s this notion of a majority in the system. This is really what we mean when we say consensus: at any point in time, there should be some majority of nodes that all have the same view, the same output, or the same state.
 
 When they do this, then, even if some of the nodes are faulty, you still have a majority of them saying, "This is the state of the world." So, the idea is that it becomes much harder now to attack our system as we have more nodes who are doing the same thing.
 
