@@ -690,6 +690,7 @@ For optimal performance, we recommend using a cloud provider that allows you to 
 
 1. kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package运行不了
    - 尝试登录docker（x），配置gpg（x），修改镜像源（多次尝试才成功）
+   - 意外收获：如果后续docker实在无法pull，可以看[Docker镜像停服? 我编写了一个镜像转存工具，解决国内无法使用docker的问题，解决docker镜像无法拉取问题，修复docker pull失败_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Zn4y19743/?spm_id_from=333.1387.homepage.video_card.click&vd_source=5b38ea9eae760d7d5d2330a78b68a494)
 2. 原因：docker国内直连网络问题严重，各种国内镜像时常过期，挂VPN也不一定有用，总结了一些（可能有用的）镜像源
 
 ```json
