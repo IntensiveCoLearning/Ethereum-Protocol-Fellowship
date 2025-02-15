@@ -85,4 +85,6 @@ udp6	IPv6-specific UDP port, big endian integer
 写了一个编码简单数据和decode raw transaction的代码。
 https://github.com/dajuguan/lab/blob/d10a269bf17ac14fbce8bfbadfd532b6d25c100a/eth/rlp_test.py
 
+- [Quarkchain rlp and transaction util](https://github.com/QuarkChain/pyquarkchain/blob/master/quarkchain/evm/transactions.py)
+- [decode地址字节未对齐的交易示例,从1:12:20开始](https://meeting.tencent.com/cw/lRebQGM11a)
 <!-- Content_END -->
