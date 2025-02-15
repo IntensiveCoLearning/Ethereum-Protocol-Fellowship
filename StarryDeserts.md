@@ -640,4 +640,274 @@ type ConsensusEngine interface {
 
 
 
+
+
+### 2025.02.14
+
+#### 以太坊区块构建与交易处理学习笔记
+
+------
+
+##### **区块构建概览**
+
+###### 核心参与方
+
+1. **共识层（CL）**
+   - 负责验证者选举
+   - 确定区块提案者
+   - 通过Engine API触发执行层构建区块
+2. **执行层（EL）**
+   - 维护交易池（mempool）
+   - 执行交易并生成有效载荷（Payload）
+   - 实现状态转换函数
+
+###### 构建流程触发
+
+- **触发条件**：验证者通过`engine_forkchoiceUpdatedV2`接口接收构建指令
+
+- **输入参数**：
+
+  $$\text{PayloadAttributes} = \{ \text{timestamp}, \text{prev\_hash}, \text{base\_fee}, ... \}$$
+
+------
+
+##### **区块构建核心流程**
+
+###### 初始化空区块
+
+```go
+func buildPayload(env *Environment) (*ExecutionPayload, error) {
+    emptyBlock := createEmptyBlock(env)  // 创建基准空区块
+    go asyncFillBlock(emptyBlock)        // 异步填充交易
+    return emptyBlock, nil
+}
+```
+
+- **目的**：确保在时间窗口内至少有空区块可提议
+- **异步优化**：后台继续完善区块内容
+
+###### 交易填充机制
+
+<img src=".starrydeserts_image/Transaction-filling-mechanism.png" alt="Transaction-filling-mechanism" style="zoom: 33%;" />
+
+- **排序规则**：优先选择gas费率高且nonce连续的交易
+
+- **Gas配额管理**：
+
+  $$\sum(\text{tx.gasLimit}) \leq 30,000,000 \quad (\text{当前主网Gas上限})$$
+
+###### 交易执行与状态转换
+
+```go
+func applyTransaction(tx *Transaction, state *StateDB) error {
+    evm := NewEVM(Context{Block: env}, state)
+    result, err := evm.Run(tx)  // 执行交易
+    if err != nil {
+        return err  // 失败交易被丢弃
+    }
+    state.ApplyResult(result)   // 更新状态
+    return nil
+}
+```
+
+- **原子性保证**：单笔交易失败不影响区块整体有效性
+
+- **状态树更新**：
+
+  $$\sigma_{new} = \Upsilon(\sigma_{old}, tx)$$
+
+------
+
+##### **关键组件解析**
+
+###### 交易池（TxPool）
+
+- **数据结构**：
+  - **Pending队列**：已验证待打包交易
+  - **Queued队列**：nonce不连续交易
+- **淘汰策略**：
+  - **Legacy交易**：按gas价格大顶堆淘汰
+  - **Blob交易**：按时间衰减窗口淘汰
+
+###### EVM执行环境
+
+| 环境变量          | 来源              | 示例值     |
+| ----------------- | ----------------- | ---------- |
+| `block.timestamp` | PayloadAttributes | 1700000000 |
+| `block.number`    | 父区块高度+1      | 18923456   |
+| `block.basefee`   | EIP-1559动态计算  | 15 Gwei    |
+
+------
+
+##### **错误处理机制**
+
+###### 交易级别错误
+
+- **类型**：
+  - Gas不足（OutOfGas）
+  - 无效操作码（InvalidOpcode）
+  - 合约回滚（Revert）
+- **处理方式**：
+  - 丢弃无效交易
+  - 继续尝试打包后续交易
+
+区块级别错误
+
+- **类型**：
+  - GasLimit超标
+  - 时间戳不连续
+- **处理方式**：
+  - 终止当前构建流程
+  - 触发CL重新选择提案者
+
+------
+
+##### **性能优化策略**
+
+1. **异步填充**：先返回空区块再完善内容
+2. **交易预验证**：维护已验证交易池
+3. **状态快照**：使用`StateDB`的快照功能快速回滚
+4. **并行执行**：实验性支持多交易并行执行
+
+
+
+### 2025.02.15
+
+#### 以太坊执行层数据结构学习笔记
+
+------
+
+##### **核心数据结构概览**
+
+###### 默克尔树（Merkle Tree）
+
+- **结构特性**
+
+  <img src=".starrydeserts_image/tries.png" alt="tries"  />
+
+- **核心机制**：
+
+  - 叶子节点存储数据哈希值
+  - 非叶子节点存储子节点哈希的拼接哈希
+  - 根哈希存储在区块头中
+
+- **数据完整性验证**：
+
+  - $$\text{篡改检测} \Rightarrow \Delta Data \rightarrow \Delta LeafHash \rightarrow \Delta RootHash$$
+
+###### 前缀树（Patricia Tree）
+
+- **优化特性**：
+  - 共享前缀压缩（如`0x12A`和`0x12B`共享`0x12`路径）
+  - 节点类型精简（分支/扩展/叶子）
+- **存储效率**：
+  - $$\text{传统Trie空间复杂度} O(n) \rightarrow \text{Patricia空间复杂度} O(k) \quad (k为键长)$$
+
+###### 默克尔前缀树（MPT）
+
+- **混合设计**：
+
+  - 继承Merkle的完整性验证
+  - 采用Patricia的存储优化
+
+- **节点类型**：
+
+  | 节点类型 | 结构描述                    | 示例场景       |
+  | -------- | --------------------------- | -------------- |
+  | 分支节点 | 17元素数组（16分支+值指针） | 路径分叉点     |
+  | 扩展节点 | [压缩路径, 子节点哈希]      | 单一路径段压缩 |
+  | 叶子节点 | [剩余路径, 值数据]          | 键值对存储终点 |
+
+------
+
+##### **以太坊中的MPT应用**
+
+###### 四大核心Trie结构
+
+| Trie类型     | 存储内容                     | 更新频率     | 根哈希位置                |
+| ------------ | ---------------------------- | ------------ | ------------------------- |
+| 交易Trie     | 区块内所有交易               | 区块不可变   | BlockHeader.txRoot        |
+| 收据Trie     | 交易执行结果（日志/Gas消耗） | 区块不可变   | BlockHeader.receiptRoot   |
+| 世界状态Trie | 所有账户的当前状态           | 区块可变     | BlockHeader.stateRoot     |
+| 账户存储Trie | 智能合约的持久化变量         | 合约调用可变 | 账户对象的storageRoot字段 |
+
+###### 交易Trie构建规则
+
+- **键值编码**：
+  - $$Key = RLP(交易索引) \quad Value = RLP(交易数据)$$
+
+- **交易数据结构**：
+
+  ```go
+  type Transaction struct {
+      Nonce    uint64
+      GasLimit uint64
+      To       common.Address
+      Value    *big.Int
+      Data     []byte
+      V, R, S  *big.Int // 签名
+  }
+  ```
+
+------
+
+##### **RLP编码规范**
+
+###### 编码规则
+
+- **基本类型**：
+
+  - 字符串：直接编码为字节序列
+  - 整数：大端序无前缀零编码
+
+- **嵌套结构**：
+
+  - $$RLP([a, b, c]) = RLP(a) \oplus RLP(b) \oplus RLP(c)$$
+
+- **长度标识**：
+
+  | 数据长度 | 前缀字节         |
+  | -------- | ---------------- |
+  | 0-55字节 | 0x80 + len       |
+  | >55字节  | 0xB7 + len字节数 |
+
+###### 应用场景
+
+- 交易/收据的序列化存储
+- 状态树节点的键值编码
+- 网络传输数据封装
+
+------
+
+##### **MPT节点哈希机制**
+
+###### 哈希计算流程
+
+1. **序列化节点**：使用RLP编码节点内容
+2. **Keccak-256哈希**：
+   - $$nodeHash = \text{Keccak256}(RLP(nodeContent))$$
+3. **递归计算**：子节点哈希参与父节点哈希生成
+
+###### 安全特性
+
+- **雪崩效应**：单字节修改导致根哈希完全变化
+- **防碰撞保证**：
+  - $$P(\text{哈希碰撞}) \approx \frac{1}{2^{256}} \approx 10^{-77}$$
+
+------
+
+##### **MPT操作示例**
+
+###### 数据插入流程
+
+1. 从根节点开始匹配键路径
+2. 遇到扩展节点时展开共享前缀
+3. 在分支节点处分叉
+4. 创建新叶子节点存储值
+5. 自底向上更新路径上的所有节点哈希
+
+
+
+
+
 <!-- Content_END -->
