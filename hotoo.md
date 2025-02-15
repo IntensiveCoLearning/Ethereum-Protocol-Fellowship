@@ -74,7 +74,9 @@ timezone: Asia/Shanghai
 ### 2025.02.14
 > 周五
 
-笔记内容
+- https://epf.wiki/#/eps/week7-research
+- [Data structures in Ethereum](https://epf.wiki/#/wiki/EL/data-structures)
+- [Guillaume Ballet - The Verge](https://www.youtube.com/watch?v=F1Ne19Vew6w)
 
 ### 2025.02.15
 > 周六

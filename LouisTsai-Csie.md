@@ -34,4 +34,7 @@ Watching the video for introducing the EOF and some examples in the update: http
 ### 2025.02.13
 Watch this video to learn stack validation algorithm in EOF upgrade: https://www.youtube.com/watch?v=80szRrNW0MM It is hard to learn purely from EIP, but the video demonstration is clear.
 
+### 2025.02.14
+Start reviewing the EEST codebase and try to find an issue I could contribute to, and dive deeper into the EOF implementation.
+
 <!-- Content_END -->

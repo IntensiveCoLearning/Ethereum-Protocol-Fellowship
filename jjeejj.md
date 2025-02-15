@@ -118,5 +118,19 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    3. 监控和调试
    4. 治理和配置
 
+### 2025.02.14
+
+1. 昨天有说到 Beacon APIS，那就不得不提 Beacon Node 和 Beacon Chain 了
+   1. Beacon Chain 是一个区块链，用于管理和协调 Proof of Stake (PoS) 共识机制，保存一些验证者、共识等相关的信息，不直接处理用户交易
+   2. Beacon Node 主要维护 Beacon Chain 的状态并与网络中的其他 Beacon Node 节点通信，参与 Beacon Chain 数据构建的节点
+   3. Beacon Node 的核心作用：
+      1. 同步 Beacon Chain 区块链数据
+      2. 接受其他节点广播的新区块
+      3. 为验证者客户端提供通信相关的支持
+      4. 对外提供 Beacon API 的服务
+2. 共识客户端 和 Beacon Node 的关系，整体和部分的关系
+   1. Beacon Node 客户端是 共识客户端 中的一个组件
+   2. 共识客户端 一共包含 2 个客户端：Beacon Node 客户端、验证客户端
+   3. Beacon Node 客户端 可以单独运行，验证客户端必须依赖 Beacon Node 客户端运行
 
 <!-- Content_END -->
