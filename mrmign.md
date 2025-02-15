@@ -273,6 +273,11 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 - Merkle Patricia Trie(MPT)
 	- A Merkle-Patricia trie is deterministic and cryptographically verifiable
 ### 2025.02.15
-
+- DHT(Distributed Hash Table)
+	- A DHT is used in protocols like [bittorrent](https://www.bittorrent.org/beps/bep_0005.html) and IPFS which store a wide range of content and users try to *find* the content they are interested in.
+	- DHT is used in Ethereum networking to find different peers, not blocks.
+	- the discovery protocol in the networking layer of Ethereum uses discv5, a [kademlia based DHT](https://github.com/ethereum/devp2p/blob/master/discv5/discv5.md) to store [ENR records](https://github.com/ethereum/devp2p/blob/master/enr.md).
+		- ENR records contain routing information to establish connections between peer.
+	- Blocks in Ethereum network are distributed using *gossip protocol* of the p2p stack
 ### 2025.02.16
 <!-- Content_END -->
