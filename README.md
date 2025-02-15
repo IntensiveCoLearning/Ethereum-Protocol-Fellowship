@@ -103,7 +103,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | [brucexu-eth](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/brucexu-eth.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | | | | | | | | | | |   |   |
 | [PayFv](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/PayFv.md) | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | |
-| [chloezhu010](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/chloezhu010.md) | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | | | | | | | | | | |   |   |
+| [chloezhu010](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/chloezhu010.md) | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | | | | | | |   |   |
 | [coratann](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/coratann.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [luffythink](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/luffythink.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | | | | | |   |   |
 | [Henry](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Henry.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
@@ -131,7 +131,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [armada2013](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/armada2013.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [realgu](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/realgu.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ |   | | | | | | | | | | | | | |   |   |
 | [Eizz0](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Eizz0.md) | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
-| [kernel1983](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/kernel1983.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | | | | | | |   |   |
+| [kernel1983](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/kernel1983.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | | | | | |   |   |
 | [JC13043DB](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/JC13043DB.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | |
 | [GuoyangLiu24](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/GuoyangLiu24.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [cooper](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/cooper.md) | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ |   | | | | | | | | | | | | | |   |   |
@@ -191,6 +191,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/pillowtalk-Qy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
