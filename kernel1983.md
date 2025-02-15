@@ -139,4 +139,16 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 
 尝试配置环境运行 execution-specs/src，从 frontier 开始读取交易构建 state。有一些进展。
 
+    import ethereum.frontier.trie
+
+    print(ethereum.frontier.trie.EMPTY_TRIE_ROOT.hex())
+
+    print(ethereum.frontier.trie.root(ethereum.frontier.trie.Trie(default={}, secured=True)).hex())
+
+    t = ethereum.frontier.trie.Trie(default={}, secured=True)
+    ethereum.frontier.trie.trie_set(t, b'1', b'2')
+    print(ethereum.frontier.trie.root(t).hex())
+
+### 2025.02.16
+
 <!-- Content_END -->
