@@ -135,4 +135,8 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 发现 https://github.com/ethereum/execution-specs/tree/master/src/ethereum 里面有一些宝库，有完整的所有 fork 的 python 实现，并且这个是权威的。
 这个应该就是 py-evm 的各个版本快照。找时间运行一下，看看需不需要魔改。
 
+### 2025.02.15
+
+尝试配置环境运行 execution-specs/src，从 frontier 开始读取交易构建 state。有一些进展。
+
 <!-- Content_END -->
