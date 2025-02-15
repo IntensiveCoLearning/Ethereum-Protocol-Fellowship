@@ -238,4 +238,96 @@ BitTorrent 旨在解决依赖中心化服务器下载大文件导致的网络堵
 这下他十分生气，决定做接收者并且再做坏事，当他母亲给他打生活费时，他复制了这笔交易企图获得更多，
 但也被拒绝了，因为Nonce被使用过了，防御重放成功。
 
+### 2025.02.15
+
+#### 执行层
+简而言之，执行层相当于比特币区块链去除PoW的部分，仅起到验证区块和更新区块的作用。
+
+##### 验证区块
+客户端需要：
+- 上一个区块
+- 当前区块
+- StateDB 状态数据库：账户信息
+一旦发生错误将会唤起错误，简单代码体现：
+```python
+def stf(parent_block: Block, current_block: Block, state: StateDB) -> StateDB:
+	# something validations
+	try:
+		verify_headers(parent_block, current_block)
+	except Error as error:
+		return (state,  error) # the state no updated
+
+	state, error = verify_transactions(current_block, state)
+	if error:
+		return (state, error) # the state no updated
+	return state
+```
+
+###### 标头验证
+```python
+def verify_headers(parent_block: Block, current_block: Block) -> Optional[error]:
+	# something validations
+	# error = None or others
+	if error:
+		raise Error("...")
+```
+一个有意思的错误是gas超过上限，而gas上限是被硬编码的，这也制约了智能合约的复杂性。
+
+###### 交易验证
+```python
+def verify_transactions(current_block: Block, state: StateDB) -> Tuple[state, Optional[error]]:
+	origin_state = state.copy()
+	updated_state = state.copy()
+	good_tx = []
+
+	for n, tx in enumerate(current_block):
+		try:
+			# some validations
+		except Error as error:
+			return origin_state, error
+		else:
+			good_tx.append(tx)
+	updated_state = update_state(updated_state, good_tx)
+	return (updated_state, None)
+```
+错了就返回原状态和错误原因，正确就更新。
+
+###### 检验区块验证
+这个东东负责告诉信标链当前区块是否验证成功
+```python
+def new_payload(exec_payload: ExecutionPaylaod) -> bool:
+    _, error = stf(exec_payload.parent_block, exec_payload.current_block, exec_payload.state)
+
+    if error:
+        return False
+
+    return True
+```
+
+##### 构建区块
+构建区块需要：
+- Environment 环境：包括一些信息，比如标头（时间戳、gas多少）、共识层的信息等
+- TxPool 交易池：一个包含交易的列表，通过其价值降序排列。这个池也是根据广播中优先费最高的组成的。换句话说这些Gas信息没加密
+- StateDB 状态数据库
+
+```python
+def build(env: Environment, pool: TxPool, state: StateDB) -> Tuple[Block, StateDB, error]:
+    gas_used = 0  # 确定gas用量
+    txs = []
+
+	# Gas达到上限或池是非空
+    while gas_used < env.gas_limit or not pool.empty():
+        tx = pool.pop()
+        updated_state, gas, err = vm.run(env, tx, state)
+        if err is not None:
+            # tx invalid
+            continue
+        gas_used += gas
+        txs.append(tx)
+        state = updated_state
+
+	# 通过一个外包的函数回传，用于计算生产完整的块，比如一些数据压缩计算
+    return finalize(env, txs, state)
+```
+
 <!-- Content_END -->
