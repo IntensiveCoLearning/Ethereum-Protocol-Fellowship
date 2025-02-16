@@ -374,4 +374,17 @@ a committee, [with each person randomly sitting in power](# "随机坐庄").
    - You should become a staker before validator(Means that holding ETH in fact)
 
 ### 2025.02.14
+
+#### Why is the committee set to 128 people
+[Minimum Committee Size Explained](https://medium.com/@chihchengliang/minimum-committee-size-explained-67047111fa20)
+> See also: https://ethos.dev/beacon-chain
+
+This photo is one from the article above. 
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hoRCxFzkTaHZuXdo1kfqyQ.png)
+- A constant `TARGET_COMMITTEE_SIZE` of 128 is chosen as an approximate number of 111 because every constant in the specification is defined as a power of 2. 
+- $\frac{1}{3}$：Supposing the rate of attackers😈 in all validators is $\frac{1}{3}$.
+- $k = [\frac{2}{3}n]$: k means the num of attackers😈 when a new committee 
+with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of honest validators😇 in all validators($1-\frac{2}{3}$). In PoS of ethereum,  it needs 2/3rd majority to attest and block on to the beacon chain.
+
+### 2025.02.15
 <!-- Content_END -->

@@ -227,5 +227,28 @@ timezone: Europe/Berlin
     - encode & decode data structure in a more efficient, type-aware, optimized for merkleization style
 ### 2025.02.13
 Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
-
+### 2025.02.15
+- 最近新出的关于 hash table 算法的研究和论文，感觉对 DHT 和以太坊会有不少影响，以下是 ds + gpt 老师的回复
+    - 研究总结链接：https://mp.weixin.qq.com/s/3IvM0b9kHdO66KV18cv11w
+    - 对以太坊的影响
+        - 状态存储优化
+            - 更高效的 MPT：可能优化 MPT 的结构，减少存储空间和查询时间
+        - 节点发现和通信
+            - discv5 协议改进：可能优化 Discv5 的路由表结构，使得节点发现更快、更可靠
+            - 降低网络开销：通过改进哈希表算法，可以减少节点之间的通信开销，从而提高以太坊网络的整体效率
+        - 可扩展性
+            - 状态同步加速：更快的哈希表可以提升存储引擎查询效率，进而加快区块同步（fast sync/ snap sync）和轻客户端数据索引
+        - smart contract 执行和 EVM 性能
+            - 智能合约存储 & 计算涉及大量哈希运算（例如 SSTORE 操作存储合约变量），更快的哈希表可以优化存储访问，降低 gas 费用
+            - 尤其是 MEV 交易、去中心化交易所（DEX）撮合、L2 Rollup 状态提交 等，都可能受益
+    - 对 DHT 的影响
+        - 加速 p2p 网络的节点发现
+            - Kademlia DHT 依赖 XOR 距离度量进行路由查询，每个查询涉及多个哈希表操作（节点存储、索引、查询）
+            - 更快的哈希表 可以优化 查找最近节点的速度，从而提升 网络连接稳定性 和 低延迟通信
+        - 优化 DHT 结构的扩展性
+            - 目前的 DHT 通常采用 树形（Trie）或分桶（Bucket）存储 进行哈希索引
+            - 更快的哈希表算法可能允许 减少存储开销，或者提高节点维护的效率，让 DHT 可以扩展到更大规模的 P2P 网络
+        - 改进分布式存储系统
+            - DHT 作为去中心化存储（如 IPFS、Arweave、Filecoin）的核心组件，影响数据定位和检索速度
+            - 更快的哈希表可以减少存储查询延迟，优化去中心化存储网络的性能
 <!-- Content_END -->

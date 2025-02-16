@@ -56,4 +56,35 @@ RANDAO更新的算法如下图:
 - 还可以参考EthStorage很好的使用RANDAO作为随机源的例子，在链上采用[blockhash+proof验证randao](https://github.com/ethstorage/storage-contracts-v1/issues/32)
 
 ### 2025.02.09
+学习了以太坊的网络层相关内容，执行层的网络协议包括两部分:
+- 网络发现: 他基于UDP协议，底层基于Kademlia实现的分布式哈希表(DHT)，具体的协议实现是[discv5](https://github.com/ethereum/devp2p/blob/master/discv5/discv5.md)。
+- 节点通讯: 基于TCP协议，具体使用的是DevP2P 
+
+共识层与执行层的网络协议类似，不过使用的是后来开发的libP2P
+
+P2P节点采用[Ethereum Node Records (ENR)](https://eips.ethereum.org/EIPS/eip-778)来进行标记，他主要包括如下信息:
+```
+content   = [seq, key, value, ...]
+signature = sign(content)
+record    = [signature, seq, key, value, ...]
+```
+其中预定义的key包括:
+```
+id	name of identity scheme, e.g. “v4”
+secp256k1	compressed secp256k1 public key, 33 bytes
+ip	IPv4 address, 4 bytes
+tcp	TCP port, big endian integer
+udp	UDP port, big endian integer
+ip6	IPv6 address, 16 bytes
+tcp6	IPv6-specific TCP port, big endian integer
+udp6	IPv6-specific UDP port, big endian integer
+```
+
+### 2025.02.10
+学习了RLP编码，他是一种space-efficent的数据表示格式,用来序列化以太坊的交易、收据等数据。
+写了一个编码简单数据和decode raw transaction的代码。
+https://github.com/dajuguan/lab/blob/d10a269bf17ac14fbce8bfbadfd532b6d25c100a/eth/rlp_test.py
+
+- [Quarkchain rlp and transaction util](https://github.com/QuarkChain/pyquarkchain/blob/master/quarkchain/evm/transactions.py)
+- [decode地址字节未对齐的交易示例,从1:12:20开始](https://meeting.tencent.com/cw/lRebQGM11a)
 <!-- Content_END -->

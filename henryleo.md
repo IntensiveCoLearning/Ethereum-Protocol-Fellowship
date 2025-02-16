@@ -215,26 +215,119 @@ BitTorrent 旨在解决依赖中心化服务器下载大文件导致的网络堵
 
 
 ### 2025.02.14
-#### 防止Replay 重放攻击
-以太坊网络和比特币网络防止重放攻击的方式不同。比特币网络通过交易标头的时间戳而以太坊依靠Nonce。
+#### Replay 重放攻击和Double-spending 双花攻击
+重放攻击是跨链或者跨时间复制一笔交易，而双花攻击是一笔交易同一时间广播多次。
 
-对于比特币网络，因为任何一个矿工都可以从前一个区块读取某一笔交易的信息，假设没有时间戳，
+对于比特币网络，任何一个矿工都可以从一个区块读取某一笔交易的信息，假设没有时间戳，
 一笔交易虽然被签名了，恶意的矿工虽然没有私钥，但它只需要将这个签名后的信息广播到新的区块就可以反复执行该笔交易，
-因为签名是真的，验证函数会回传True。
+因为签名是真的，验证函数会回传True。假设A想要攻击B，就会反复广播B的交易，这是双花攻击。
 
-但有了时间戳，假设A想要攻击B，最快只能在区块确认他收款之后进行，也就是他获得B的签名之后。这时A广播他获得的签名会发生什么？
-答案是会被区块拒绝，**因为时间戳显示它来自上一个区块**（~10min/block）。
+有了时间戳，这时A广播他获得的签名会发生什么？答案是会被矿工拒绝，**因为时间戳显示该区块已经被打包了**，不过这需要一些时间。因此最好的方案是等待交易确认多次后信任。
+
+对于重放攻击，UTXO这种类似于纸币的性质天然就可以抵抗重放。
 
 而以太坊通过Nonce防止重放攻击。以太坊中Nonce是一个账户的交易计数，
 **执行层会优先执行同一个账户Nonce较小的交易（TX2会在TX1被接受或取消之后才会进行处理），
 且同一Nonce的交易只会执行一次（优先费高的）**
 
 先让我们忽略Gas fee的问题，假设发送者想做坏事，他有一个ETH，先发送一个ETH（`TX1`），
-后又发送一个ETH（`TX2`），`TX2`会被拒绝，因为他账户不足；
+后又发送一个ETH（`TX2`），`TX2`会被拒绝，因为他账户余额不足；
 他不服气，复制了一份`TX1`再广播一次（记为`TX1'`，假设此时TX1还没被接受），
 但`TX1`或`TX1'`会直接被拒绝，因为只会接受一次Nonce等于1的交易。
 
-这下他十分生气，决定做接收者并且再做坏事，当他母亲给他打生活费时，他复制了这笔交易企图获得更多，、
-但也被拒绝了，因为交易中包含了**区块编号**，改变好已经被打包过了！
+这下他十分生气，决定做接收者并且再做坏事，当他母亲给他打生活费时，他复制了这笔交易企图获得更多，
+但也被拒绝了，因为Nonce被使用过了，防御重放成功。
+
+### 2025.02.15
+
+#### 执行层
+简而言之，执行层相当于比特币区块链去除PoW的部分，仅起到验证区块和更新区块的作用。
+
+##### 验证区块
+客户端需要：
+- 上一个区块
+- 当前区块
+- StateDB 状态数据库：账户信息
+一旦发生错误将会唤起错误，简单代码体现：
+```python
+def stf(parent_block: Block, current_block: Block, state: StateDB) -> StateDB:
+	# something validations
+	try:
+		verify_headers(parent_block, current_block)
+	except Error as error:
+		return (state,  error) # the state no updated
+
+	state, error = verify_transactions(current_block, state)
+	if error:
+		return (state, error) # the state no updated
+	return state
+```
+
+###### 标头验证
+```python
+def verify_headers(parent_block: Block, current_block: Block) -> Optional[error]:
+	# something validations
+	# error = None or others
+	if error:
+		raise Error("...")
+```
+一个有意思的错误是gas超过上限，而gas上限是被硬编码的，这也制约了智能合约的复杂性。
+
+###### 交易验证
+```python
+def verify_transactions(current_block: Block, state: StateDB) -> Tuple[state, Optional[error]]:
+	origin_state = state.copy()
+	updated_state = state.copy()
+	good_tx = []
+
+	for n, tx in enumerate(current_block):
+		try:
+			# some validations
+		except Error as error:
+			return origin_state, error
+		else:
+			good_tx.append(tx)
+	updated_state = update_state(updated_state, good_tx)
+	return (updated_state, None)
+```
+错了就返回原状态和错误原因，正确就更新。
+
+###### 检验区块验证
+这个东东负责告诉信标链当前区块是否验证成功
+```python
+def new_payload(exec_payload: ExecutionPaylaod) -> bool:
+    _, error = stf(exec_payload.parent_block, exec_payload.current_block, exec_payload.state)
+
+    if error:
+        return False
+
+    return True
+```
+
+##### 构建区块
+构建区块需要：
+- Environment 环境：包括一些信息，比如标头（时间戳、gas多少）、共识层的信息等
+- TxPool 交易池：一个包含交易的列表，通过其价值降序排列。这个池也是根据广播中优先费最高的组成的。换句话说这些Gas信息没加密
+- StateDB 状态数据库
+
+```python
+def build(env: Environment, pool: TxPool, state: StateDB) -> Tuple[Block, StateDB, error]:
+    gas_used = 0  # 确定gas用量
+    txs = []
+
+	# Gas达到上限或池是非空
+    while gas_used < env.gas_limit or not pool.empty():
+        tx = pool.pop()
+        updated_state, gas, err = vm.run(env, tx, state)
+        if err is not None:
+            # tx invalid
+            continue
+        gas_used += gas
+        txs.append(tx)
+        state = updated_state
+
+	# 通过一个外包的函数回传，用于计算生产完整的块，比如一些数据压缩计算
+    return finalize(env, txs, state)
+```
 
 <!-- Content_END -->
