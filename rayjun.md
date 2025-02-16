@@ -326,5 +326,35 @@ EVM 中有一些关键的组件：
     - 在以太坊网络转成 PoS 之后， PBS 可以缓解 MEV 带来的问题，PBS 会让 MEV 在两个角色之间重新分配，从而可能改变每个角色相关的激励
     - 当前 PBS 典型的实现来自于 Flashbots 实现的 mev-boost
 
+### 2025.02.16
+- PBS（Proposer Builder Separation）
+    - 在以太坊当前的系统中，验证者既创建区块，又广播区块。PBS 将这写任务分配给多个验证者
+    - Block Builder负责创建区块、并且在每个 slot 中将区块提供给 Block Proposer，Block Proposer 选择一个区块，并向 Block Builder 支付费用。
+    - PBS 对于以太坊实现去中心化非常重要，因为它可以最大限度降低成为验证者说需要的计算开销，降低了成为验证者的门槛，并激励了更多样话的参与者群体。
+    - PBS 也是以太坊协议模块化实现的一部分
+    - Block Builder 收集、验证并将交易组装成区块
+    - Block Proposer 接受 Block Builder 提供的区块，并通过添加必要的元数据（比如区块头）来创建完整的区块，并验证区块的有效性
+    - PBS 带来的好处：
+        - 增加验证者的奖励
+        - 提高网络的效率：让专门的区块构建者去完成区块构建，从而实现更搞笑的区块传播和处理
+        - 降低中心化程度：通过角色分离，PBS 可以潜在减少目前 staking 供应商的影响力
+    - 当前的 PBS 实现是在协议之外实现（side-car）的，比如 mev-boost在这种实现中需要依赖一个 relay 的组件，这个组件通常来说是中心化的，这些提升了以太坊的中心化风险，并且让以太坊更容易收到审查而且 PBS 让区块构建的过程变长，那么可以被攻击的地方就变得更多了，PBS 可能会导致区块丢失，即使使用 PBS，以太坊客户端也需要保留传统的区块构建流程，一旦外部流程出现问题，那么就需要切换到从传统的区块构建流程
+    - 解决这些问题的办法
+        - ePBS（Enshrined Proposer-Builder Separation）
+            - 降低中心化风险，减少对第三方的依赖
+            - 提升安全性和稳定性
+            - PTC（Payload-Timeliness Committee）是一种在以太坊协议内实现 ePBS 的方案
+            - TBHL（Two-Block HeadLock）：修改了 slot 结构，在单个 slot 时间范围内引入了双区块模式，有效的解决了区块的提议和构建的问题，解决了 ePBS 中的几个关键问题
+        - Protocol-Enforced Proposer Commitments (PEPC)
+            - 针对 PBS 和 mev-boost 的缺陷而提出的一种解决方案，是 PBS 的扩展，Block Proposer 会定义一组区块构建的 commitment，区块构建者会根据这套 commitment 去构建区块，这套协议需要在以太坊协议内实现
+            - 可能会提高协议的复杂性以及提高计算开销
+        - EIP-7547（包含列表）
+            - 通过指定一种机制，让 Block Proposer 指定一组必须及时包含的交易，从而提高以太坊的看审查能力
+    - Ethereum Based Preconfirmations
+        - 交易的发起者可以通过提供额外的消费预约交易在未来的某个 slot 纳入区块，这就是预确认。这种实现方式需要依赖包含列表才能实现
+    - 轻客户端：无需信任（比如某个中心化的 RPC 供应商）就可以访问网络，而不需要运行完整节点，当前存在的各类轻客户端如下：
+        - Statless clients
+        - LES ptorocol
+        - Portal network
 
 <!-- Content_END -->
