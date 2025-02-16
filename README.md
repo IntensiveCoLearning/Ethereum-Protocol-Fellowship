@@ -120,7 +120,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [JoscelynFarr](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/JoscelynFarr.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [cherry-yl-sh](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/cherry-yl-sh.md) | ✅ | ⭕️ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [HeliosLz](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/HeliosLz.md) | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ❌ | | | | | | | | | | | | | | |
-| [lllapland](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/lllapland.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
+| [lllapland](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/lllapland.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | | | | | | | | | | | | |   |   |
 | [passer-byzhang](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/passer-byzhang.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [StillFantastic](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/StillFantastic.md) | ⭕️ | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [debugzhao](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/debugzhao.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
@@ -191,6 +191,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/pillowtalk-Qy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
