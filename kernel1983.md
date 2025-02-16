@@ -151,4 +151,7 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 
 ### 2025.02.16
 
+https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@javierggil/ethereum-reward-explained-8f927a1263c6
+这对于手工更新全局状态中的以太坊余额很有用。
+
 <!-- Content_END -->
