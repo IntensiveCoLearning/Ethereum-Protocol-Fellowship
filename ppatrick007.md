@@ -276,6 +276,85 @@ Hi, 我是国内一名理科研究生，会一些编程语言，平时科研主�
 ### WithdrawalIndex（提取索引）
 - **描述**：表示从共识层到执行层的提取交易的索引。
 
+### 2025.02.16
+
+# Beacon Chain 配置和初始化
+
+尽管 Beacon 链的创世事件已经过去，但初始化功能仍然对启动测试网络等场景非常有用。在此，我们讲解的是关于 Beacon 链创世的参数配置。
+
+## 创世设置
+
+### 参数配置
+
+| 名称 | 值 |
+|------|----|
+| **MIN_GENESIS_ACTIVE_VALIDATOR_COUNT** | uint64(2**14) (= 16,384) |
+| **MIN_GENESIS_TIME** | uint64(1606824000) (2020年12月1日，12:00 UTC) |
+| **GENESIS_FORK_VERSION** | Version('0x00000000') |
+| **GENESIS_DELAY** | uint64(604800) (7天) |
+
+### MIN_GENESIS_ACTIVE_VALIDATOR_COUNT
+- **描述**：在 Beacon 链能够开始生产区块之前，必须至少有这么多验证者的质押数。这个数量是为了确保一定的安全性，以防止少数验证者控制网络。
+- **默认值**：16,384（即 2¹⁴）
+
+### MIN_GENESIS_TIME
+- **描述**：Beacon 链可以启动的最早时间。这是为了避免 "门卫攻击"（gatekeeper attack），即少数验证者控制初期区块，防止其他验证者进入网络。
+- **默认值**：2020年12月1日 12:00 UTC
+
+### GENESIS_FORK_VERSION
+- **描述**：创世事件时的分叉版本。这个版本号仅在计算加密域（用于存储消息和 BLS 凭证更改）时使用。
+- **默认值**：Version('0x00000000')
+
+### GENESIS_DELAY
+- **描述**：Beacon 链创世事件前的延迟时间，允许节点和节点运营商有足够的时间做好准备。
+- **默认值**：604800 秒（7天）
+
+## 各个分叉版本
+
+| 名称 | 值 |
+|------|----|
+| **ALTAIR_FORK_VERSION** | Version('0x01000000') |
+| **ALTAIR_FORK_EPOCH** | Epoch(74240) (2021年10月27日 10:56:23 UTC) |
+| **BELLATRIX_FORK_VERSION** | Version('0x02000000') |
+| **BELLATRIX_FORK_EPOCH** | Epoch(144896) (2022年9月6日 11:34:47 UTC) |
+| **CAPELLA_FORK_VERSION** | Version('0x03000000') |
+| **CAPELLA_FORK_EPOCH** | Epoch(194048) (2023年4月12日 10:27:35 UTC) |
+
+## 时间参数
+
+| 名称 | 值 | 单位 | 时长 |
+|------|----|------|------|
+| **SECONDS_PER_SLOT** | uint64(12) | 秒 | 12秒 |
+| **SECONDS_PER_ETH1_BLOCK** | uint64(14) | 秒 | 14秒 |
+| **MIN_VALIDATOR_WITHDRAWABILITY_DELAY** | uint64(2**8) (= 256) | 纪元 | ~27小时 |
+| **SHARD_COMMITTEE_PERIOD** | uint64(2**8) (= 256) | 纪元 | ~27小时 |
+| **ETH1_FOLLOW_DISTANCE** | uint64(2**11) (= 2,048) | Eth1区块 | ~8小时 |
+
+### SECONDS_PER_SLOT
+- **描述**：每个时隙的时长。最初是6秒，现在是12秒。网络延迟是决定时隙长度的主要因素。
+- **当前值**：12秒
+
+### SECONDS_PER_ETH1_BLOCK
+- **描述**：假设的 Eth1 区块时间，用于与 `ETH1_FOLLOW_DISTANCE` 一起计算 Eth1 链上的区块。
+- **当前值**：14秒
+
+### MIN_VALIDATOR_WITHDRAWABILITY_DELAY
+- **描述**：当验证者退出协议时，仍需等待此延迟期才能完全提取其质押和奖励。
+- **当前值**：256个纪元（约27小时）
+
+### SHARD_COMMITTEE_PERIOD
+- **描述**：每个分片委员会的周期，也就是每多少个纪元会重新安排委员会成员。
+- **当前值**：256个纪元（约27小时）
+
+### ETH1_FOLLOW_DISTANCE
+- **描述**：Beacon 链如何同步 Eth1 链的区块。该值定义了 Beacon 链对 Eth1 链的跟随距离。
+- **当前值**：2048个 Eth1 区块（约8小时）
+
+---
+
+这些设置和参数确保了 Beacon 链的顺利启动，并为未来的协议升级提供了可扩展性。
+
+
 
 
 <!-- Content_END -->
