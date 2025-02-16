@@ -251,4 +251,11 @@ Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5
         - 改进分布式存储系统
             - DHT 作为去中心化存储（如 IPFS、Arweave、Filecoin）的核心组件，影响数据定位和检索速度
             - 更快的哈希表可以减少存储查询延迟，优化去中心化存储网络的性能
+### 2025.02.16
+Update nodes on devp2p and discv5
+https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
+
+
+
+
 <!-- Content_END -->
