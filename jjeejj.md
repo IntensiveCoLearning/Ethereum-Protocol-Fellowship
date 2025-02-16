@@ -147,4 +147,11 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    3. 如何创建
       1. EOA：通过密钥对 生成 address 地址
       2. 通过部署合约创建，根据部署者 address 和当前的 nonce 生成 
+
+### 2025.02.16
+
+1. 前天说到 Beacon Chain 是有个中文名称的叫做：信标链
+2. UTXO 账号模型 （BTC 中使用的账号模型）
+   1. 每个 UTXO （unspent transaction output） 都是一个独立的数据单元，记录着资产的来源、归属、和转移规则
+
 <!-- Content_END -->
