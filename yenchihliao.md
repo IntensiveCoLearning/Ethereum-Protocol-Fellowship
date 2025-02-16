@@ -147,4 +147,23 @@ Picked up/strengthened some key concepts
         - Stateless validators
 - The Splurge: EOF, AA, better EIP-1559, encrypted mempool, etc.
 
+### 2025.02.15
+Viewed some additional information of previous weeks
+
+- [PoS](https://www.youtube.com/watch?v=5gfNUVmX3Es)
+- [PoS](https://ethos.dev/beacon-chain#staking-rewards-and-penalties)
+    - All stackers are shuffled into committees dedicated to a slot in an epoch
+    - Committee is at leastl 128 validators
+    - BLS signature used to reduce signatures size attached to a block
+    - RanDAO generates randomness
+    - FFG vote: finalizing on epoch checkpoint; LMD GHOST vote: A slot voted
+- [Roadmap](https://domothy.com/roadmap/#the-merge)
+- [Verkle](https://notes.ethereum.org/@domothy/verkle_links)
+    - Blocks would be self-contained
+    - Sharding, state expiry, state network enabled
+    - Average depth of MPT is 10~15, with width of 16. The proof is heavy
+    - Eth Verkle struct: Stem tree, Extension, Suffix tree, data value
+    - 256-ary tree
+    - More expansive in computation
+
 <!-- Content_END -->
