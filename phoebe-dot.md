@@ -76,7 +76,8 @@ finished read the paper
  
 ### 2025.02.15
 
-Note
+Keep reading paper ... 。。。。。。。。...(((m-__-)m
+
 
 ### 2025.02.16
 

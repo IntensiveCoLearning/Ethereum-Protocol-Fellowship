@@ -118,5 +118,33 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    3. 监控和调试
    4. 治理和配置
 
+### 2025.02.14
 
+1. 昨天有说到 Beacon APIS，那就不得不提 Beacon Node 和 Beacon Chain 了
+   1. Beacon Chain 是一个区块链，用于管理和协调 Proof of Stake (PoS) 共识机制，保存一些验证者、共识等相关的信息，不直接处理用户交易
+   2. Beacon Node 主要维护 Beacon Chain 的状态并与网络中的其他 Beacon Node 节点通信，参与 Beacon Chain 数据构建的节点
+   3. Beacon Node 的核心作用：
+      1. 同步 Beacon Chain 区块链数据
+      2. 接受其他节点广播的新区块
+      3. 为验证者客户端提供通信相关的支持
+      4. 对外提供 Beacon API 的服务
+2. 共识客户端 和 Beacon Node 的关系，整体和部分的关系
+   1. Beacon Node 客户端是 共识客户端 中的一个组件
+   2. 共识客户端 一共包含 2 个客户端：Beacon Node 客户端、验证客户端
+   3. Beacon Node 客户端 可以单独运行，验证客户端必须依赖 Beacon Node 客户端运行
+
+### 2025.02.15
+
+1. ETH Account 账号模型 （更接近银行账户的概念，比较好理解）
+   1. 分为 外部账户 EOA(External Owned Account) 和 合约账户 (Contract Account)
+   2. 核心字段
+      1. nonce:  
+         1. EOA: 账户发送的交易数量，每个交易都会增加 nonce, 主要用于防止重放攻击（Replay Attack），即确保每笔交易只能被执行一次
+         2. CA: 合约账户，该合约账户已创建的合约数量
+      2. balance: 账户的 eth 余额 以 wei 为单位（1 ETH = 10^18 wei）
+      3. codeHash, code: 合约账户 保存相关的代码 和代码的 hash 值
+      4. storageRoot: 合约账户 存储合约状态的 Merkle 树根哈希
+   3. 如何创建
+      1. EOA：通过密钥对 生成 address 地址
+      2. 通过部署合约创建，根据部署者 address 和当前的 nonce 生成 
 <!-- Content_END -->

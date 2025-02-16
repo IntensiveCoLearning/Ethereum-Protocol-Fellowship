@@ -261,8 +261,23 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- Contentious Hard Fork
 		- Malicious hard fork
 ### 2025.02.14
-
+- Accounts over UTXOs
+	- UTXO: an unspent transaction output is a distinctive element in a subset of digital currency models. A UTXO represents a certain amount of cryptocurrency that has been authorized by a sender and is available to be spent by a recipient.
+	- Benefits of Accounts
+		- Space Saving.
+		- Great fungibility
+		- Simplicity
+	- Weakness
+		- in order to prevent replay attacks, every transaction must have a nonce.
+		- account keeps track of the nonces used and only accept a transaction if its nonce is 1 after the last nonce used.
+- Merkle Patricia Trie(MPT)
+	- A Merkle-Patricia trie is deterministic and cryptographically verifiable
 ### 2025.02.15
-
+- DHT(Distributed Hash Table)
+	- A DHT is used in protocols like [bittorrent](https://www.bittorrent.org/beps/bep_0005.html) and IPFS which store a wide range of content and users try to *find* the content they are interested in.
+	- DHT is used in Ethereum networking to find different peers, not blocks.
+	- the discovery protocol in the networking layer of Ethereum uses discv5, a [kademlia based DHT](https://github.com/ethereum/devp2p/blob/master/discv5/discv5.md) to store [ENR records](https://github.com/ethereum/devp2p/blob/master/enr.md).
+		- ENR records contain routing information to establish connections between peer.
+	- Blocks in Ethereum network are distributed using *gossip protocol* of the p2p stack
 ### 2025.02.16
 <!-- Content_END -->

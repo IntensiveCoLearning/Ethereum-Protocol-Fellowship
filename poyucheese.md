@@ -101,4 +101,150 @@ week 4 是有關 Ethereum 測試的內容。
 - 區塊鏈負測試（Blockchain Negative Testing）：
     - 插入無效區塊，檢查客戶端是否能正確拒絕此區塊並 revert 到先前的有效區塊。
 
+### 2025.02.14
+
+#### [SGweek4](https://epf.wiki/#/eps/week4)
+
+##### Consensus Layer Testing
+
+- 用於驗證 Ethereum 共識層的行為，確保所有 CL 客戶端遵循相同的規範，並在相同條件下得出一致的結果，防止因實作差異導致區塊鏈分叉或共識錯誤。
+- 測試用例包含在規範內，適用於所有客戶端。
+- 提供比 EVM 測試更多樣的格式，讓開發者能針對不同需求對各部分進行不同程度的測試。
+- CL 測試涵蓋 Ethereum 2.0 的信標鏈，驗證區塊提議、驗證者行為等重要機制。核心測試內容包括：
+    - **區塊處理（Block Processing）**：
+        >測試信標鏈如何處理新的區塊，確保狀態轉換符合規範。
+
+    - **狀態轉換（State Transition）**：
+        >確保不同客戶端在相同條件下，最終產生相同的信標鏈狀態。
+
+    - **驗證者（Validators）行為測試**：
+        >測試驗證者的投票、獎勵和懲罰機制，確保一致性。
+
+    - **同步協議（Sync Protocols）**：
+        >測試客戶端如何下載並同步信標鏈數據。
+
+    - **罰沒機制（Slashing Conditions）**：
+        >驗證當驗證者違反規範時，客戶端是否能正確執行罰沒機制。
+
+    - **最終性檢查（Finality Checks）**：
+        >確保共識協議能夠正確確定哪些區塊已被最終化。
+---
+##### CL 測試的重要性
+
+CL 在 Ethereum 2.0 中負責整個網絡的共識機制。若 CL 客戶端出現錯誤，可能會導致**區塊無法最終化**、**錯誤的區塊被最終化**、**驗證者錯誤行為**，導致資金損失或網絡不穩定。
+因此，CL 測試確保 所有 CL 客戶端遵循相同的共識規則，保證以太坊網絡的安全性和穩定性。
+
+### 2025.02.15
+
+#### [SGweek5](https://epf.wiki/#/eps/week5)
+
+### 關於以太坊的發展
+
+### 1. 以太坊發展階段概覽
+- 以太坊的技術升級主要分為六個階段，目標是提升可擴展性、安全性和可用性。
+
+#### 1.1 Merge
+- 以太坊從 PoW 轉向 PoS。
+- 提高能源效率，減少碳足跡。
+- 增強網絡安全性，降低 51% 攻擊風險。
+
+#### 1.2 Surge
+- 主要目標是提升 L2 Rollup 的數據可用性。
+- **關鍵技術**：EIP-4844（Blobspace）
+  - 允許節點處理較大數據區塊（Blob），提高擴展能力。
+  - 未來支持資料可用性抽樣（DAS）。
+
+#### 1.3 Scourge
+- 目標是減少 MEV 對網絡的負面影響。
+- **關鍵技術**：
+  - **提案者與建設者分離（PBS）**：防止 MEV 對驗證者的影響。
+  - **MEV Boost**：目前通過第三方中介處理。
+  - **Enshrined PBS**：計劃內建到協議中。
+  - **Inclusion lists**：確保交易不會被過度審查。
+
+#### 1.4 Verge
+- 簡化驗證者驗證區塊的過程。
+- **關鍵技術**：
+  - **Verkle 樹** 取代 Merkle 樹，使驗證更高效。
+  - **Stateless Clients**（無狀態客戶端）：減少節點存儲需求。
+
+#### 1.5 Purge
+- 目標是減少以太坊的歷史和狀態數據存儲。
+- **關鍵技術**：
+  - **EIP-4444**：自動修剪一年以上的歷史數據。
+  - **狀態過期**：計劃刪除舊狀態，減少節點存儲負擔。
+
+#### 1.6 Splurge
+- 各種優化與新技術。
+- **EVM 改進**（EVM Object Format，EOF）。
+- **帳戶抽象（Account Abstraction）**：
+  - EIP-3074 允許 EOA（Externally Owned Account）授權智能合約。
+  - ERC-4337 支持標準化智能錢包功能。
+
+---
+
+### 2. 以太坊技術詳解
+
+#### 2.1 信標鏈（Beacon Chain）
+- PoS 機制的核心。
+- **同步委員會（Sync Committee）**：
+  - 每 256 個 epoch（約 27 小時）輪換一次。
+  - 僅需驗證 512 個簽名，而非約 100 萬個，提高效率。
+  - 參考 a16z 的 Helios 輕客戶端。
+
+#### 2.2 單 Slot 最終性（Single Slot Finality, SSF）
+- 從當前的 12.6 分鐘縮短至 12 秒。
+- 主要挑戰：需要處理大量簽名。
+- 解決方案：
+  - **減少驗證者數量**（如 MaxEB 機制）。
+  - **改進簽名聚合技術**。
+
+#### 2.3 量子抗性技術
+- 目前以 KZG 承諾方案進行數據可用性抽樣（Data Availability Sampling, DAS）。
+- 計劃用 **STARKs 或 Lattice-based 方案** 替代 KZG，以增強抗量子攻擊能力。
+
+#### 2.4 Rollup 方案
+- 以太坊採用 **Rollup-centric roadmap** 來提升可擴展性。
+- **Optimistic Rollup**
+  - 假設所有交易都是正確的。
+  - 依賴 **欺詐證明（Fraud Proof）** 來檢測惡意行為。
+- **Zero-Knowledge Rollup（ZK Rollup）**
+  - 使用 **有效性證明（Validity Proof）** 保證交易正確性。
+  - 短證明可由 L1 驗證，提高安全性。
+
+#### 2.5 提案者與建設者分離（PBS）
+- 目前由 **MEV Boost** 完成，未來將內建到協議中。
+- **Execution Tickets**（執行票）機制：
+  - 允許驗證者預先競標出塊權。
+  - 減少 MEV 對區塊提案者的影響。
+
+#### 2.6 Verkle 樹
+- **與 Merkle 樹的不同點**
+  - Verkle 樹使用 **多項式承諾（Polynomial Commitment）**，而非哈希函數。
+  - 驗證時只需較少數據，減少同步時間。
+  - 可支持 **無狀態驗證者（Stateless Validators）**。
+
+#### 2.7 EVM 改進
+- **EVM Object Format（EOF）**
+  - 重新設計 EVM 執行方式，提升升級靈活性。
+- **帳戶抽象（Account Abstraction）**
+  - 透過 EIP-3074 和 ERC-4337，提升智能合約錢包的可用性。
+
+---
+
+### 3. 未來技術研究方向
+
+#### 3.1 深層加密（Deep Crypto）
+- **完全同態加密（Fully Homomorphic Encryption, FHE）**
+  - 支持加密狀態下的計算，提升隱私性。
+- **可驗證延遲函數（Verifiable Delay Functions, VDF）**
+  - 確保隨機性無法被提前計算，提高安全性。
+
+#### 3.2 加密 Mempool
+- 交易不公開，減少 MEV 對用戶的不利影響。
+- 防止搶跑交易（Front-running）。
+
+#### 3.3 Multi-dimensional EIP-1559
+- 當前的 **EIP-1559** 只針對 gas 費，未來計劃擴展到其他資源（如存儲、狀態讀取等）。
+
 <!-- Content_END -->

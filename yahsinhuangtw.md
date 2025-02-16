@@ -68,5 +68,33 @@ https://youtu.be/UihMqcj-cqc?si=MqL3ac9Xg30LPJmE
 
 <img width="937" alt="Screenshot 2025-02-13 at 10 42 55 PM" src="https://github.com/user-attachments/assets/9b5a7902-1cf2-437b-ab47-44dea1d7906a" />
 
+### 2025.02.14
+
+今晚的殘酷學習時間聽了 Alex Stokes 老師怎麼介紹「狀態機複製 State machine replication」概念。https://en.wikipedia.org/wiki/State_machine_replication 
+
+很多年前，曾經和 Alex 老師有一面之緣，簡單打過招呼，可能是在 2019 年澳洲雪梨的那次。記得當時他沒有留鬍子，看起來很年輕，有種獨特的優雅氣質。現在好像全然變一個人的樣子，似乎個人風格有變化，覺得有點奇妙。
+
+<img width="866" alt="Screenshot 2025-02-14 at 7 30 46 PM" src="https://github.com/user-attachments/assets/95226fbb-fa03-4c17-9379-ad2a249aca9a" />
+
+以下這邊開始就是我邊聽邊打字出來的內容，一方面練習英文聽力，一方面期望進一步強化 狀態機複製 State machine replication 的概念理解。
+
+Ethereum Consensus Layer | Alex Stokes | Week 3
+https://www.youtube.com/live/FqKjWYt6yWk?si=w0jmYFctZtqgVG7G
+
+https://epf.wiki/#/eps/week3
+
+One topic being discussed by the lecturer, Alex Stokes, was the concept of consensus via “state machine replication.” The following are his words introducing this concept in about 2 minutes (lecture video time 20:13–21:39).
+
+This concept is called “state machine replication.” The “replication” here refers to the fact that we have multiple nodes in the system; they essentially all duplicate the same work. This is like an input log to get the same output. In particular, this is what we mean by consensus: every node in the system should eventually agree on the outputs.
+
+You write your program or protocol as a deterministic function of the inputs. Imagine then that if you have an honest node, they’re going to run the same function on the same inputs, and they have to get the same output, right? This is assuming there are no bugs or anything in the protocol. For the same set of inputs, you get the same output.
+
+This is useful to get rid of our single trusted operator because as the number of nodes increases, this becomes harder to attack. Rather than exploring a bug on one node and taking down the whole system, you now have to attack, say, two or three, or maybe all of them. And there’s this notion of a majority in the system. This is really what we mean when we say consensus: at any point in time, there should be some majority of nodes that all have the same view, the same output, or the same state.
+
+When they do this, then, even if some of the nodes are faulty, you still have a majority of them saying, "This is the state of the world." So, the idea is that it becomes much harder now to attack our system as we have more nodes who are doing the same thing.
+
+### 2025.02.15
+
+星期六的早上殘酷學習時間，繼續看了一段 Alex Stokes 老師 Week 3 針對 Consensus Layer 的介紹，其中一些內容讓我想到 Tim Roughgarden 老師也講過類似的主題，只是 Tim Roughgarden 老師講得更深入且用詞更精確。像是 Tim Roughgarden Lectures 頻道其中一個系列影片「Foundations of Blockchains (Lecture 1.4: State Machine Replication)」 https://youtu.be/EaPBj_EUBPI?si=XHUeohYZ4IgxbV14 就有詳細介紹 State Machine Replication。
 
 <!-- Content_END -->

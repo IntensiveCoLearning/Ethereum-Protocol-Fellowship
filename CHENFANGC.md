@@ -185,4 +185,8 @@ EOA 可以发起交易，交易类型包括：
 - week 2 视频观看完成，深入研究以太坊的执行层。深入探讨 Lightclient 的 EL 内部结构。
 - 阅读了关于 EVM 的一些介绍。https://www.evm.codes/about
 
+### 2025.02.14
+
+观看 [Town Hall 的回放](https://youtu.be/7L1270CWjXw)
+
 <!-- Content_END -->

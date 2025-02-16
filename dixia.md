@@ -109,7 +109,7 @@ fork choice rule == LMD GHOST
 
 "Node and EL. But is this a physical scope separation? Need to learn more."
 
-EL execute EVM and validate evm related logic and generate a block. It also maintain mempool for sharing the txs which has not been included in the block. EL also handle RPC requests. So CL node and EL software are sperated. 
+EL execute EVM and validate evm related logic and generate a block. It also maintain mempool for sharing the txs which has not been included in the block. EL also handle RPC requests. So CL node and EL software are separated. 
 
 "The challenge a consensus protocol seeks to solve is that of building a reliable distributed system on top of unreliable infrastructure." 
 
@@ -129,20 +129,37 @@ bad actors
 
 mostly preventing forks
 
-liveness vs. safty. PBFT is always safe (so not fork?)
+liveness vs. safety. PBFT is always safe (so not fork?)
 
 goal is select most likely linear chain
 
-first rule of fork rule is the block and ancestor of the block are vaild
+first rule of fork rule is the block and ancestor of the block are valid
 
 todo:
 
 keep reading https://eth2book.info/capella/part2/consensus/preliminaries/#fork-choice-rules
 
-Execution layer validate cryptographic perspective of safty and together with consensus layer it make sure the validation rule (cryptographic rule ) are follow (safty) and working (liveness)?
+Execution layer validate cryptographic perspective of safety and together with consensus layer it make sure the validation rule (cryptographic rule ) are follow (safty) and working (liveness)?
 
 ### 2025.02.13
 
 read more about fork choice rules particular about casper & LMD GHOST
+
+### 2025.02.15
+
+一个节点排序交易。共识机制排序区块。
+
+checkpoint is used for mark a block's finality.
+
+
+"system...are politically decentralised (for permissionlessness and censorship resistance), architecturally decentralised (for resilience, with no single point of failure), but logically centralised (so that they give consistent results)."
+
+GHOST is a fork choice rule which was meant to replace the bitcoin's longest chain rule consensus(2013).
+
+So LMD ghost decide the head block and casper decide the finality of the block.
+
+TODO
+
+kept reading https://eth2book.info/capella/part2/consensus/lmd_ghost/#finding-the-head-block and consider read the GHOST paper
 
 <!-- Content_END -->

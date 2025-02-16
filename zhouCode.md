@@ -635,4 +635,100 @@ func build(env Environment, pool txpool.Pool, state state.StateDB) (types.Block,
 - **数据目录与网络配置**：指定数据存储路径及网络参数（如`--datadir`和`--network`）
 - **同步模式**：解释全同步（Full Sync）与快照同步（Snap Sync）的区别
 - **JWT认证**：配置执行层与共识层通信的JWT密钥
+
+### 2025.02.14
+
+开始实践
+
+#### 尝试建立私链
+
+[ethpandaops/ethereum-package：一个 Kurtosis 包，用于部署私有、可移植和模块化的以太坊开发网 --- ethpandaops/ethereum-package: A Kurtosis package that deploys a private, portable, and modular Ethereum devnet](https://github.com/ethpandaops/ethereum-package)
+
+#### Quickstart 快速入门
+
+1. [Install Docker & start the Docker Daemon if you haven't done so already](https://docs.docker.com/get-docker/)
+
+2. [Install the Kurtosis CLI, or upgrade it to the latest version if it's already installed](https://docs.kurtosis.com/install)
+
+3. Run the package with default configurations from the command line:
+
+   ```
+   kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package
+   ```
+
+#### Run with your own configuration
+
+Kurtosis packages are parameterizable, meaning you can customize your network and its behavior to suit your needs by storing parameters in a file that you can pass in at runtime like so:
+
+```
+kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package --args-file network_params.yaml
+```
+
+Where `network_params.yaml` contains the parameters for your network in your home directory.
+
+#### Run on Kubernetes
+
+Kurtosis packages work the same way over Docker or on Kubernetes. Please visit our [Kubernetes docs](https://docs.kurtosis.com/k8s) to learn how to spin up a private testnet on a Kubernetes cluster.
+
+#### Considerations for Running on a Public Testnet with a Cloud Provider
+
+When running on a public testnet using a cloud provider's Kubernetes cluster, there are a few important factors to consider:
+
+1. State Growth: The growth of the state might be faster than anticipated. This could potentially lead to issues if the default parameters become insufficient over time. It's important to monitor state growth and adjust parameters as necessary.
+2. Persistent Storage Speed: Most cloud providers provision their Kubernetes clusters with relatively slow persistent storage by default. This can cause performance issues, particularly with Execution Layer (EL) clients.
+3. Network Syncing: The disk speed provided by cloud providers may not be sufficient to sync with networks that have high demands, such as the mainnet. This could lead to syncing issues and delays.
+
+To mitigate these issues, you can use the `el_volume_size` and `cl_volume_size` flags to override the default settings locally. This allows you to allocate more storage to the EL and CL clients, which can help accommodate faster state growth and improve syncing performance. However, keep in mind that increasing the volume size may also increase your cloud provider costs. Always monitor your usage and adjust as necessary to balance performance and cost.
+
+For optimal performance, we recommend using a cloud provider that allows you to provision Kubernetes clusters with fast persistent storage or self hosting your own Kubernetes cluster with fast persistent storage.
+
+### 2025.02.15
+
+##### ethpandaops/ethereum-package初步搭建成功
+
+遇到的坑记录（Ubuntu系统24.04.1LTS）：
+
+1. kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package运行不了
+   - 尝试登录docker（x），配置gpg（x），修改镜像源（多次尝试才成功）
+   - 意外收获：如果后续docker实在无法pull，可以看[Docker镜像停服? 我编写了一个镜像转存工具，解决国内无法使用docker的问题，解决docker镜像无法拉取问题，修复docker pull失败_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Zn4y19743/?spm_id_from=333.1387.homepage.video_card.click&vd_source=5b38ea9eae760d7d5d2330a78b68a494)
+2. 原因：docker国内直连网络问题严重，各种国内镜像时常过期，挂VPN也不一定有用，总结了一些（可能有用的）镜像源
+
+```json
+"https://<阿里云个人镜像>.mirror.aliyuncs.com", #https://cr.console.aliyun.com/cn-hongkong/instances/mirrors，当前仅支持阿里云用户使用具备公网访问能力的阿里云产品进行镜像加速
+"https://mirrors.ustc.edu.cn/docker-ce",
+"https://registry.docker-cn.com",
+"http://hub-mirror.c.163.com",
+"https://dockerpull.org",
+"https://docker.1panel.dev",
+"https://docker.foreverlink.love",
+"https://docker.fxxk.dedyn.io",
+"https://docker.xn--6oq72ry9d5zx.cn",
+"https://docker.zhai.cm",
+"https://docker.5z5f.com",
+"https://a.ussh.net",
+"https://docker.cloudlayer.icu",
+"https://hub.littlediary.cn",
+"https://hub.crdz.gq",
+"https://docker.unsee.tech",
+"https://docker.kejilion.pro",
+"https://registry.dockermirror.com",
+"https://hub.rat.dev",
+"https://dhub.kubesre.xyz",
+"https://docker.nastool.de",
+"https://docker.udayun.com",
+"https://docker.rainbond.cc",
+"https://hub.geekery.cn",
+"https://docker.1panelproxy.com",
+"https://atomhub.openatom.cn",
+"https://docker.m.daocloud.io",
+"https://docker.1ms.run",
+"https://docker.linkedbus.com",
+"https://dytt.online",
+"https://func.ink",
+"https://lispy.org",
+"https://docker.xiaogenban1993.com"
+```
+
+2. 仓库下的`network_params.yaml`为配置文件，可以自行配置
+
 <!-- Content_END -->
