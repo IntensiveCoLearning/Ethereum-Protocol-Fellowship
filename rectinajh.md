@@ -48,4 +48,18 @@ https://epf.wiki/#/wiki/EL/el-clients
 ### 2025.02.14
 今天学习evm层
 https://epf.wiki/#/wiki/EL/evm
+
+### 2025.02.15
+今天学习了区块产生状态变化
+https://epf.wiki/#/wiki/EL/block-production
+
+学习了数据结构
+https://epf.wiki/#/wiki/EL/data-structures
+### 2025.02.15
+
+今天学习了交易
+https://epf.wiki/#/wiki/EL/transaction
+https://epf.wiki/#/wiki/EL/JSON-RPC
+https://epf.wiki/#/wiki/EL/devp2p
+https://epf.wiki/#/wiki/EL/RLP
 <!-- Content_END -->
