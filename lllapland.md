@@ -258,7 +258,6 @@ https://epf.wiki/#/eps/week3
 
 
 ### 2025.02.13
-### 2025.02.16
 https://epf.wiki/#/eps/week4
 
 #### Execution Layer Testing
@@ -306,6 +305,10 @@ https://epf.wiki/#/eps/week4
   - ethereum/execution-spec-tests (EEST) [doc](https://ethereum.github.io/execution-spec-tests/verkle@v0.0.6/)
 #### Consensus Layer Testing
   - ethereum/consensus-specs
+  
+### 2025.02.16
+https://epf.wiki/#/eps/week4
+
 #### Cross-Layer (interop) Testing 
 (Execution + Consensus) (E2E testing)
   - **Hive 💡**  
