@@ -330,4 +330,22 @@ def build(env: Environment, pool: TxPool, state: StateDB) -> Tuple[Block, StateD
     return finalize(env, txs, state)
 ```
 
+### 2025.02.16
+
+#### 共识层 
+共识层旨在协调分布式系统的同步问题，即基于区块链的分布式系统旨在就单一交易历史达成一致，包括抵抗不可靠的节点和恶意节点。
+
+#####  Consensus mechanism共识机制
+
+工作量证明 PoW和权益证明 PoS是共识机制，共识机制是用来确保能够实现Consensus protocol 共识协议的。
+以太坊实际上采用两种不同的共识协议，并把它们结合在一起。一种称为[LMD GHOST](https://epf.wiki/#/wiki/CL/gasper?lmd-ghost)，
+另一种称为[Casper FFG](https://epf.wiki/#/wiki/CL/gasper?casper-ffg)。这种组合被称为[Gasper](https://epf.wiki/#/wiki/CL/gasper)。
+
+###### 权益证明 PoS Proof-of-stake
+区块链是一组不断延长的账本、不可串改的证明。每次延长时需要一个节点为此负责，在比特币网络中采用工作量证明——算力最强的矿工——作为负责人，
+而以太坊是从质押者中随机挑选一位作为新区块的提议者。他负责将区块添加到链中，选择并排序其内容。
+
+
+
+
 <!-- Content_END -->
