@@ -258,15 +258,99 @@ https://epf.wiki/#/eps/week3
 
 
 ### 2025.02.13
+### 2025.02.16
 https://epf.wiki/#/eps/week4
 
 #### Execution Layer Testing
+- EVM Testing
+  - key characteristics
+    - pre-state
+      - accounts with balances etc.
+    - environment
+      - timestamp etc.
+    - transaction(s)
+      - origin
+      - destination
+      - ether value
+      - gas limit
+      - etc.
+    - post-state
+      - accounts with balances etc.
+  - State Testing <> Fuzzy Differential State Testing
+
+| Feature                          | State Testing                                      | Fuzzy Differential State Testing                   |
+|----------------------------------|---------------------------------------------------|--------------------------------------------------|
+| **Testing Goal**                 | verify **a single client**’s state transitions       | compare **multiple clients** to detect state inconsistencies |
+| **Input Generation**             | predefined, deterministic transactions or state changes | fuzzing (**randomly generated** or **mutated** transactions) |
+| **Execution**                    | single client                          |  multiple clients (e.g., **Geth, Nethermind, Besu**) |
+| **Types of Issues Detected**     | - EVM computation errors <br>- state update errors <br>- smart contract execution issues | - client implementation differences <br>- **potential consensus forks** |
+| **Use Cases**                    | - ensuring a client follows Ethereum protocol <br>- regression testing in CI/CD <br>- validating EIP implementations | - identifying network-wide inconsistencies <br>- preventing **hard forks due to state mismatches** |
+| **Complexity**                   | controlled, predictable inputs                   | higher complexity due to unexpected fuzzing cases |
+  -  Blockchain Negative Testing
+     1. transaction-level negative testing
+          - **case**: construct a transaction with an excessively **large nonce** and check if the client correctly rejects it
+
+      2. smart contract negative testing
+           - **case**: attempt to trigger an integer overflow
+
+      3. network-level negative testing
+           - **case**: simulate a **DDoS attack** by sending a large number of junk transactions or requests to nodes
+      4. consensus mechanism negative testing
+           - **case**: construct two transactions with the same `nonce` but different `to` addresses and check if the PoS/PoW mechanism correctly handles the conflict  
+           - **test objective**: ensure that the client does not cause **a consensus divergence** due to **mismatched transaction states**  
+      5. data storage negative testing
+           - **case**: provide a tampered block header (with an incorrect merkle root)
+           - **test objective**: ensure that the node correctly rejects a manipulated block
+
+  - ethereum tests
+  - ethereum/execution-spec-tests (EEST) [doc](https://ethereum.github.io/execution-spec-tests/verkle@v0.0.6/)
 #### Consensus Layer Testing
-#### Cross-Layer (interop) Testing
+  - ethereum/consensus-specs
+#### Cross-Layer (interop) Testing 
+(Execution + Consensus) (E2E testing)
+  - **Hive 💡**  
+    - ✅ **Suitable for**  
+      - ethereum PoS EL-CL interaction testing
+      - fork upgrade compatibility  
+      - cross-client interoperability –> verifies **different EL-CL client pairings** work together  
+      - stability under network issues –> simulates delays, packet loss, and failures.  
+
+    - ❌ **Not suitable for**  
+      - fuzz testing –> runs structured tests, not random input-based bug detection. 
+      - standalone EVM execution –> focuses on EL-CL, not individual transaction processing   
+      - isolated EL or CL testing –> designed for their integration, not single-layer testing  
+  - Devnets <> Shadow-Forks <> Testnets
+
+| **Category**       | **Purpose**                  | **Characteristics**          | **Use Cases**                                |
+|--------------------|-----------------------------|------------------------------|---------------------------------------------|
+| **Devnets** | **local** or **private** testing environment | customizable, fully controlled | internal team **development**, rapid iteration |
+| **Shadow Forks**   | simulate the mainnet environment | real blockchain data, non-disruptive | **mainnet upgrade simulation**, MEV analysis |
+| **Testnets**       | public testing environment  | open access, free test tokens | DApp **deployment**, wallet & DeFi compatibility |
+
+
+
 #### Security
+- Execution layer security
 
----
+| category | risk | impact | mitigation | attack example |
+|----------|------|--------|------------|---------------|
+| Valid invalidation | mistakenly rejecting valid transactions | consensus forks, transaction failures | consensus testing, transaction replay tests, proper evm rule adaptation | clients misinterpreting evm updates, causing certain transactions to be rejected |
+| Invalid validation | mistakenly accepting invalid transactions | network pollution, fund loss | **formal verification**, state rollback, strict evm rule enforcement | ❗️ **integer overflow** in smart contracts allowing unauthorized withdrawals |
+| DoS during execution | **excessive resource consumption** during transaction execution | transaction delays, node crashes, network congestion | 💡 gas fee optimization, contract execution limits, monitoring and detection | ❗️ **recursive contract calls** (e.g., gas griefing) to consume block resources |
 
-(不行……困飞了，今天虚假签到一下……我是有听了15分钟的课的，但是感觉啥也没记下来噗……)
+- Consensus layer security
+  - faulty clients and finalization
+    - if **< 1/3 of nodes** fail, the network can reach **finality**.  
+    - if **> 1/2 of nodes** fail, the network may **lose consensus** and enter an **uncertain state**.  
+    - if **> 2/3 of nodes** are attacked or controlled, ethereum could **finalize the wrong chain**, causing major risks.  
+
+| Faulty node percentage | Impact |
+|------------------------|--------|
+| **< 33%** | may cause **missed slots**, but **finalization is not affected** |
+| **33%+** | **delayed finality**, block confirmation takes longer, but the chain continues |
+| **50%+** | may disrupt forkchoice, leading to network uncertainty and a **non-finalized state**, where users cannot be sure if their transactions are permanently recorded. |
+| **66%+** | may **finalize an incorrect chain** 💀, causing severe consequences |
+
 
 <!-- Content_END -->
+
