@@ -796,7 +796,7 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 
 ### 2025.02.15
 
-**EPF WIKI WEEK6: Study Group Week 6 | Sharding and DAS**
+#### **EPF WIKI WEEK6: Study Group Week 6 | Sharding and DAS**
 
 #### **I. 核心学习目标**
 
@@ -893,5 +893,119 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 ------
 
 通过本课程的系统学习，研究者将深入理解以太坊未来扩容方向，掌握数据可用性核心技术。建议结合[Devcon研讨会资料](https://www.youtube.com/watch?v=8L2C6RDMV9Q)跟进最新进展，参与[Ethresear.ch论坛](https://ethresear.ch/)讨论协议改进提案。
+
+### 2025.02.16
+
+#### **EPF WIKI Week 7 | Execution client architecture**
+
+#### **I. 核心学习目标**
+
+**主题**: 执行层客户端架构与Reth设计解析
+**目标**: 掌握现代执行层客户端设计理念，深入理解Reth代码架构。
+
+------
+
+#### **II. 课程大纲重点**
+
+##### **1. Reth客户端概述**
+
+- **开发语言**：Rust（兼顾性能与安全性）
+- 核心优势：
+  - 模块化设计，支持插件扩展
+  - 基于Actor模型的异步任务处理
+  - 状态树存储优化（替代传统Merkle Patricia Trie）
+
+##### **2. 架构设计亮点**
+
+- 分层架构：
+  - **网络层**：基于LibP2P实现高效节点通信
+  - **同步引擎**：支持快照同步与增量同步混合模式
+  - **执行环境**：隔离的EVM运行时（WASM兼容）
+- 创新特性：
+  - 基于RocksDB的列式存储优化
+  - 交易池优先级队列与抗DoS机制
+  - 轻客户端模式下的状态证明生成
+
+##### **3. 代码结构解析**
+
+- 核心模块：
+
+  - `reth-db`：数据库抽象层（支持多后端存储）
+  - `reth-network`：P2P网络协议实现
+  - `reth-executor`：EVM执行引擎（兼容EOF规范）
+
+- 示例分析：
+
+  ```rust
+  // 区块处理流程
+  async fn process_block(block: Block) -> Result<(), Error> {
+      let state = State::new();
+      execute_transactions(block.transactions, &state).await?;
+      persist_state(state).await?;
+      Ok(())
+  }
+  ```
+
+##### **4. 性能优化策略**
+
+- **并行处理**：交易执行与状态更新解耦
+- **缓存机制**：热数据内存缓存（LRU策略）
+- **批处理写入**：减少数据库I/O操作
+
+------
+
+#### **III. 关键学习资源**
+
+##### **必读材料**：
+
+- [Reth官方文档](https://paradigmxyz.github.io/reth/)：架构设计与API参考
+- [Erigon设计理念](https://github.com/ledgerwatch/erigon)：Geth分叉项目的创新实践
+
+##### **深度解析**：
+
+- [Reth技术解析](https://www.youtube.com/watch?v=pxhq7YrySRM)（Dragan演讲）
+- [Rust异步编程模型](https://tokio.rs/)：理解Actor模型实现基础
+
+------
+
+#### **IV. 实践建议**
+
+1. **环境搭建**：
+
+   ```bash
+   # 克隆Reth代码库
+   git clone https://github.com/paradigmxyz/reth
+   # 编译调试版本
+   cargo build --features "jemalloc,backend-mdbx"
+   ```
+
+2. **调试实践**：
+
+   ```bash
+   # 启用交易池调试日志
+   RUST_LOG=debug reth --debug.txpool
+   # 观察区块同步过程
+   RUST_LOG=info reth --sync-mode snap
+   ```
+
+3. **自定义模块开发**：
+
+   - 实现`reth-consensus`模块的自定义分叉规则
+   - 扩展`reth-rpc`添加新的JSON-RPC方法
+
+------
+
+##### **V. 技术术语对照**
+
+| 英文术语         | 中文解释   |
+| ---------------- | ---------- |
+| Actor Model      | 参与者模型 |
+| Columnar Storage | 列式存储   |
+| State Trie       | 状态树     |
+| Snapshot Sync    | 快照同步   |
+
+------
+
+通过本课程的系统学习，开发者将掌握现代以太坊客户端的架构设计精髓，具备参与Reth等新一代客户端开发的能力。建议结合[Erigon代码库](https://github.com/ledgerwatch/erigon)对比学习传统与创新设计差异，通过[Tokio文档](https://tokio.rs/)深化异步编程理解。
 
 <!-- Content_END -->
