@@ -280,4 +280,19 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- ENR records contain routing information to establish connections between peer.
 	- Blocks in Ethereum network are distributed using *gossip protocol* of the p2p stack
 ### 2025.02.16
+- Execution Layer
+	- Downloader
+	- Transaction Pools
+		- **Legacy Pools**: these pools employ price-sorted heaps or priority queues to organize transactions based on their price.
+			- transactions are arranged using two heaps:
+				- one prioritizes the effective tip for the upcoming block
+				- the other focuses on the gas fee cap
+			- the larger of these two heaps is selected for the eviction of transactions
+		- **Blob Pools**: maintain a priority heap for transaction eviction but incorporate distinct mechanisms for operation.
+			- A key feature of blob pools is the use of logarithmic functions in their eviction queues.
+	- Storage
+		- Blockchain and state data processed by execution client need to be stored in the disk.
+		- ancient database: historical data
+		- trie structure database: current state and small number of recent states
+		- clients keep various databases for different data categories, and can implement different backend handle this data, e.g. leveldb, pebble, mdbx.
 <!-- Content_END -->
