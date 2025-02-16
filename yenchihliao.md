@@ -147,7 +147,7 @@ Picked up/strengthened some key concepts
         - Stateless validators
 - The Splurge: EOF, AA, better EIP-1559, encrypted mempool, etc.
 
-### 2025.02.15
+### 2025.02.16
 Viewed some additional information of previous weeks
 
 - [PoS](https://www.youtube.com/watch?v=5gfNUVmX3Es)
