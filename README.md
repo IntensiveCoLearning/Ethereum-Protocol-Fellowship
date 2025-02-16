@@ -116,7 +116,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [rayjun](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/rayjun.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | | | | |   |   |
 | [CJC824](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/CJC824.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [William-02-02](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/William-02-02.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
-| [hotoo](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/hotoo.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ |   | | | | | | | | | | | | |   |   |
+| [hotoo](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/hotoo.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | | | | |   |   |
 | [JoscelynFarr](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/JoscelynFarr.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [cherry-yl-sh](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/cherry-yl-sh.md) | ✅ | ⭕️ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [HeliosLz](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/HeliosLz.md) | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ |   | | | | | | | | | | | | |   |   |
@@ -191,6 +191,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/pillowtalk-Qy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
