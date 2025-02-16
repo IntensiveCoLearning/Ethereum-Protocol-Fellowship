@@ -154,4 +154,40 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@javierggil/ethereum-reward-explained-8f927a1263c6
 这对于手工更新全局状态中的以太坊余额很有用。
 
+    import ethereum_types.numeric
+    import ethereum.genesis
+    import ethereum.frontier.fork
+    import ethereum.frontier.trie
+    import ethereum.frontier.state
+    
+    
+    description: ethereum.genesis.GenesisFork[
+        ethereum.frontier.fork_types.Address,
+        ethereum.frontier.fork_types.Account,
+        ethereum.frontier.state.State,
+        ethereum.frontier.trie.Trie,
+        ethereum.frontier.fork_types.Bloom,
+        ethereum.frontier.blocks.Header,
+        ethereum.frontier.blocks.Block
+    ] = ethereum.genesis.GenesisFork(
+        Address=ethereum.frontier.fork_types.Address,
+        Account=ethereum.frontier.fork_types.Account,
+        Trie=ethereum.frontier.trie.Trie,
+        Bloom=ethereum.frontier.fork_types.Bloom,
+        Header=ethereum.frontier.blocks.Header,
+        Block=ethereum.frontier.blocks.Block,
+        set_account=ethereum.frontier.state.set_account,
+        set_storage=ethereum.frontier.state.set_storage,
+        state_root=ethereum.frontier.state.state_root,
+        root=ethereum.frontier.trie.root,
+        hex_to_address=ethereum.frontier.utils.hexadecimal.hex_to_address,
+    )
+    
+    MAINNET_GENESIS_CONFIGURATION = ethereum.genesis.get_genesis_configuration("mainnet.json")
+    
+    chain = ethereum.frontier.fork.BlockChain([], ethereum.frontier.state.State(), ethereum_types.numeric.U64(1))
+    ethereum.genesis.add_genesis_block(description, chain, MAINNET_GENESIS_CONFIGURATION)
+
+创建一个空的区块链，并且从 mainnet.json 导入初始的预挖信息。接下来我应该可以通过 RPC API 读取数据，送到 EVM 构建新的区块。
+
 <!-- Content_END -->
