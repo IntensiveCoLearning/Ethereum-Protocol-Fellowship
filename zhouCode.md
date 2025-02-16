@@ -681,4 +681,54 @@ When running on a public testnet using a cloud provider's Kubernetes cluster, th
 To mitigate these issues, you can use the `el_volume_size` and `cl_volume_size` flags to override the default settings locally. This allows you to allocate more storage to the EL and CL clients, which can help accommodate faster state growth and improve syncing performance. However, keep in mind that increasing the volume size may also increase your cloud provider costs. Always monitor your usage and adjust as necessary to balance performance and cost.
 
 For optimal performance, we recommend using a cloud provider that allows you to provision Kubernetes clusters with fast persistent storage or self hosting your own Kubernetes cluster with fast persistent storage.
+
+### 2025.02.15
+
+##### ethpandaops/ethereum-package初步搭建成功
+
+遇到的坑记录（Ubuntu系统24.04.1LTS）：
+
+1. kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package运行不了
+   - 尝试登录docker（x），配置gpg（x），修改镜像源（多次尝试才成功）
+   - 意外收获：如果后续docker实在无法pull，可以看[Docker镜像停服? 我编写了一个镜像转存工具，解决国内无法使用docker的问题，解决docker镜像无法拉取问题，修复docker pull失败_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Zn4y19743/?spm_id_from=333.1387.homepage.video_card.click&vd_source=5b38ea9eae760d7d5d2330a78b68a494)
+2. 原因：docker国内直连网络问题严重，各种国内镜像时常过期，挂VPN也不一定有用，总结了一些（可能有用的）镜像源
+
+```json
+"https://<阿里云个人镜像>.mirror.aliyuncs.com", #https://cr.console.aliyun.com/cn-hongkong/instances/mirrors，当前仅支持阿里云用户使用具备公网访问能力的阿里云产品进行镜像加速
+"https://mirrors.ustc.edu.cn/docker-ce",
+"https://registry.docker-cn.com",
+"http://hub-mirror.c.163.com",
+"https://dockerpull.org",
+"https://docker.1panel.dev",
+"https://docker.foreverlink.love",
+"https://docker.fxxk.dedyn.io",
+"https://docker.xn--6oq72ry9d5zx.cn",
+"https://docker.zhai.cm",
+"https://docker.5z5f.com",
+"https://a.ussh.net",
+"https://docker.cloudlayer.icu",
+"https://hub.littlediary.cn",
+"https://hub.crdz.gq",
+"https://docker.unsee.tech",
+"https://docker.kejilion.pro",
+"https://registry.dockermirror.com",
+"https://hub.rat.dev",
+"https://dhub.kubesre.xyz",
+"https://docker.nastool.de",
+"https://docker.udayun.com",
+"https://docker.rainbond.cc",
+"https://hub.geekery.cn",
+"https://docker.1panelproxy.com",
+"https://atomhub.openatom.cn",
+"https://docker.m.daocloud.io",
+"https://docker.1ms.run",
+"https://docker.linkedbus.com",
+"https://dytt.online",
+"https://func.ink",
+"https://lispy.org",
+"https://docker.xiaogenban1993.com"
+```
+
+2. 仓库下的`network_params.yaml`为配置文件，可以自行配置
+
 <!-- Content_END -->

@@ -37,4 +37,7 @@ Watch this video to learn stack validation algorithm in EOF upgrade: https://www
 ### 2025.02.14
 Start reviewing the EEST codebase and try to find an issue I could contribute to, and dive deeper into the EOF implementation.
 
+### 2025.02.15
+I reviewed this PR: https://github.com/ethereum/execution-spec-tests/issues/770, and the EEST contribution guideline.
+
 <!-- Content_END -->

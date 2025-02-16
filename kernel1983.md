@@ -135,4 +135,23 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 发现 https://github.com/ethereum/execution-specs/tree/master/src/ethereum 里面有一些宝库，有完整的所有 fork 的 python 实现，并且这个是权威的。
 这个应该就是 py-evm 的各个版本快照。找时间运行一下，看看需不需要魔改。
 
+### 2025.02.15
+
+尝试配置环境运行 execution-specs/src，从 frontier 开始读取交易构建 state。有一些进展。
+
+    import ethereum.frontier.trie
+
+    print(ethereum.frontier.trie.EMPTY_TRIE_ROOT.hex())
+
+    print(ethereum.frontier.trie.root(ethereum.frontier.trie.Trie(default={}, secured=True)).hex())
+
+    t = ethereum.frontier.trie.Trie(default={}, secured=True)
+    ethereum.frontier.trie.trie_set(t, b'1', b'2')
+    print(ethereum.frontier.trie.root(t).hex())
+
+### 2025.02.16
+
+https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@javierggil/ethereum-reward-explained-8f927a1263c6
+这对于手工更新全局状态中的以太坊余额很有用。
+
 <!-- Content_END -->

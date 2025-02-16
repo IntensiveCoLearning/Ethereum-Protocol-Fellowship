@@ -732,4 +732,28 @@ Reth引入了執行擴展（Execution Extensions，簡稱ExEx），這是一個�
 
 [蜜蜂書第三章](https://cypherpunks-core.github.io/ethereumbook_zh/)
 
+### 2025.02.15
+
+### **RLP（Recursive-Length Prefix）序列化**  
+
+**Recursive-Length Prefix（RLP）** 是執行層（Execution Layer）中的核心序列化協議，用於對數據進行編碼與解析。其設計目的是將數據序列化，以生成所有客戶端軟體均可讀取的結構。RLP 序列化適用於從交易數據到整個區塊鏈狀態的各種場景。本文探討 RLP 的內部運作機制、編碼/解碼規則、可用工具，以及它在 Ethereum 中的功能。
+
+---
+
+### **Ethereum 中的數據序列化**  
+
+數據序列化是指將數據結構或對象轉換為字節流，以便存儲、傳輸或稍後重建。在像 Ethereum 這樣的分散式系統中，序列化對於在網路節點間可靠、高效地傳遞數據至關重要。不同程式語言編寫的客戶端都需要以相同的方式處理數據，並且客戶端向其他節點傳輸數據或導出數據時，都必須遵循標準格式。  
+
+雖然常見的序列化格式包括 **JSON、XML、Protobuf**，但 Ethereum 採用了自己的協議，因為它在編碼**嵌套字節數組（Nested Arrays of Bytes）**方面更簡單高效。  
+
+Ethereum 事實上使用了兩種主要的數據序列化格式：  
+1. **RLP（Recursive-Length Prefix）** —— 用於執行層（Execution Layer）。  
+2. **SSZ（Simple Serialize）** —— 一種較新的標準，主要用於共識層（Consensus Layer）。  
+
+![image](https://github.com/user-attachments/assets/f13cbf77-0300-4b7a-87ee-5a6ea45e0bcb)
+
+
+[5分鐘深入了解以太坊編碼原理
+2019-07-22](https://blockbar.io/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%B7%A8%E7%A2%BC%E5%8E%9F%E7%90%86-ethereum-coding-principle/)
+
 <!-- Content_END -->

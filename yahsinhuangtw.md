@@ -93,5 +93,8 @@ This is useful to get rid of our single trusted operator because as the number o
 
 When they do this, then, even if some of the nodes are faulty, you still have a majority of them saying, "This is the state of the world." So, the idea is that it becomes much harder now to attack our system as we have more nodes who are doing the same thing.
 
+### 2025.02.15
+
+星期六的早上殘酷學習時間，繼續看了一段 Alex Stokes 老師 Week 3 針對 Consensus Layer 的介紹，其中一些內容讓我想到 Tim Roughgarden 老師也講過類似的主題，只是 Tim Roughgarden 老師講得更深入且用詞更精確。像是 Tim Roughgarden Lectures 頻道其中一個系列影片「Foundations of Blockchains (Lecture 1.4: State Machine Replication)」 https://youtu.be/EaPBj_EUBPI?si=XHUeohYZ4IgxbV14 就有詳細介紹 State Machine Replication。
 
 <!-- Content_END -->
