@@ -71,4 +71,12 @@ Still preparing for next week, the record would be update after then.
 -- new week --
 ### 2025.02.17
 
+Materials in Day 1
+[Mastering Ethereum](https://cypherpunks-core.github.io/ethereumbook/)
+[Ethereum Virtual Machine (Ethereum 101)](https://veridelisi.substack.com/p/understanding-ethereum-virtual-machine-evm])
+[Discord Live Talk](https://discord.com/channels/1205546645496795137/1205546645937463356)
+
+### 2025.02.18
+
+
 <!-- Content_END -->
