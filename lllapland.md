@@ -88,23 +88,23 @@ https://epf.wiki/#/eps/week2
 
 | **Client**     | **Language** | **Why Chosen?**                                      |
 |---------------|-------------|------------------------------------------------------|
-| **Geth**      | Go          | Easy concurrency, large developer community, mature ecosystem |
-| **Erigon**    | Go          | Optimized storage, improved sync speed 💡         |
-| **Nethermind** | C#         | Suitable for .NET ecosystem, enterprise-friendly   |
-| **Besu**      | Java        | Hyperledger compatibility, enterprise-level support |
-| **Reth**      | Rust 💡       | High performance, memory safety                     |
+| **Geth**      | Go          | easy concurrency, large developer community, mature ecosystem |
+| **Erigon**    | Go          | optimized storage, improved sync speed 💡         |
+| **Nethermind** | C#         | suitable for .NET ecosystem, enterprise-friendly   |
+| **Besu**      | Java        | hyperledger compatibility, enterprise-level support |
+| **Reth**      | Rust        | high performance, memory safety                     |
 
 
 ##### Consensus Layer vs. Execution Layer
 
 | **Comparison**      | **Execution Layer (EL)**            | **Consensus Layer (CL)**       |
 |---------------------|----------------------------------|----------------------------------|
-| **Main Function**   | Processes transactions, executes smart contracts | Validates blocks, runs **PoS** consensus |
+| **Main Function**   | processes transactions, executes smart contracts | validates blocks, runs **PoS** consensus |
 | **Core Components** | EVM, Transaction Pool, State Database | Beacon Chain, Validators, Slot/Epoch Mechanism |
 | **Runs PoS?**       | ❌ No | ✅ Yes |
-| **Consensus Role**  | Executes transactions but does not determine consensus | Runs PoS rules, decides block validity |
+| **Consensus Role**  | executes transactions but does not determine consensus | runs **PoS** rules, decides block validity |
 | **Client Examples** | Geth, Erigon, Nethermind | Prysm, Lighthouse, Teku, Nimbus |
-| **Stored Data**     | Account balances, smart contracts, transaction history | Validator registry, voting data, finality information |
+| **Stored Data**     | account balances, smart contracts, transaction history | validator registry, voting data, finality information |
 
 ##### Why Did Ethereum Split CL and EL?
 
@@ -190,8 +190,8 @@ https://epf.wiki/#/eps/week3
 |------------------------|-----------------------------------------------|----------------------------|
 | **Objective**         | tolerates malicious nodes | ensures **all** databases either commit or rollback a transaction consistently |
 | **Fault Tolerance Model** | **Byzantine Fault Tolerance (BFT)**, capable of handling malicious nodes | **Crash Fault Tolerance (CFT)**, only handles node crashes but cannot tolerate malicious behavior |
-| **Applicable Scenarios** 🌟 | **Blockchain** (Hyperledger, Tendermint, HotStuff, etc.) | **Distributed Databases & Transaction Management** (MySQL, PostgreSQL, distributed storage) |
-| **Voting Mechanism**   | **Voting + Signature Authentication**, consensus is reached if more than **2/3 agree** | **Unanimous Agreement Required**, if **any** participant votes `"abort"`, the transaction is rolled back |
+| **Applicable Scenarios** 🌟 | **blockchain** (Hyperledger, Tendermint, HotStuff, etc.) | **distributed databases & transaction management** (MySQL, PostgreSQL, distributed storage) |
+| **Voting Mechanism**   | **voting + signature authentication**, consensus is reached if more than **2/3 agree** | **unanimous agreement required**, if **any** participant votes `"abort"`, the transaction is rolled back |
 | **Communication Complexity** | **O(n²)** -> multiple rounds of message exchanges, where each node broadcasts messages to all other nodes 🌟| **O(n)** |
 
 
@@ -364,7 +364,8 @@ https://epf.wiki/#/eps/week5
   - introduction of **Verkle Trees** to optimize data storage 
 - **The Purge** - simpler protocol  
   - pruning old state data to reduce node storage requirements 
-- **The Splurge** miscellaneous upgrades and optimizations.  
+- **The Splurge** 
+  - miscellaneous upgrades and optimizations.  
   
 <!-- Content_END -->
 
