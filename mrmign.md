@@ -280,4 +280,28 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- ENR records contain routing information to establish connections between peer.
 	- Blocks in Ethereum network are distributed using *gossip protocol* of the p2p stack
 ### 2025.02.16
+- Execution Layer
+	- Downloader
+	- Transaction Pools
+		- **Legacy Pools**: these pools employ price-sorted heaps or priority queues to organize transactions based on their price.
+			- transactions are arranged using two heaps:
+				- one prioritizes the effective tip for the upcoming block
+				- the other focuses on the gas fee cap
+			- the larger of these two heaps is selected for the eviction of transactions
+		- **Blob Pools**: maintain a priority heap for transaction eviction but incorporate distinct mechanisms for operation.
+			- A key feature of blob pools is the use of logarithmic functions in their eviction queues.
+	- Storage
+		- Blockchain and state data processed by execution client need to be stored in the disk.
+		- ancient database: historical data
+		- trie structure database: current state and small number of recent states
+		- clients keep various databases for different data categories, and can implement different backend handle this data, e.g. leveldb, pebble, mdbx.
+### 2025.02.17
+- [The Ethereum Virtual Machine (EVM)](https://epf.wiki/#/wiki/EL/evm?id=the-ethereum-virtual-machine-evm)
+	- It performs the crucial computations needed to finalise transactions, permanently storing the results on the blockchain.
+	- Ethereum can be viewed as a `transaction-based state machine`
+	- In Ethereum, the world state is essentially a mapping of 20-byte addresses to account states.
+	- TODO [][Ethereum data structures](https://epf.wiki/#/wiki/EL/data-structures) for details on how the world state is implemented.
+	- [Virtual machine paradigm](https://epf.wiki/#/wiki/EL/evm?id=virtual-machine-paradigm) go on...
+
+
 <!-- Content_END -->

@@ -118,7 +118,7 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
   - 新共识机制：PoS 下的共识是通过质押、验证者的证明以及随机选择区块提议者和委员会的算法来实现的，以确保网络保持安全并高效地处理交易。
 
 ### 2025.02.13
-**学习主题：Beacon Chain as Consensus Manager**
+**学习了解：Beacon Chain as Consensus Manager**
 - Validators as PoS Participants
   - Staking ETH
   - Proposing Blocks
@@ -132,7 +132,7 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
 
 
 ### 2025.02.14
-**学习主题：Beacon Chain**
+**学习了解：Beacon Chain**
 
 - **Design for Scalability and L2 Solutions (EIP-4844 and Blobs):** EIP-4844 (proto-danksharding) addresses Ethereum's scalability needs by introducing Blobs, enabling a separate data availability layer.
 
@@ -151,5 +151,14 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
 - **Epochs and Slots:** The system operates based on slots and epochs, to help regulate the chain and implement PoS.
 
 - **Validator Lifecycle Management:** They are subject to the system's rewards and penalties, are monitored for malicious behavior, have their movements monitored, and are all recorded in the state of the network.
+
+### 2025.02.17
+**学习了解：EL**
+- EL Specification: This is like the "blueprint" or detailed rulebook that describes how the Ethereum Execution Layer should work. It explains everything from how transactions are processed to how smart contracts are executed, the format of blocks, and the calculations of gas fees. It's basically all the technical details a developer would need to build or understand an Ethereum client.
+- EL Architecture: This describes the structure of the Execution Layer. It explains the different parts of the system (like the Ethereum Virtual Machine (EVM), the transaction pool (mempool), and the state database) and how they interact with each other. It's like a diagram showing all the departments in a company and how they communicate.
+- Python Specification: The "pyspec" is a specific implementation of the EL specification written in Python. 
+
+![](https://epf.wiki/images/el-specs/stf_eels.png)
+
 
 <!-- Content_END -->

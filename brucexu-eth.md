@@ -279,6 +279,8 @@ TODO 明天把整个区块的所有信息和内容过一下 https://etherscan.io
 TODO randao
 TODO withdrawals 提款工作原理？
 
+# 2025.02.14
+
 ## https://epf.wiki/#/eps/week2
 
 LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.
@@ -387,6 +389,21 @@ LevelDB is a fast key-value storage library written at Google that provides an o
 }
 ```
 
+# 2025.02.17
+
+开始跟随官方的 EPFsg 高强度学习 https://epf.wiki/#/eps/intro，其实就是复习，但是要确保一天能完成一个主题。
+
+今天我把 Execution Layer W2 的收尾完成掉。
+
+## https://epf.wiki/#/eps/week2
+
+看了下视频，其实整个执行层的运行还是比较简单的，无非就是去将 env、tx、state 等进行执行和验证，确保 gas 没有超出，然后出块等。然后修改到 stateDB 上面，相当于一个状态函数转移。
+
+在 txpool.Pop() 的时候，先按照 paying gas to the builder 进行排序，然后取出来最大收益的 tx。
+
+EL 会判断如果 tx 是 invalid 就不会发到 CL 了，只是负责打包等。加密 mempool 有待解决。
+
+打算把 go-ethereum 的代码跑起来，直接 debug 看源代码，暂时卡住了，对 Go 语言不熟悉。
 
 
 

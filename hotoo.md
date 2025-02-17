@@ -89,7 +89,11 @@ timezone: Asia/Shanghai
 ### 2025.02.16
 > 周日
 
-笔记内容
+- https://epf.wiki/#/eps/week9-dev
+- https://epf.wiki/#/eps/week9-research
+  - [Statelessness and history expiry, Ethereum.org](https://ethereum.org/en/roadmap/statelessness/)
+  - [Portal Network web](https://www.ethportal.net/)
+  - [EL Data structure](https://epf.wiki/#/wiki/EL/data-structures)
 
 
 <!-- Content_END -->

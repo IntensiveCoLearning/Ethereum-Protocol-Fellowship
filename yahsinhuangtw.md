@@ -97,4 +97,17 @@ When they do this, then, even if some of the nodes are faulty, you still have a 
 
 星期六的早上殘酷學習時間，繼續看了一段 Alex Stokes 老師 Week 3 針對 Consensus Layer 的介紹，其中一些內容讓我想到 Tim Roughgarden 老師也講過類似的主題，只是 Tim Roughgarden 老師講得更深入且用詞更精確。像是 Tim Roughgarden Lectures 頻道其中一個系列影片「Foundations of Blockchains (Lecture 1.4: State Machine Replication)」 https://youtu.be/EaPBj_EUBPI?si=XHUeohYZ4IgxbV14 就有詳細介紹 State Machine Replication。
 
+### 2025.02.16
+
+週日晚上殘酷學習時間，主要觀看第四週的報告老師 Mario Vega 談 Testing 的主題「Testing & Security Overview | Mario Vega | Week 4」https://www.youtube.com/live/PQVW5dJ8J0c?si=Ee0MeIE6hnvN5hDB 
+
+https://epf.wiki/#/eps/week4
+
+<img width="882" alt="Screenshot 2025-02-16 at 10 46 54 PM" src="https://github.com/user-attachments/assets/4b2fae98-00c4-4912-ac20-df9ffb1fe562" />
+
+談了與 EVM 相關的議題，例如 EVM testing - Tests Filling 以及 EVM testing - Fuzzing Differential State Testing 等等議題，看影片聽老師介紹一段，光是 EVM testing 就花了很長一段時間討論，感覺實際作業相當複雜。
+
+<img width="879" alt="Screenshot 2025-02-16 at 10 57 28 PM" src="https://github.com/user-attachments/assets/79c54b40-31e9-4293-a14f-c2db1b5a0eb0" />
+
+
 <!-- Content_END -->

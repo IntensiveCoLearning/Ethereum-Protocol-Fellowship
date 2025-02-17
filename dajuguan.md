@@ -87,4 +87,35 @@ https://github.com/dajuguan/lab/blob/d10a269bf17ac14fbce8bfbadfd532b6d25c100a/et
 
 - [Quarkchain rlp and transaction util](https://github.com/QuarkChain/pyquarkchain/blob/master/quarkchain/evm/transactions.py)
 - [decode地址字节未对齐的交易示例,从1:12:20开始](https://meeting.tencent.com/cw/lRebQGM11a)
+
+### 2025.02.11
+学习了EL和CL的网络层相关内容，EL采用devP2P, 而CL则采用IPFS团队开发的libP2P，这是因为libP2P发展的较晚，以太坊出来的时候libP2P还没有成熟。
+以太坊The merge也对libP2P提出了很多升级建议，比如加密算法采用Noise等等
+References:
+- [libP2P和ETH2.0的关系](https://blog.libp2p.io/libp2p-and-ethereum/)
+- [Ethereum 2.0's networking wire protocol spec](https://github.com/ethereum/consensus-specs/issues/692)
+- [Noise protocol](http://www.noiseprotocol.org/noise.html#introduction)
+- [陈天 TLS 和 Noise protocol](https://juejin.cn/post/6954308766900682765)
+
+### 2025.02.12
+学习了[discv4节点网络](https://github.com/ethereum/devp2p/blob/master/discv4.md)发现的kademlia算法，该算法主要解决P2P网络中节点发现的问题。核心要解决:
+- 节点ID很多,160bits的hash表空间有2^160这么多节点，那么单级肯定没法存下来，每个节点存那些节点？
+- 如何获取到整个网络中的所有节点
+
+核心思想还是用到局部性思想，通过XOR来定义节点之间的距离，每个节点只存储最多k个与自己log距离为i(1≤i≤MAX_BITS)的节点，这样存储空间只需要k*MAX_BITS。距离函数满足几个特性:
+- distance(x,x) == 0
+- distance(x,y) > 0
+- distance(x, y) + distance(y, z) ≥ distance(x, z)
+- distance(x, y) == distance(y, z) 距离可互换
+为了保证查找节点收敛，每次向自己已知的节点查询与目标节点最近的k个节点，根据返回值再递归地查询，这样保证每次log距离减小1或者不变，用O(log(MAX_BITS))查询就能找到网络中的任意目标节点。非常高效而简单的算法!
+
+需要注意的是，每个节点在所有log距离为[1,2,MAX_BITS]的各个buckets中至少要存储一个节点，否则有可能导致距离不会减小，没法迅速收敛。
+
+#### References
+- [Kademlia paper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
+- [Kademlia, Explained](https://www.youtube.com/watch?v=1QdKhNpsj8M)
+
+### 2025.02.13
+用python[实现了kademlia算法](https://github.com/dajuguan/lab/blob/00d0381ad45f8d3c9ad4c7dbf3c8bfd003901c20/eth/kademlia.py) 
+
 <!-- Content_END -->

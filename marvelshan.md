@@ -756,4 +756,188 @@ Ethereum 事實上使用了兩種主要的數據序列化格式：
 [5分鐘深入了解以太坊編碼原理
 2019-07-22](https://blockbar.io/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%B7%A8%E7%A2%BC%E5%8E%9F%E7%90%86-ethereum-coding-principle/)
 
+### 2025.02.16
+
+
+
+## **1. 以太坊虛擬機（EVM）簡介**  
+EVM 是以太坊世界計算機（Ethereum World Computer）的核心，負責執行交易，並將最終結果永久儲存到區塊鏈上。  
+
+## **2. 以太坊作為狀態機（State Machine）**  
+EVM 處理交易時，會改變以太坊的整體狀態，因此可以將以太坊視為一種狀態機。  
+- **狀態機（State Machine）**：用於描述系統如何從一種狀態轉變到另一種狀態的抽象模型。  
+- **例子**：販賣機根據投幣及按鍵輸入來改變狀態，最終吐出商品。  
+
+## **3. 虛擬機（Virtual Machine）的概念**  
+- 軟體需要轉換成機器語言（ISA, 指令集架構）才能執行，且不同硬體架構（如 Intel vs. Apple Silicon）有不同 ISA。  
+- 現代軟體還需要依賴作業系統來管理記憶體等資源。  
+- EVM 透過「虛擬機」這一層抽象，確保智能合約能在不同環境中一致執行。  
+
+---
+
+# **EVM 的結構與組成**  
+
+## **1. 基本架構**  
+- **字組（Word Size）**：EVM 的字組大小為 **32 bytes（256 bits）**。  
+- **EVM Bytecode**（位元碼）：EVM 程式由一串「位元組（byte）」組成，每個位元組代表：  
+  - **操作碼（Opcode）**：具體指令，如 `ADD`（加法）。  
+  - **操作數（Operand）**：提供給操作碼的輸入數據。  
+
+## **2. 堆疊（Stack）**  
+- **運作方式**：採用 **LIFO（後進先出）** 原則。  
+- **基本操作**：
+  - `PUSH`：將數據壓入堆疊頂部。  
+  - `POP`：移除堆疊頂部數據。  
+- **錯誤處理**：若試圖從空堆疊 `POP`，會觸發 **堆疊下溢（Stack Underflow）錯誤**。  
+
+## **3. 程式計數器（Program Counter, PC）**  
+- 負責追蹤**下一條**將要執行的指令在位元碼中的偏移量（offset）。  
+- 例如：
+  ```
+  Bytecode    Assembly   長度（bytes）   偏移量（hex）
+  60 06      PUSH1 06       2         00
+  60 07      PUSH1 07       2         02
+  01         ADD            1         04
+  ```
+  - `PC` 最初為 `00`，執行 `PUSH1 06`，然後移動到 `02`，依此類推。  
+
+## **4. 燃料（Gas）機制**  
+- **目的**：
+  - 防止無窮迴圈、DDoS 攻擊，保護以太坊網路資源。  
+  - **計算資源 = 以太幣（ETH）支付 Gas 費用**。  
+- **工作原理**：
+  - EVM 指令執行時需要消耗 Gas。  
+  - 若 Gas 不足，則交易失敗，EVM 停止執行。  
+- **EVM 的圖靈完備性**：由於 Gas 限制了計算步驟，EVM 被視為**準圖靈完備（Quasi-Turing Complete）**。  
+
+## **5. 記憶體（Memory）**  
+- **特點**：
+  - EVM 記憶體為一個長度 **2^256**（幾乎無限大）的字節陣列。  
+  - 初始時所有記憶體位置皆為 `0`。  
+- **操作指令**：
+  - `MSTORE`：從堆疊取值，寫入記憶體。  
+  - `MLOAD`：從記憶體讀取數據，壓入堆疊。  
+- **動態擴展機制**：
+  - 記憶體是以**頁（page）**為單位擴展，每頁 **32 bytes**。  
+  - 擴展記憶體需支付額外 Gas。  
+
+## **6. 儲存（Storage）**  
+- **特點**：
+  - 儲存區是**持久化存儲**，與智能合約地址關聯，交易結束後仍然存在。  
+  - 初始值皆為 `0`，只能透過**合約內部代碼**存取。  
+- **操作指令**：
+  - `SSTORE`：從堆疊取值，寫入智能合約儲存區。  
+  - `SLOAD`：從儲存區讀取數據，壓入堆疊。  
+
+---
+
+# **EVM 的未來升級（EVM Upgrades）**  
+
+## **1. EVM 變更的挑戰**  
+- 以太坊網路持續升級，但 **EVM 變更較為保守**，因為：
+  - **重大變更可能破壞現有智能合約**，增加開發維護成本。  
+  - 需要保持多個 EVM 版本，帶來額外的系統負擔。  
+
+## **2. 近期的 EVM 升級**  
+以下是一些 EIP（Ethereum Improvement Proposal，以太坊改進提案）：  
+- **EIP-1153**：新增暫存存儲（Transient Storage）。  
+- **EIP-4788**：引入信標鏈狀態的存取功能。  
+- **EIP-5000**：優化運行時指令。  
+- **EIP-5656**：增加新的 `MCOPY` 指令，提高記憶體拷貝效率。  
+- **EIP-6780**：**弱化 `SELFDESTRUCT` 指令**，防止合約惡意銷毀，卻仍維持向後兼容性。  
+
+## **3. EVM 重大改變：EOF 格式**  
+- **EOF（EVM Object Format）**是一項重要的未來升級，目標是：
+  - 統一 EVM 內部的位元碼格式，提升處理效率。  
+  - 簡化 EVM 的解析與執行，提高安全性與擴展性。  
+  - 涵蓋多項 EIP，已經討論和優化了相當長的時間。  
+
+### 2025.02.17
+
+區塊構建是以太坊區塊鏈正常運作的關鍵，涉及驗證者 (Validator) 如何獲取區塊，並將其提議到網絡。以太坊網絡由執行層 (EL) 和共識層 (CL) 的客戶端組成，兩者協同工作以在每個 slot 內產生新的區塊。
+
+當驗證者被選中提議區塊時，它會尋找 CL 提供的區塊。驗證者可以使用自身 EL 構建的區塊，也可以使用外部建構者 (Builder) 構建的區塊。
+
+---
+
+## 區塊的建構流程 (Payload Building Routine)
+
+### **(1) 接收 CL 指令**
+當共識層決定應由某個驗證者建構區塊時，會透過 Engine API 的 `forkchoiceUpdated` 端點通知 EL，啟動建構區塊的流程。
+
+- 交易透過 P2P 網絡在節點之間傳播，節點會接收並驗證這些交易。
+- 驗證標準：交易的 nonce 是否符合帳戶的下一個有效 nonce，且帳戶餘額是否足夠支付交易費用。
+- EL 需要持續監聽交易池 (Transaction Pool)，以確保區塊填充最有價值的交易。
+
+### **(2) 區塊構建步驟**
+1. **初始化區塊環境 (Environment Setup)**  
+   - 包含時間戳 (Timestamp)、區塊號 (Block Number)、前一個區塊 (Parent Block)、基本費用 (Base Fee) 以及提款資訊 (Withdrawals)。
+   - 這些資訊來自 CL，決定了區塊的基本結構。
+
+2. **選取交易 (Transaction Selection)**
+   - 交易池中的交易按照手續費排序，優先選擇價值最高的交易，以構建最有利可圖的區塊。
+   - EL 會遍歷交易池中的交易，直到 gas 限制 (30M gas) 被達到。
+
+3. **執行交易 (Executing Transactions)**
+   - 透過 EVM 來執行每筆交易，應用到狀態 (State)。
+   - 若交易執行失敗（如超出 gas 限制或合約調用錯誤），則該交易會被跳過，並繼續處理下一筆交易。
+
+4. **記錄交易及 gas 消耗**
+   - 若交易執行成功，則將其加入交易列表，並累積所消耗的 gas。
+
+5. **計算 Merkle 根並組裝完整區塊**
+   - 最後，使用交易列表計算 **交易根 (Transaction Root)**、**收據根 (Receipts Root)** 和 **提款根 (Withdrawals Root)**，組裝完整的區塊頭 (Block Header)。
+
+---
+
+## 以太坊 Geth 客戶端內部區塊建構過程
+以下範例基於 Geth（Go Ethereum）代碼，解析 EL 內部如何處理區塊構建。
+
+### **(1) 啟動區塊建構**
+當驗證者被選中建構區塊時，會透過 **Engine API** 呼叫 `engine_forkchoiceUpdatedV2`，讓 EL 啟動區塊建構過程：
+🔗 [Geth 代碼 - engine_forkchoiceUpdatedV2](https://github.com/ethereum/go-ethereum/blob/0a2f33946b95989e8ce36e72a88138adceab6a23/eth/catalyst/api.go#L398)
+
+核心邏輯位於 Geth 的 **miner 模組**，負責：
+- 透過 `buildPayload` 初始化一個空區塊，確保不會錯過 slot。
+- 啟動 **Go 協程** 填充區塊的交易資訊：
+  🔗 [Geth 代碼 - buildPayload](https://github.com/ethereum/go-ethereum/blob/0a2f33946b95989e8ce36e72a88138adceab6a23/miner/payload_building.go#L180)
+
+### **(2) 獲取可封裝區塊 (Sealing Block)**
+- 在 `buildPayload` 方法中，透過 `getSealingBlock` 獲取可封裝的區塊，確保該區塊 **不會是空的**。
+  🔗 [Geth 代碼 - getSealingBlock](https://github.com/ethereum/go-ethereum/blob/master/miner/worker.go#L1222)
+
+- `getSealingBlock` 透過 `getWorkCh` 通道發送請求，而 `getWorkCh` 在 `mainLoop` 函數內部監聽並處理請求：
+  🔗 [Geth 代碼 - mainLoop](https://github.com/ethereum/go-ethereum/blob/master/miner/worker.go#L537)
+
+### **(3) 填充交易**
+- `generateWork` 方法負責將交易填充到區塊中：
+  🔗 [Geth 代碼 - generateWork](https://github.com/ethereum/go-ethereum/blob/0a2f33946b95989e8ce36e72a88138adceab6a23/miner/worker.go#L1094)
+
+- `fillTransactions` 方法從交易池中取出交易，依據手續費排序後加入區塊：
+  🔗 [Geth 代碼 - fillTransactions](https://github.com/ethereum/go-ethereum/blob/master/miner/worker.go#L1024)
+
+- 交易依序提交到 `commitTransactions`：
+  🔗 [Geth 代碼 - commitTransactions](https://github.com/ethereum/go-ethereum/blob/master/miner/worker.go#L1072)
+  - 確保 gas 限制內可容納交易
+  - 根據 EIP-4844 規範，每個區塊可包含的 blob 交易數量有限：
+    🔗 [EIP-4844](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-4844.md)
+
+### **(4) 執行交易**
+- `commitTransactions` 內部調用 `applyTransaction`：
+  🔗 [Geth 代碼 - applyTransaction](https://github.com/ethereum/go-ethereum/blob/master/miner/worker.go#L760)
+
+- `applyTransaction` 調用 `core.ApplyTransaction`，將交易應用到本地狀態：
+  🔗 [Geth 代碼 - ApplyTransaction](https://github.com/ethereum/go-ethereum/blob/master/core/state_processor.go#L161)
+
+- 若交易執行失敗（例如 gas 不足或合約調用失敗），則不會對狀態產生影響，該交易不會包含在區塊內。
+
+### **(5) 交易執行完畢，封裝至區塊**
+當所有交易執行完畢後：
+1. **EL 透過 Engine API `getPayload` 將交易填充進區塊。**
+2. **CL 接收此區塊並打包進信標區塊 (Beacon Block)，最終向網絡廣播。**
+
+
+### 2025.02.18
+
+
 <!-- Content_END -->
