@@ -43,4 +43,7 @@ I reviewed this PR: https://github.com/ethereum/execution-spec-tests/issues/770,
 ### 2025.02.16
 I reviewed the recent discussion of Fusaka upgrade, and found some people are against the EOF upgrade, since we still need to maintain the legacy client code but add much complexity to the current design. In my opinion, the EOF is necessary, it is not only limited to solve the "stack too deep" issue, but allows more moduler future integration and more possibility.
 
+### 2025.02.17
+I start my contribution to the EEST projects, but I encounter some problem during installation. And I review the documentation and try to solve the issue but failed. I join the office hour hosted by EPF to ask for answer.
+
 <!-- Content_END -->
