@@ -261,8 +261,38 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- Contentious Hard Fork
 		- Malicious hard fork
 ### 2025.02.14
-
+- Accounts over UTXOs
+	- UTXO: an unspent transaction output is a distinctive element in a subset of digital currency models. A UTXO represents a certain amount of cryptocurrency that has been authorized by a sender and is available to be spent by a recipient.
+	- Benefits of Accounts
+		- Space Saving.
+		- Great fungibility
+		- Simplicity
+	- Weakness
+		- in order to prevent replay attacks, every transaction must have a nonce.
+		- account keeps track of the nonces used and only accept a transaction if its nonce is 1 after the last nonce used.
+- Merkle Patricia Trie(MPT)
+	- A Merkle-Patricia trie is deterministic and cryptographically verifiable
 ### 2025.02.15
-
+- DHT(Distributed Hash Table)
+	- A DHT is used in protocols like [bittorrent](https://www.bittorrent.org/beps/bep_0005.html) and IPFS which store a wide range of content and users try to *find* the content they are interested in.
+	- DHT is used in Ethereum networking to find different peers, not blocks.
+	- the discovery protocol in the networking layer of Ethereum uses discv5, a [kademlia based DHT](https://github.com/ethereum/devp2p/blob/master/discv5/discv5.md) to store [ENR records](https://github.com/ethereum/devp2p/blob/master/enr.md).
+		- ENR records contain routing information to establish connections between peer.
+	- Blocks in Ethereum network are distributed using *gossip protocol* of the p2p stack
 ### 2025.02.16
+- Execution Layer
+	- Downloader
+	- Transaction Pools
+		- **Legacy Pools**: these pools employ price-sorted heaps or priority queues to organize transactions based on their price.
+			- transactions are arranged using two heaps:
+				- one prioritizes the effective tip for the upcoming block
+				- the other focuses on the gas fee cap
+			- the larger of these two heaps is selected for the eviction of transactions
+		- **Blob Pools**: maintain a priority heap for transaction eviction but incorporate distinct mechanisms for operation.
+			- A key feature of blob pools is the use of logarithmic functions in their eviction queues.
+	- Storage
+		- Blockchain and state data processed by execution client need to be stored in the disk.
+		- ancient database: historical data
+		- trie structure database: current state and small number of recent states
+		- clients keep various databases for different data categories, and can implement different backend handle this data, e.g. leveldb, pebble, mdbx.
 <!-- Content_END -->

@@ -635,4 +635,169 @@ func build(env Environment, pool txpool.Pool, state state.StateDB) (types.Block,
 - **数据目录与网络配置**：指定数据存储路径及网络参数（如`--datadir`和`--network`）
 - **同步模式**：解释全同步（Full Sync）与快照同步（Snap Sync）的区别
 - **JWT认证**：配置执行层与共识层通信的JWT密钥
+
+### 2025.02.14
+
+开始实践
+
+#### 尝试建立私链
+
+[ethpandaops/ethereum-package：一个 Kurtosis 包，用于部署私有、可移植和模块化的以太坊开发网 --- ethpandaops/ethereum-package: A Kurtosis package that deploys a private, portable, and modular Ethereum devnet](https://github.com/ethpandaops/ethereum-package)
+
+#### Quickstart 快速入门
+
+1. [Install Docker & start the Docker Daemon if you haven't done so already](https://docs.docker.com/get-docker/)
+
+2. [Install the Kurtosis CLI, or upgrade it to the latest version if it's already installed](https://docs.kurtosis.com/install)
+
+3. Run the package with default configurations from the command line:
+
+   ```
+   kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package
+   ```
+
+#### Run with your own configuration
+
+Kurtosis packages are parameterizable, meaning you can customize your network and its behavior to suit your needs by storing parameters in a file that you can pass in at runtime like so:
+
+```
+kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package --args-file network_params.yaml
+```
+
+Where `network_params.yaml` contains the parameters for your network in your home directory.
+
+#### Run on Kubernetes
+
+Kurtosis packages work the same way over Docker or on Kubernetes. Please visit our [Kubernetes docs](https://docs.kurtosis.com/k8s) to learn how to spin up a private testnet on a Kubernetes cluster.
+
+#### Considerations for Running on a Public Testnet with a Cloud Provider
+
+When running on a public testnet using a cloud provider's Kubernetes cluster, there are a few important factors to consider:
+
+1. State Growth: The growth of the state might be faster than anticipated. This could potentially lead to issues if the default parameters become insufficient over time. It's important to monitor state growth and adjust parameters as necessary.
+2. Persistent Storage Speed: Most cloud providers provision their Kubernetes clusters with relatively slow persistent storage by default. This can cause performance issues, particularly with Execution Layer (EL) clients.
+3. Network Syncing: The disk speed provided by cloud providers may not be sufficient to sync with networks that have high demands, such as the mainnet. This could lead to syncing issues and delays.
+
+To mitigate these issues, you can use the `el_volume_size` and `cl_volume_size` flags to override the default settings locally. This allows you to allocate more storage to the EL and CL clients, which can help accommodate faster state growth and improve syncing performance. However, keep in mind that increasing the volume size may also increase your cloud provider costs. Always monitor your usage and adjust as necessary to balance performance and cost.
+
+For optimal performance, we recommend using a cloud provider that allows you to provision Kubernetes clusters with fast persistent storage or self hosting your own Kubernetes cluster with fast persistent storage.
+
+### 2025.02.15
+
+##### ethpandaops/ethereum-package初步搭建成功
+
+遇到的坑记录（Ubuntu系统24.04.1LTS）：
+
+1. kurtosis run --enclave my-testnet github.com/ethpandaops/ethereum-package运行不了
+   - 尝试登录docker（x），配置gpg（x），修改镜像源（多次尝试才成功）
+   - 意外收获：如果后续docker实在无法pull，可以看[Docker镜像停服? 我编写了一个镜像转存工具，解决国内无法使用docker的问题，解决docker镜像无法拉取问题，修复docker pull失败_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Zn4y19743/?spm_id_from=333.1387.homepage.video_card.click&vd_source=5b38ea9eae760d7d5d2330a78b68a494)
+2. 原因：docker国内直连网络问题严重，各种国内镜像时常过期，挂VPN也不一定有用，总结了一些（可能有用的）镜像源
+
+```json
+"https://<阿里云个人镜像>.mirror.aliyuncs.com", #https://cr.console.aliyun.com/cn-hongkong/instances/mirrors，当前仅支持阿里云用户使用具备公网访问能力的阿里云产品进行镜像加速
+"https://mirrors.ustc.edu.cn/docker-ce",
+"https://registry.docker-cn.com",
+"http://hub-mirror.c.163.com",
+"https://dockerpull.org",
+"https://docker.1panel.dev",
+"https://docker.foreverlink.love",
+"https://docker.fxxk.dedyn.io",
+"https://docker.xn--6oq72ry9d5zx.cn",
+"https://docker.zhai.cm",
+"https://docker.5z5f.com",
+"https://a.ussh.net",
+"https://docker.cloudlayer.icu",
+"https://hub.littlediary.cn",
+"https://hub.crdz.gq",
+"https://docker.unsee.tech",
+"https://docker.kejilion.pro",
+"https://registry.dockermirror.com",
+"https://hub.rat.dev",
+"https://dhub.kubesre.xyz",
+"https://docker.nastool.de",
+"https://docker.udayun.com",
+"https://docker.rainbond.cc",
+"https://hub.geekery.cn",
+"https://docker.1panelproxy.com",
+"https://atomhub.openatom.cn",
+"https://docker.m.daocloud.io",
+"https://docker.1ms.run",
+"https://docker.linkedbus.com",
+"https://dytt.online",
+"https://func.ink",
+"https://lispy.org",
+"https://docker.xiaogenban1993.com"
+```
+
+2. 仓库下的`network_params.yaml`为配置文件，可以自行配置
+
+### 2025.02.16
+
+深入了解了一些概念
+
+#### 为什么从POW转到了POS
+
+POW：需要矿工挖矿才能增加区块，需要消耗大量算力和资源
+
+POS：变为依赖质押者的随机选举（也就是抽奖），抽奖条件为验证者需要质押32个ETH以参与共识，12秒一个Slot，32个Slot为一个Epoch，随机数由RANDAO生成。
+
+**优点**
+
+1. 提高质押门槛，攻击者至少需要控制1/3的总质押（为什么是1/3，待学习）才能破坏网络，从而提高攻击成本
+
+2. 高门槛同时限制了验证者数量，验证者数量多了以后，网络开销会增加，影响共识效率。
+
+3. 通过参与共识可以获得**质押奖励**
+
+   **区块提议奖励**：被选中的验证者负责提议新区块，并获得ETH奖励。
+
+   **证明奖励（Attestation Rewards）**：验证者对新区块进行投票确认，提供有价值的网络安全保障。
+
+   **MEV（最大可提取价值）**：部分验证者可以通过排序交易获取额外收益。
+
+#### 新区块
+
+以太坊现在采用权益证明（PoS）共识机制来生成新区块，其过程大致如下：
+
+#### 1. 时间分层与槽（Slot）
+
+- **固定时间单位**：网络时间被分为连续的 12 秒“槽”。
+- **区块提议**：每个槽中，系统会通过伪随机算法（例如 RANDAO）从所有质押的验证者中选出一位区块提议者，该提议者负责打包并广播新区块。
+
+#### 2. 验证者委员会与投票
+
+- **委员会组成**：除单一提议者外，在每个槽中，还会随机选出一个验证者委员会。
+- **区块认证**：委员会成员对提议的区块进行“认证”（attestation），即通过签名表示认可该区块。
+- **共识达成**：当大部分（通常需要达到全网 66% 以上的质押权重）的验证者投票支持一个区块后，该区块便逐步获得最终性。
+
+#### 3. Epoch 与最终确定性
+
+- **Epoch 定义**：32 个槽组成一个 Epoch（大约 6 分钟）。
+- **奖励与状态更新**：在每个 Epoch 结束时，系统会根据各个验证者的投票情况批量处理奖励和惩罚，同时更新链的状态，并对部分区块进行最终确定。
+
+#### 4. 稳定且预测性的区块增长
+
+- **固定出块间隔**：由于槽的时间间隔固定为 12 秒，新区块的产生也变得十分规律，即使在网络拥堵时，槽内也仅可能因提议者缺失而出现空槽。
+- **动态调整**：区块生产过程还结合了 LMD-GHOST 分叉选择算法来确保在出现多个候选链时，最终选择累计投票权重最大的链继续发展。
+
+因此，以太坊新区块的增长是由不断重复的“每 12 秒选出一个提议者 + 委员会认证”这一过程驱动的，加上 Epoch 机制对状态和奖励的周期性更新，共同确保了区块链的稳定增长和最终确定性。
+
+
+
+PS: 
+
+1. 如果用户没有32个ETH，可以参加流动性质押协议，协议会将这些资金汇总并运行完整的验证者节点，进而参与POS共识。回报为与ETH挂钩的流动性质押代币（stETH，rETH等），可以在DeFi生态中使用。
+
+2. **RANDAO** 是一种去中心化的随机数生成机制，用于为以太坊 2.0 的验证者随机选举提供不可预测的随机种子。具体来说：
+
+   **工作原理**：
+   每个验证者在参与区块提议或认证时，会提交一个自己的随机值（称为 RANDAO reveal）。这些随机值随后通过加密运算（通常是采用 XOR 等方式）被聚合起来，更新全局的随机种子。这个种子用于在后续的时段（slot）中随机选出区块提议者和委员会成员，从而确保选举过程的公平性和抗操纵性。
+
+   **防止操纵**：
+   为了避免最后一个提交者利用时机操纵最终的随机数结果，以太坊 2.0 还引入了 Verifiable Delay Function（VDF，验证延迟函数）。VDF 确保即使最后一个随机值可能具有一定的影响力，也无法在短时间内计算出有利于自身的结果，从而进一步强化了随机性。
+
+   **作用**：
+   RANDAO 的存在使得区块提议者和委员会成员的选举是基于全网验证者共同贡献的随机性，而不是由某个单一实体或算力决定，从而提升了系统的去中心化和安全性。
+
+
 <!-- Content_END -->

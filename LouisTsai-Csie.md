@@ -34,4 +34,13 @@ Watching the video for introducing the EOF and some examples in the update: http
 ### 2025.02.13
 Watch this video to learn stack validation algorithm in EOF upgrade: https://www.youtube.com/watch?v=80szRrNW0MM It is hard to learn purely from EIP, but the video demonstration is clear.
 
+### 2025.02.14
+Start reviewing the EEST codebase and try to find an issue I could contribute to, and dive deeper into the EOF implementation.
+
+### 2025.02.15
+I reviewed this PR: https://github.com/ethereum/execution-spec-tests/issues/770, and the EEST contribution guideline.
+
+### 2025.02.16
+I reviewed the recent discussion of Fusaka upgrade, and found some people are against the EOF upgrade, since we still need to maintain the legacy client code but add much complexity to the current design. In my opinion, the EOF is necessary, it is not only limited to solve the "stack too deep" issue, but allows more moduler future integration and more possibility.
+
 <!-- Content_END -->

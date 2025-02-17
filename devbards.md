@@ -58,9 +58,17 @@ Understanding these concepts gives me a deeper appreciation of the motivations b
 Today was abit late for updating. Will update it late~
 
 ### 2025.02.13
+Pass
 
 ### 2025.02.14
+After the weekly meeting, it might be a time to adjust the way recording. Would start in next week.
 
 ### 2025.02.15
+Still preparing for next week, the record would be update after then.
+
+### 2025.02.16
+
+-- new week --
+### 2025.02.17
 
 <!-- Content_END -->

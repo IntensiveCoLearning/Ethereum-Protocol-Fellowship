@@ -265,7 +265,7 @@ EVM 中有一些关键的组件：
         - 被 slashed 退出，需要等待 36 天左右才能提款
         - 正常退出，27 小时左右就可以提款
 
-### 2025-02-14
+### 2025.02.14
 - 分叉选择机制：LMD GHOST + Casper FFG
     - Casper FFG 确定检查点，确保已经 Finality 的检查点永远不会撤销
     - LMD GHOST 会确定当前最新的区块应该基于哪个分支去构建，基于哪个分支的累加投票数量去决定
@@ -299,5 +299,62 @@ EVM 中有一些关键的组件：
     - libp2p-noise 用作加密
     - SSZ 作为序列化协议
     - Snappy 作为压缩协议
+
+### 2025.02.15
+- 以太坊路线图
+    - 以太坊是一个无限游戏
+    - 以太坊核心协议完全开放、免费，任何人都可以参与，只要有想法和能力
+    - 路线图
+        - The Merge：完成协议的升级，从 Pow 转成 PoS，SSF 等
+        - The Surge：扩展以太坊，围绕 rollup 的升级，比如 EIP-4844 、peerDAS 等升级
+        - The Scourge：抗审查、MEV 等问题的解决
+        - The Verge：零知识证明的技术路径实施、让区块链的验证的更加轻量级，实现无状态化
+        - The Purge：清理技术债务和通过清除历史数据降低加入网络的成本
+        - The Splurge ：其他遗留问题的修复，比如账户、EVM、EIP-1559 等等
+- 以太坊扩容
+    - 在不可能三角的限制下，以太坊无法在保证安全性和去中心化特性的前提下实现很高的扩展性，所以需要寻找其他的扩容方案。
+        - 以太坊当前的做法是通过模块化来实现扩展性
+        - 以太坊网络本身将实现安全性和去中心化程度，扩展性留给 layer2 去实现，layer2  可以共享以太坊的安全性和高度去中心化
+        - layer2 的相关解决方案有 State Channel、Plasma 和 Rollup，其中 Rollup 是当前最受欢迎的方案
+        - 多个 Rollup 链自身完成交易的执行，而将交易执行的结果上传到 Rollup 链上
+        - Rollup 的具体实现也有很多种，总体可以分成：
+            - ZK Rollups：通过零知识证明来实现，交易的确认速度更快
+            - Optimistic Rollups：通过 Fraud Proof 来保证安全性，交易确认的速度更慢
+- MEV（Maximal Extractable Value，之前的术语是  Miner Extractable Value），是指通过对交易进行策略性地排序、包含和排除，从区块中提取出超出标准区块奖励和 gas 费用
+    - 特别是在 Defi 应用中，通过对区块中的交易进行排序，可以通过抢先交易、三明治交易或者反向交易等策略实现套利机会
+    - 这样会导致一些负面后果，比如大型矿池获得的不公平的优势、交易审查或者 Defi 用户的滑点增加
+    - 在以太坊网络转成 PoS 之后， PBS 可以缓解 MEV 带来的问题，PBS 会让 MEV 在两个角色之间重新分配，从而可能改变每个角色相关的激励
+    - 当前 PBS 典型的实现来自于 Flashbots 实现的 mev-boost
+
+### 2025.02.16
+- PBS（Proposer Builder Separation）
+    - 在以太坊当前的系统中，验证者既创建区块，又广播区块。PBS 将这写任务分配给多个验证者
+    - Block Builder负责创建区块、并且在每个 slot 中将区块提供给 Block Proposer，Block Proposer 选择一个区块，并向 Block Builder 支付费用。
+    - PBS 对于以太坊实现去中心化非常重要，因为它可以最大限度降低成为验证者说需要的计算开销，降低了成为验证者的门槛，并激励了更多样话的参与者群体。
+    - PBS 也是以太坊协议模块化实现的一部分
+    - Block Builder 收集、验证并将交易组装成区块
+    - Block Proposer 接受 Block Builder 提供的区块，并通过添加必要的元数据（比如区块头）来创建完整的区块，并验证区块的有效性
+    - PBS 带来的好处：
+        - 增加验证者的奖励
+        - 提高网络的效率：让专门的区块构建者去完成区块构建，从而实现更搞笑的区块传播和处理
+        - 降低中心化程度：通过角色分离，PBS 可以潜在减少目前 staking 供应商的影响力
+    - 当前的 PBS 实现是在协议之外实现（side-car）的，比如 mev-boost在这种实现中需要依赖一个 relay 的组件，这个组件通常来说是中心化的，这些提升了以太坊的中心化风险，并且让以太坊更容易收到审查而且 PBS 让区块构建的过程变长，那么可以被攻击的地方就变得更多了，PBS 可能会导致区块丢失，即使使用 PBS，以太坊客户端也需要保留传统的区块构建流程，一旦外部流程出现问题，那么就需要切换到从传统的区块构建流程
+    - 解决这些问题的办法
+        - ePBS（Enshrined Proposer-Builder Separation）
+            - 降低中心化风险，减少对第三方的依赖
+            - 提升安全性和稳定性
+            - PTC（Payload-Timeliness Committee）是一种在以太坊协议内实现 ePBS 的方案
+            - TBHL（Two-Block HeadLock）：修改了 slot 结构，在单个 slot 时间范围内引入了双区块模式，有效的解决了区块的提议和构建的问题，解决了 ePBS 中的几个关键问题
+        - Protocol-Enforced Proposer Commitments (PEPC)
+            - 针对 PBS 和 mev-boost 的缺陷而提出的一种解决方案，是 PBS 的扩展，Block Proposer 会定义一组区块构建的 commitment，区块构建者会根据这套 commitment 去构建区块，这套协议需要在以太坊协议内实现
+            - 可能会提高协议的复杂性以及提高计算开销
+        - EIP-7547（包含列表）
+            - 通过指定一种机制，让 Block Proposer 指定一组必须及时包含的交易，从而提高以太坊的看审查能力
+    - Ethereum Based Preconfirmations
+        - 交易的发起者可以通过提供额外的消费预约交易在未来的某个 slot 纳入区块，这就是预确认。这种实现方式需要依赖包含列表才能实现
+    - 轻客户端：无需信任（比如某个中心化的 RPC 供应商）就可以访问网络，而不需要运行完整节点，当前存在的各类轻客户端如下：
+        - Statless clients
+        - LES ptorocol
+        - Portal network
 
 <!-- Content_END -->

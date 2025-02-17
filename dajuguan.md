@@ -56,4 +56,66 @@ RANDAO更新的算法如下图:
 - 还可以参考EthStorage很好的使用RANDAO作为随机源的例子，在链上采用[blockhash+proof验证randao](https://github.com/ethstorage/storage-contracts-v1/issues/32)
 
 ### 2025.02.09
+学习了以太坊的网络层相关内容，执行层的网络协议包括两部分:
+- 网络发现: 他基于UDP协议，底层基于Kademlia实现的分布式哈希表(DHT)，具体的协议实现是[discv5](https://github.com/ethereum/devp2p/blob/master/discv5/discv5.md)。
+- 节点通讯: 基于TCP协议，具体使用的是DevP2P 
+
+共识层与执行层的网络协议类似，不过使用的是后来开发的libP2P
+
+P2P节点采用[Ethereum Node Records (ENR)](https://eips.ethereum.org/EIPS/eip-778)来进行标记，他主要包括如下信息:
+```
+content   = [seq, key, value, ...]
+signature = sign(content)
+record    = [signature, seq, key, value, ...]
+```
+其中预定义的key包括:
+```
+id	name of identity scheme, e.g. “v4”
+secp256k1	compressed secp256k1 public key, 33 bytes
+ip	IPv4 address, 4 bytes
+tcp	TCP port, big endian integer
+udp	UDP port, big endian integer
+ip6	IPv6 address, 16 bytes
+tcp6	IPv6-specific TCP port, big endian integer
+udp6	IPv6-specific UDP port, big endian integer
+```
+
+### 2025.02.10
+学习了RLP编码，他是一种space-efficent的数据表示格式,用来序列化以太坊的交易、收据等数据。
+写了一个编码简单数据和decode raw transaction的代码。
+https://github.com/dajuguan/lab/blob/d10a269bf17ac14fbce8bfbadfd532b6d25c100a/eth/rlp_test.py
+
+- [Quarkchain rlp and transaction util](https://github.com/QuarkChain/pyquarkchain/blob/master/quarkchain/evm/transactions.py)
+- [decode地址字节未对齐的交易示例,从1:12:20开始](https://meeting.tencent.com/cw/lRebQGM11a)
+
+### 2025.02.11
+学习了EL和CL的网络层相关内容，EL采用devP2P, 而CL则采用IPFS团队开发的libP2P，这是因为libP2P发展的较晚，以太坊出来的时候libP2P还没有成熟。
+以太坊The merge也对libP2P提出了很多升级建议，比如加密算法采用Noise等等
+References:
+- [libP2P和ETH2.0的关系](https://blog.libp2p.io/libp2p-and-ethereum/)
+- [Ethereum 2.0's networking wire protocol spec](https://github.com/ethereum/consensus-specs/issues/692)
+- [Noise protocol](http://www.noiseprotocol.org/noise.html#introduction)
+- [陈天 TLS 和 Noise protocol](https://juejin.cn/post/6954308766900682765)
+
+### 2025.02.12
+学习了[discv4节点网络](https://github.com/ethereum/devp2p/blob/master/discv4.md)发现的kademlia算法，该算法主要解决P2P网络中节点发现的问题。核心要解决:
+- 节点ID很多,160bits的hash表空间有2^160这么多节点，那么单级肯定没法存下来，每个节点存那些节点？
+- 如何获取到整个网络中的所有节点
+
+核心思想还是用到局部性思想，通过XOR来定义节点之间的距离，每个节点只存储最多k个与自己log距离为i(1≤i≤MAX_BITS)的节点，这样存储空间只需要k*MAX_BITS。距离函数满足几个特性:
+- distance(x,x) == 0
+- distance(x,y) > 0
+- distance(x, y) + distance(y, z) ≥ distance(x, z)
+- distance(x, y) == distance(y, z) 距离可互换
+为了保证查找节点收敛，每次向自己已知的节点查询与目标节点最近的k个节点，根据返回值再递归地查询，这样保证每次log距离减小1或者不变，用O(log(MAX_BITS))查询就能找到网络中的任意目标节点。非常高效而简单的算法!
+
+需要注意的是，每个节点在所有log距离为[1,2,MAX_BITS]的各个buckets中至少要存储一个节点，否则有可能导致距离不会减小，没法迅速收敛。
+
+#### References
+- [Kademlia paper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
+- [Kademlia, Explained](https://www.youtube.com/watch?v=1QdKhNpsj8M)
+
+### 2025.02.13
+用python[实现了kademlia算法](https://github.com/dajuguan/lab/blob/00d0381ad45f8d3c9ad4c7dbf3c8bfd003901c20/eth/kademlia.py) 
+
 <!-- Content_END -->

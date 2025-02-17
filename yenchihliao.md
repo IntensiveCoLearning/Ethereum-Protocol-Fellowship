@@ -124,4 +124,46 @@ Picked up/strengthened some key concepts
 - Hive Test: generate CL and EL for specific tests
 - Shallow-fork: Early hard-fork from limited nodes
 
+### 2025.02.15
+Finished week5
+
+It's clear what is(will be) different with week5's lecture. Exciting.
+
+Picked up/strengthened some key concepts
+- Others
+    - Two types of rollups: Optimistic, and ZK
+    - Optimistic rollup: Optimistically trust all txs. Slash with fraud proof otherwise.
+    - ZK rollup: Succint proof verified on L1
+- The Surge
+    - EIP-4844 empowered rollups: Utilize KZG commitment scheme. Verify by sampling partial data
+    - KZG is not quantum proof and needed a trusted setup
+    - CL has a verification function. EL has KZG commitment
+- The Scourge: mitigate centralization concerns e.g. MEV, liquidity staking and pooling
+    - Proposer/Builder Separation: PBS
+- The Verge: Simplify block verification
+    - Merkle to Verkle: Proofs now only need the path and the intermediate nodes. Siblings of the intermeidate nodes are no longer needed.
+        - Shorter proof
+        - Wider tree enabled: 16->256
+        - Stateless validators
+- The Splurge: EOF, AA, better EIP-1559, encrypted mempool, etc.
+
+### 2025.02.16
+Viewed some additional information of previous weeks
+
+- [PoS](https://www.youtube.com/watch?v=5gfNUVmX3Es)
+- [PoS](https://ethos.dev/beacon-chain#staking-rewards-and-penalties)
+    - All stackers are shuffled into committees dedicated to a slot in an epoch
+    - Committee is at leastl 128 validators
+    - BLS signature used to reduce signatures size attached to a block
+    - RanDAO generates randomness
+    - FFG vote: finalizing on epoch checkpoint; LMD GHOST vote: A slot voted
+- [Roadmap](https://domothy.com/roadmap/#the-merge)
+- [Verkle](https://notes.ethereum.org/@domothy/verkle_links)
+    - Blocks would be self-contained
+    - Sharding, state expiry, state network enabled
+    - Average depth of MPT is 10~15, with width of 16. The proof is heavy
+    - Eth Verkle struct: Stem tree, Extension, Suffix tree, data value
+    - 256-ary tree
+    - More expansive in computation
+
 <!-- Content_END -->

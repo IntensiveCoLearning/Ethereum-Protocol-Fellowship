@@ -135,4 +135,66 @@ EVM 在执行中必须访问全局状态，如果是默克尔根或者 Verkle �
 发现 https://github.com/ethereum/execution-specs/tree/master/src/ethereum 里面有一些宝库，有完整的所有 fork 的 python 实现，并且这个是权威的。
 这个应该就是 py-evm 的各个版本快照。找时间运行一下，看看需不需要魔改。
 
+### 2025.02.15
+
+尝试配置环境运行 execution-specs/src，从 frontier 开始读取交易构建 state。有一些进展。
+
+    import ethereum.frontier.trie
+
+    print(ethereum.frontier.trie.EMPTY_TRIE_ROOT.hex())
+
+    print(ethereum.frontier.trie.root(ethereum.frontier.trie.Trie(default={}, secured=True)).hex())
+
+    t = ethereum.frontier.trie.Trie(default={}, secured=True)
+    ethereum.frontier.trie.trie_set(t, b'1', b'2')
+    print(ethereum.frontier.trie.root(t).hex())
+
+### 2025.02.16
+
+https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@javierggil/ethereum-reward-explained-8f927a1263c6
+这对于手工更新全局状态中的以太坊余额很有用。
+
+    import ethereum_types.numeric
+    import ethereum.genesis
+    import ethereum.frontier.fork
+    import ethereum.frontier.trie
+    import ethereum.frontier.state
+    
+    
+    description: ethereum.genesis.GenesisFork[
+        ethereum.frontier.fork_types.Address,
+        ethereum.frontier.fork_types.Account,
+        ethereum.frontier.state.State,
+        ethereum.frontier.trie.Trie,
+        ethereum.frontier.fork_types.Bloom,
+        ethereum.frontier.blocks.Header,
+        ethereum.frontier.blocks.Block
+    ] = ethereum.genesis.GenesisFork(
+        Address=ethereum.frontier.fork_types.Address,
+        Account=ethereum.frontier.fork_types.Account,
+        Trie=ethereum.frontier.trie.Trie,
+        Bloom=ethereum.frontier.fork_types.Bloom,
+        Header=ethereum.frontier.blocks.Header,
+        Block=ethereum.frontier.blocks.Block,
+        set_account=ethereum.frontier.state.set_account,
+        set_storage=ethereum.frontier.state.set_storage,
+        state_root=ethereum.frontier.state.state_root,
+        root=ethereum.frontier.trie.root,
+        hex_to_address=ethereum.frontier.utils.hexadecimal.hex_to_address,
+    )
+    
+    MAINNET_GENESIS_CONFIGURATION = ethereum.genesis.get_genesis_configuration("mainnet.json")
+    
+    chain = ethereum.frontier.fork.BlockChain([], ethereum.frontier.state.State(), ethereum_types.numeric.U64(1))
+    ethereum.genesis.add_genesis_block(description, chain, MAINNET_GENESIS_CONFIGURATION)
+
+创建一个空的区块链，并且从 mainnet.json 导入初始的预挖信息。接下来我应该可以通过 RPC API 读取数据，送到 EVM 构建新的区块。
+
+### 2025.02.17
+
+已经从以前我的公链项目中提取了 ETH RPC 的代码，开始与 execution-specs 对接。目前已经能 `brownie console` 并且实现 `a[0].balance()` 余额查询。
+准备再探索一下，看看有没有其它技术难点，没问题的话，希望招募共学的朋友一起完成。（因为3.2之前还要去Denver一趟）
+
+### 2025.02.18
+
 <!-- Content_END -->
