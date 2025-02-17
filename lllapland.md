@@ -42,13 +42,7 @@ https://epf.wiki/#/eps/week1
   - EL clients: Geth, Nethermind, Besu
   - CL clients: Prysm, Lighthouse, Teku
 - **Nodes**: Computers running both an EL and CL client, actively participating in the Ethereum network.
-#### Ethereum Roadmap Phases  
-- **The Merge** Transition from Proof of Work (PoW) to Proof of Stake (PoS).  
-- **The Surge** Scalability improvements with **rollups** and **sharding**.  
-- **The Scourge** Addressing censorship resistance and decentralization issues.  
-- **The Verge** Introduction of **Verkle Trees** to optimize data storage.  
-- **The Purge** Pruning old state data to reduce node storage requirements.  
-- **The Splurge** Miscellaneous upgrades and optimizations.  
+
 
 ---
 ### 2025.02.07
@@ -355,5 +349,22 @@ https://epf.wiki/#/eps/week4
 | **66%+** | may **finalize an incorrect chain** 💀, causing severe consequences |
 
 
+
+### 2025.02.17
+https://epf.wiki/#/eps/week5
+
+#### Ethereum Roadmap Phases  
+- **The Merge** - PoS
+  - transition from **Proof of Work (PoW)** to **Proof of Stake (PoS)**  
+- **The Surge** 
+  - scalability improvements with **rollups** and **sharding**.  
+- **The Scourge** - less MEV downsides 
+  - addressing censorship resistance and decentralization issues 
+- **The Verge** - easier verification
+  - introduction of **Verkle Trees** to optimize data storage 
+- **The Purge** - simpler protocol  
+  - pruning old state data to reduce node storage requirements 
+- **The Splurge** miscellaneous upgrades and optimizations.  
+  
 <!-- Content_END -->
 
