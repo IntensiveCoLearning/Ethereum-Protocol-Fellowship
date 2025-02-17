@@ -799,5 +799,18 @@ PS:
    **作用**：
    RANDAO 的存在使得区块提议者和委员会成员的选举是基于全网验证者共同贡献的随机性，而不是由某个单一实体或算力决定，从而提升了系统的去中心化和安全性。
 
+### 2025.02.17
+
+温故而知新，复习Week1的内容
+
+以太坊核心：permissionless，credible neutral，censorship resistant
+
+以下为发展路线图
+
+![Image](https://pbs.twimg.com/media/GCntEVFWwAAoWeI?format=jpg&name=large)
+
+执行层提供执行引擎，处理用户交易和所有状态（地址、合约数据），而共识则实施权益证明机制，确保安全性和[容错](https://inevitableeth.com/home/concepts/bft)性。
+
+执行层 （EL） 或共识层 （CL） 的实现称为*客户端*。运行此客户端并连接到网络的计算机称为*节点*。因此，**节点是一对积极参与网络的 EL 和 CL 客户端**。
 
 <!-- Content_END -->
