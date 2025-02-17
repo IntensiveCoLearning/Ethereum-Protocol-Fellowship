@@ -88,7 +88,7 @@ https://github.com/dajuguan/lab/blob/d10a269bf17ac14fbce8bfbadfd532b6d25c100a/et
 - [Quarkchain rlp and transaction util](https://github.com/QuarkChain/pyquarkchain/blob/master/quarkchain/evm/transactions.py)
 - [decode地址字节未对齐的交易示例,从1:12:20开始](https://meeting.tencent.com/cw/lRebQGM11a)
 
-### 2024.02.11
+### 2025.02.11
 学习了EL和CL的网络层相关内容，EL采用devP2P, 而CL则采用IPFS团队开发的libP2P，这是因为libP2P发展的较晚，以太坊出来的时候libP2P还没有成熟。
 以太坊The merge也对libP2P提出了很多升级建议，比如加密算法采用Noise等等
 References:
@@ -97,7 +97,7 @@ References:
 - [Noise protocol](http://www.noiseprotocol.org/noise.html#introduction)
 - [陈天 TLS 和 Noise protocol](https://juejin.cn/post/6954308766900682765)
 
-### 2024.02.12
+### 2025.02.12
 学习了[discv4节点网络](https://github.com/ethereum/devp2p/blob/master/discv4.md)发现的kademlia算法，该算法主要解决P2P网络中节点发现的问题。核心要解决:
 - 节点ID很多,160bits的hash表空间有2^160这么多节点，那么单级肯定没法存下来，每个节点存那些节点？
 - 如何获取到整个网络中的所有节点
@@ -115,6 +115,7 @@ References:
 - [Kademlia paper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
 - [Kademlia, Explained](https://www.youtube.com/watch?v=1QdKhNpsj8M)
 
-### 2024.02.13
+### 2025.02.13
 用python[实现了kademlia算法](https://github.com/dajuguan/lab/blob/00d0381ad45f8d3c9ad4c7dbf3c8bfd003901c20/eth/kademlia.py) 
+
 <!-- Content_END -->
