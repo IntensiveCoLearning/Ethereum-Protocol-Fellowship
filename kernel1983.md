@@ -190,4 +190,11 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 创建一个空的区块链，并且从 mainnet.json 导入初始的预挖信息。接下来我应该可以通过 RPC API 读取数据，送到 EVM 构建新的区块。
 
+### 2025.02.17
+
+已经从以前我的公链项目中提取了 ETH RPC 的代码，开始与 execution-specs 对接。目前已经能 `brownie console` 并且实现 `a[0].balance()` 余额查询。
+准备再探索一下，看看有没有其它技术难点，没问题的话，希望招募共学的朋友一起完成。（因为3.2之前还要去Denver一趟）
+
+### 2025.02.18
+
 <!-- Content_END -->
