@@ -386,5 +386,56 @@ This photo is one from the article above.
 - $k = [\frac{2}{3}n]$: k means the num of attackers😈 when a new committee 
 with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of honest validators😇 in all validators($1-\frac{2}{3}$). In PoS of ethereum,  it needs 2/3rd majority to attest and block on to the beacon chain.
 
+> Why $\frac{2}{3}$
+> https://www.fanwb.xyz/posts/casperffg/#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%88%86%E4%B9%8B%E4%BA%8C
+
 ### 2025.02.15
+### 2025.02.17
+
+#### LMD GHOST
+
+- GHOST: (Greedy Heaviest Observed Sub-Tree) is a fork selection algorithm that selects a subtree containing the most proof of work (PoW)
+- LMD-GHOST: LMD-GHOST is a variant of GHOST and is suitable for Proof of Stake (PoS) system.
+![图片](https://github.com/user-attachments/assets/277b6148-ed36-49cf-aa28-be1b000fd77b)
+Let's see what happened to the blocks in this diagram:
+- Defining the three block to Alice, Bob, Eve(who proposed the block)
+- For Alice, it received three attests, but two is from committee A, and one is from committee B
+- For Bob, it received only two attests from committee B
+- For Eve, it received three attests, all of them came from the committee.
+
+Do you think which block will be choose by LMD GHOST? The answer is Eve, who
+received a complete committee vote.
+
+Let's see what happened to the validator in this diagram:
+- One in committee A is offline.
+- One in committee B is vote the Alice for some reason like network delay.
+- As such case above, the Alice and Bob received a abnormal attests.
+
+Eventually, Eve was reached a consensus.
+
+#### Beacon Chain Checkpoints
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Checkpoints.jpg.webp)
+- A checkpoint is a block in the first slot of an epoch.  
+- If there is no such block, then the checkpoint is the preceding most recent block.  
+- There is always one checkpoint block per epoch. A block can be the checkpoint for multiple epochs.
+- Epoch boundary blocks (EBB) = checkpoints
+
+### 2025.02.18
+
+#### FFG vote
+
+**What is FFG vote?**  
+At the end of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
+FFG vote consists of two parts:
+- *source*: The latest justified checkpoint that has been voted before.
+- *target*: The checkpoint block of the current epoch.
+
+If enough validators vote for a *target* as the new justified checkpoint, and the next epoch votes to confirm it, it will be finalized.
+
+**When dose FFG vote happen?**  
+At the end of each epoch (after 32 slots), the validator submits their FFG vote.
+
+
+### 2025.02.19
 <!-- Content_END -->

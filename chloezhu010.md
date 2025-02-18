@@ -252,9 +252,12 @@ Update the notes on mindmap: https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5
             - DHT 作为去中心化存储（如 IPFS、Arweave、Filecoin）的核心组件，影响数据定位和检索速度
             - 更快的哈希表可以减少存储查询延迟，优化去中心化存储网络的性能
 ### 2025.02.16
-Update nodes on devp2p and discv5
+Update notes on devp2p and discv5
 https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
-
+### 2025.02.17
+Update notes on 
+- What problem does portal network solve for light clients
+- Why portal needs DHT
 
 
 

@@ -357,4 +357,49 @@ EVM 中有一些关键的组件：
         - LES ptorocol
         - Portal network
 
+### 2025.2.17
+- 以太坊建立在密码学之上
+    - 以太坊使用的椭圆曲线算法和签名算法
+        - ECC（椭圆曲线加密，实际使用的是 secp256k1 曲线）：以太坊的公私钥依赖这个加密算法生成
+        - ECDSA（椭圆曲线数字签名算法）：基于 secp256k1 曲线，以太坊中交易的签名和验签
+    - Boneh-Lynn-Shacham（BLS）签名算法
+        - 验证者签名所使用的算法，用于给区块和证明签名
+        - BLS 的签名可以聚合，可以实现数十万 validator 的大规模验证
+        - 目前主要在共识层使用，执行层依然使用 ECDSA
+    - Keccak256 是一种在以太坊中广泛使用的哈希函数，这个算法本质上就是 SHA3-256，由于 SHA3-256 定义的时间比较晚，所有依然沿用了 Keccak256 这个名称
+    - KZG Polynomial Commitment Scheme（KZG 多项式承诺）
+        - 已经成为了以太坊中一项关键技术，已经在以太坊中大量使用了 KZG 多项式承诺，是后续很多零知识相关应用的基础，可以在不泄漏实际信息的情况实现高效、安全的数据验证。比如以太坊中
+            - Proto-Dansharding（EIP-4844），使用 KZG 多项式承诺来处理 blob 数据
+            - Data Availability Sampling，允许验证者无需下载所有的数据就可以确认 blob 数据的正确性和可用性
+    - Post-Quantum Cryptography（后量子密码学）
+        - 量子计算对以太坊最直接的威胁是可以逆转 ECDSA，从而暴露出私钥，这会让所有的外部账户 EOA 都面临量子攻击，而且这些攻击可能会很隐蔽，如果钱包被盗，大家可能会认为是私钥被盗，而不是私钥被破解
+        - 当前各类的抗量子密码学正在发展当中，也在规划对应的硬分叉方案来应对量子攻击
+
+### 2025.02.18
+- Ethereum Staking 的四种方式：https://ethereum.org/en/staking/#what-is-staking
+    - Home Staking（Solo Staking）：最理想的 Staking 方式，但是门槛最高，难度最大，需要 32 ETH 的入门资金，还需要准备硬件
+        - 风险点：
+            - 私钥管理
+            - 节点维护，down 机后怎么恢复
+            - 在线时间管理，节点不能长时间下线
+            - Slashing 风险，节点如果作出错误的行为，可能会被 slasking 大量资金
+    - Staking as a service：借用别人的基础设施，自己控制私钥
+    - Pooled Staking：最流行的 staking 方式，直接将钱转入一个 Pool，操作和资金的门槛低，还能保留资金的流动性
+    - CEX Staking：完全失去资金的掌控权，把钱交给 CEX 打理
+- 以上四种方式在参与到 Ethereum Staking 时，都需要满足以下的必要条件
+    - 运行全节点（执行层 + 共识层）
+    - 运行 Validator 并加载私钥
+    - 完成存款，并且存款交易被共识层处理
+- Staking 流程
+    - 运行全节点，包括执行层和共识层客户端
+    - 生成共识层账户（公私钥对），生成私钥之后，需要签署一个存款交易，其中会标记存款的金额和账户的公钥，并指定提款地址
+        - 常见的用于生成共识层私钥的工具
+            - staking-deposit-cli
+            - wagyu-key-gen
+    - Staker 向执行层的存款合约发送以太坊交易来进行存款（当前需要存款 32 ETH，Pertca 升级之后可以提升到 2048 个 ETH）
+    - 存款完成之后，共识层会收到存款凭据，然后创建一个 Validator 账户，并存入存款的金额，账户由上面生成的公私钥控制
+    - 运行 Validator 客户端，保持节点在线，那么用户的余额就会增加，如果作恶或者掉线，那么用户的余额就会减少
+    - 如果 Staker 想退出，那么就使用 Validator 客户端签署并广播退出的消息，等待 Vaidator 退出之后，就会进入到允许提款的状态
+    - Staker 可以提取自己的全部资金，结束 staking
+
 <!-- Content_END -->

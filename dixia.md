@@ -162,4 +162,18 @@ TODO
 
 kept reading https://eth2book.info/capella/part2/consensus/lmd_ghost/#finding-the-head-block and consider read the GHOST paper
 
+### 2025.02.17
+
+GHOST: "the block are off the main chain can still contribute to the chain weight"
+
+Why it is better than longest chain rule? 
+
+If there is a fork, likely there are latency but a subtree that has more leafs mean the the head of tree has been built on (meaning they all agree on that head block)by more validators/miner, there the chance to build a linear chain from there is higher.  When they are two competing leafs, just chose the one with heavier weight. And this information is discarded by longest chain rule which also allow secret mining. interestingly, this idea is originally meant for bitcoin but has never been adopted( the argument is fork does not happen frequently for 10 mins block time). the GHOST paper made a statement that without changing the longest chain rule, it will not be sufficient to just increase the block size or block time.
+
+todo:
+
+https://eth2book.info/capella/part2/consensus/lmd_ghost/#confirmation-rule
+
+keep read page 10 (ghost)
+
 <!-- Content_END -->

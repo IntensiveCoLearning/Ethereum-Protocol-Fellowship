@@ -251,4 +251,50 @@ CL 在 Ethereum 2.0 中負責整個網絡的共識機制。若 CL 客戶端出�
 
 今天看其他人整理的筆記作為複習。
 
+### 2025.02.17
+
+#### [SGweek6](https://epf.wiki/#/eps/week6)
+
+今天看 week 6 **Ethereum Consensus Layer Pyspec**（可執行的共識規範）的內容。 
+
+#### **1. Pyspec 是什麼？**
+- Ethereum 核心共識規範
+- 可執行且可驗證
+- 測試向量生成器：提供 CL 客戶端測試其行為是否符合規範
+
+Pyspec 定義了運行在 CL 客戶端的共識協議，並能產生測試向量，讓 CL 客戶端測試自己的共識規則。
+
+#### **2. Pyspec 的結構**
+[Pyspec 的 code](https://github.com/ethereum/consensus-specs)
+
+- **目錄結構（如何閱讀 Pyspec）**：
+```
+/specs/
+ ├── _features/  # WIP（待開發）功能
+ │   ├── eip6110
+ │   ├── ...
+ ├── altair/
+ ├── bellatrix/
+ ├── capella/
+ ├── deneb/
+ ├── phase0/
+```
+這些文件涵蓋 Ethereum 各個階段的升級，這些 Markdown 文件會透過 SpecBuilder 轉換為 Python 文件，形成可執行的 Pyspec 程式碼。
+
+#### **3. Pyspec 的核心概念**
+##### **(1) SSZ 容器（SSZ Containers）**
+Pyspec 使用 **SSZ（Simple Serialize）** 來表示共識對象的數據結構，在 Ethereum 共識層中，SSZ **哈希樹根（hash tree root）** 用於生成對象的唯一摘要。
+
+##### **(2) 狀態轉換函數（State Transition Function）**
+Pyspec 使用純函數來處理狀態轉換：
+```python
+post_state = state_transition(pre_state, block)
+```
+這意味著 **輸入相同，輸出就一定相同**，便於測試和驗證。
+
+#### **4. 總結**
+- Pyspec 是 Ethereum 共識層的核心規範，可用來執行、驗證及測試。
+- 安裝後可用 Python 執行測試案例，確保狀態轉換符合規範。
+- 開發者可參與 Pyspec 貢獻，甚至尋找漏洞來參與 Bug Bounty。
+
 <!-- Content_END -->

@@ -76,4 +76,9 @@ EVM 這篇教學不錯，有圖解很詳細，不過我還要多看看下面的 
 # 2025.02.16
 補一下，周末較忙
 看了下 week1 了解了一點 The Merge 過程
+
+# 2025.02.17
+week2 介紹 excute layer， env tx state 幾個包進去驗證在驗證 gas
+大致這樣
+
 <!-- Content_END -->

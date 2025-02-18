@@ -58,5 +58,25 @@ EIP-4844，也称为 proto-danksharding，是 Deneb/Cancun 硬分叉的一部分
 • Electra – 一个未来的硬分叉，将验证器的最大有效余额从 32 ETH 增加到 2048 ETH，允许整合许多冗余的验证器。此外，它引入了对存款和提现的重大更改，使其更快、更灵活。
 • Fulu – 目前正在建设中。
 
+### 2025.02.13
+账户抽象是如何工作的
+用户创建 UserOperations 对象。
+Bundlers 将多个 UserOperations 组合成一个交易并发送到 EntryPoint 合约。 
+EntryPoint 启动验证，该验证在 CA 上实现。然后，它通过调用在 CA 上实现的 `execute()` 函数来处理交易。
+UserOperations 被执行，触发状态变化。
+可选地，Aggregator 聚合签名验证，并由 Paymaster 处理交易费用。
+
+### 2025.02.14
+[EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) 并不完全是帐户抽象，但它确实提供了执行抽象，即为外部拥有帐户 (EOA) 添加了额外功能。这使你的 EOA 能够执行如发送批量交易和委托给其他加密密钥方案 (如 passkeys) 等操作。它通过将与 EOA 关联的代码设置为协议级别的代理标识来实现这一点。可以在[此处](https://eips.ethereum.org/EIPS/eip-7702)找到完整的规范。EIP-7702 引入了一种新的交易类型，可在单笔交易期间临时授权 EOA 特定的合约代码，使其能够像智能合约帐户一样运作。这为用户提供了多个应用场景，包括批量交易、gas 赞助和权限降级。
+
+### 2025.02.15
+Maximal Extractable Value (MEV)，即最大可提取价值，指的是通过在区块生产中有策略地排序、包含或排除交易，超出标准区块奖励和 Gas 费用所能提取的最大价值。
+在以太坊中，MEV 尤其在 DeFi 应用中受到关注，常见策略包括抢跑（front-running）、夹心攻击（sandwiching）和尾随（back-running）。
+MEV 的影响
+MEV 的提取可能导致：大型矿池或验证者的不公平优势；对 DeFi 用户的负面影响，如滑点增加或交易被审查。
+
+### 2025.02.16
+
+### 2025.02.17
 
 <!-- Content_END -->

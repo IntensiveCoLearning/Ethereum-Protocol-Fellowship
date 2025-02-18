@@ -118,4 +118,24 @@ References:
 ### 2025.02.13
 用python[实现了kademlia算法](https://github.com/dajuguan/lab/blob/00d0381ad45f8d3c9ad4c7dbf3c8bfd003901c20/eth/kademlia.py) 
 
+### 2025.02.14
+学习[EVM状态转换这一节](https://epf.wiki/#/wiki/EL/el-specs?id=block-execution-process)，发现除了正常的用户交易外，在处理用户交易之前或者之后有几个特殊的系统合约调用,[具体顺序](https://github.com/ethereum/go-ethereum/blob/67a3b087951a3f3a8e341ae32b6ec18f3553e5cc/core/state_processor.go#L57)如下:
+1.调用EIP4788系统合约生成beacon root的context
+2.调用EIP2935生成历史blockhash
+3.处理所有正常交易
+4.分别调用EIP-6110, EIP-7002,EIP-7251这三个系统合约
+
+这[几个系统合约](https://github.com/ethereum/go-ethereum/blob/1843f2776603ed1b66bfe78916d61267f80201e7/params/protocol_params.go#L196)在write的时候会使用特殊的`SYTEM_ADDRESS=0xffffFFFfFFffffffffffffffFfFFFfffFFFfFFfE`作为caller来设置相应的合约storage，读取的时候则是任何用户可以读取合约的状态。具体可见[geth相应的处理代码](https://github.com/ethereum/go-ethereum/blob/67a3b087951a3f3a8e341ae32b6ec18f3553e5cc/core/state_processor.go#L214)。
+
+Ref:
+- [EIP-4788设计思路](https://www.youtube.com/watch?v=GriLSj37RdI)
+- [EIP-4788](https://eips.ethereum.org/EIPS/eip-4788)
+- [EIP-4788汇编代码](https://github.com/ralexstokes/4788asm/blob/main/src/main.etk)
+
+
+### 2025.02.15
+
+玩了下EIP4788测试代码: https://github.com/dajuguan/lab/blob/main/eth/contracts/test/EIP4788.t.sol
+
+
 <!-- Content_END -->

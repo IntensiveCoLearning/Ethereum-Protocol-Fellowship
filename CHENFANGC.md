@@ -189,4 +189,20 @@ EOA 可以发起交易，交易类型包括：
 
 观看 [Town Hall 的回放](https://youtu.be/7L1270CWjXw)
 
+### 2025.02.17
+
+- 区块链可以创造数字稀缺性，但它需要安全性来确保其完整性
+- 分布式网络处理拜占庭容错 （BFT）
+- 比特币首先用 PoW 解决了 BFT
+- 以太坊转向权益证明，从用于 Sybil 保护的外生信号转变为系统中的内生信号
+- 使用 BFT majority 确定链的状态
+- 协议可以观察到拜占庭故障，并且可以削减 Stake
+- LMD-GHOST 中总结的分叉选择规则
+- 得益于 Casper，它确保了活跃度
+- 提供更高的加密经济安全性
+
+### 2025.02.18
+
+[观看 Alex Stokes 的 CL 概述演](https://www.youtube.com/watch?v=FqKjWYt6yWk)
+
 <!-- Content_END -->
