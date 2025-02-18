@@ -386,6 +386,9 @@ This photo is one from the article above.
 - $k = [\frac{2}{3}n]$: k means the num of attackers😈 when a new committee 
 with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of honest validators😇 in all validators($1-\frac{2}{3}$). In PoS of ethereum,  it needs 2/3rd majority to attest and block on to the beacon chain.
 
+> Why $\frac{2}{3}$
+> https://www.fanwb.xyz/posts/casperffg/#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%88%86%E4%B9%8B%E4%BA%8C
+
 ### 2025.02.15
 ### 2025.02.17
 
@@ -416,6 +419,23 @@ Eventually, Eve was reached a consensus.
 - A checkpoint is a block in the first slot of an epoch.  
 - If there is no such block, then the checkpoint is the preceding most recent block.  
 - There is always one checkpoint block per epoch. A block can be the checkpoint for multiple epochs.
+- Epoch boundary blocks (EBB) = checkpoints
 
 ### 2025.02.18
+
+#### FFG vote
+
+**What is FFG vote?**  
+At the end of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
+FFG vote consists of two parts:
+- *source*: The latest justified checkpoint that has been voted before.
+- *target*: The checkpoint block of the current epoch.
+
+If enough validators vote for a *target* as the new justified checkpoint, and the next epoch votes to confirm it, it will be finalized.
+
+**When dose FFG vote happen?**  
+At the end of each epoch (after 32 slots), the validator submits their FFG vote.
+
+
+### 2025.02.19
 <!-- Content_END -->
