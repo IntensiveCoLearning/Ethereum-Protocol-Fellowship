@@ -556,6 +556,7 @@ TODO EVM 是如何将 EVM bytecode 一步步执行的？Debug 一个简单的
 p2p 主要是三件工作，t包括历史数据、pending txs、状态同步，同时可以通过 snap 文件的方式快速的同步状态。
 
 
+fork 了一个学习注解版本的 go-ethereum 仓库 https://github.com/brucexu-eth/go-ethereum/commit/16ab6c3351a9cd5f612633409e7828876e1a37b0 方便大家使用，使用 cursor 生成自己想要的 unit test 进行 debug，很方便。
 
 
 <!-- Content_END -->
