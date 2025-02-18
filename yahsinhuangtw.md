@@ -127,6 +127,7 @@ https://www.youtube.com/live/UClaoL12W00?si=BnPEXWymzFRuuAs2
 
 Rollups from 10,000 feet
 
+<img width="871" alt="Screenshot 2025-02-18 at 11 48 13 PM" src="https://github.com/user-attachments/assets/355b553e-10f7-4aaf-9e84-b9764a3dc753" />
 
 
 <!-- Content_END -->
