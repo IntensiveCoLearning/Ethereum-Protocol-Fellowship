@@ -197,4 +197,10 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 ### 2025.02.18
 
+在群里招募一起做 py 版本的 hardhat，响应人数为零。
+自己做了一些零星的工作，开源 https://github.com/kernel1983/brownievm ，但是一个人做不值得立项，纯粹解决完一些有意思的问题就可以收手了。
+也在考虑我们即将开始的招聘工作中，用这个项目来作为面试题目。
+
+### 2025.02.19
+
 <!-- Content_END -->
