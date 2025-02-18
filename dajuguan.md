@@ -137,5 +137,18 @@ Ref:
 
 玩了下EIP4788测试代码: https://github.com/dajuguan/lab/blob/main/eth/contracts/test/EIP4788.t.sol
 
+### 2025.02.16
+阅读了EL优化相关内容，尤其是[Georgios的推文](https://x.com/gakonst/status/1777306306598089094)和[reth perf](https://www.paradigm.xyz/2024/04/reth-perf)，主要有几个方面优化:
+- JIT编译：2x 提升
+- Parallel EVM: 2x提升(文中是5倍，但是实际上由于状态依赖会更小)
+- State commitments: 2-3x提升
+    - 并行计算account的state tire
+    - prefetch不改变的中间trie nodes
+- DB优化
+
+- [Erigon Separation of keys and the structure](https://github.com/erigontech/erigon/blob/main/docs/programmers_guide/guide.md#separation-of-keys-and-the-structure)
+- [nethermind,geth,reth gas benchmarks](https://github.com/NethermindEth/gas-benchmarks)
+- [evmchainbenchmark by 0glabs](https://github.com/0glabs/evmchainbench)
+- [monad db](https://docs.monad.xyz/monad-arch/execution/monaddb)
 
 <!-- Content_END -->
