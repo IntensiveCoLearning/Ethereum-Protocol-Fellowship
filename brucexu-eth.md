@@ -416,6 +416,145 @@ EL 会判断如果 tx 是 invalid 就不会发到 CL 了，只是负责打包等
 
 ![image](https://github.com/user-attachments/assets/11a14590-3a2c-4f2d-acc2-967d8268f536)
 
+# 2025.02.19
+
+## https://epf.wiki/#/eps/week2
+
+EL 主要就是 Block 验证和 Block 构建，验证包括 state 转移、evm 执行、EIP 等新的 gas 逻辑等、构建 block，因此需要一个基于 p2p 的 tx pool。
+
+状态转移函数在 [state_processor.go](https://github.com/ethereum/go-ethereum/blob/master/core/state_processor.go#L57) 的 Process 方法里面，主要用途验证 merkle roots、gas limit、timestamp 等。Debug 一下测试用例，一些观察如下：
+
+// Process returns the receipts and logs accumulated during the process and
+// returns the amount of gas that was used in the process. If any of the
+// transactions failed to execute due to insufficient gas it will return an error.
+
+
+![image](https://github.com/user-attachments/assets/8af10a0e-2572-452a-94be-2a55e5871ea9)
+
+这个就是 GO 里面对于 hash 的存储方式，一般是 32 bytes，或者是以一个拼接 16 进制字符串 `|\xbex\x8e\x04\xd1M\xeeD}\x83Cj\xc4s\x1d\xa6\bt\xe6\v?\x85\xcf\xcbI\x8b\xb0\xe4\xdd\xf33` 这样。
+
+![image](https://github.com/user-attachments/assets/f832d6e2-4495-46b1-ad8e-65bb910f9ac3)
+
+The DAO 事件反复拉出来被讨论，早已从一个简单的问题上升到了社会学和哲学层面，Ethereum 也分叉成了 ETH 和 ETC，其实实际上背后的代码就是这么朴实无华的一堆硬编码：遍历这些黑客钱包，把他们的余额转移到 refund 合约地址。🤣
+
+var tracingStateDB = vm.StateDB(statedb) TODO 有空研究下 StateDB 的底层存储模式是什么，似乎是 LevelDB。
+
+会先构建一个 EVM Context 来继续执行，包括一些基本配置参数：
+
+```
+vm.BlockContext{
+		CanTransfer: CanTransfer,
+		Transfer:    Transfer,
+		GetHash:     GetHashFn(header, chain),
+		Coinbase:    beneficiary,
+		BlockNumber: new(big.Int).Set(header.Number),
+		Time:        header.Time,
+		Difficulty:  new(big.Int).Set(header.Difficulty),
+		BaseFee:     baseFee,
+		BlobBaseFee: blobBaseFee,
+		GasLimit:    header.GasLimit,
+		Random:      random,
+	}
+```
+
+然后创建一个 evm 进行执行：`evm := vm.NewEVM(context, tracingStateDB, p.config, cfg)`。
+
+![image](https://github.com/user-attachments/assets/16219e97-b87d-402f-b209-e927f5559f71)
+
+预编译合约的实现就是在 evm 进行加载，根据相应的参数，找到对应的合约编译到 EVM 里面。具体内容在 contracts.go 文件。
+
+```
+var PrecompiledContractsPrague = PrecompiledContracts{
+	common.BytesToAddress([]byte{0x01}): &ecrecover{},
+	common.BytesToAddress([]byte{0x02}): &sha256hash{},
+	common.BytesToAddress([]byte{0x03}): &ripemd160hash{},
+	common.BytesToAddress([]byte{0x04}): &dataCopy{},
+	common.BytesToAddress([]byte{0x05}): &bigModExp{eip2565: true},
+	common.BytesToAddress([]byte{0x06}): &bn256AddIstanbul{},
+	common.BytesToAddress([]byte{0x07}): &bn256ScalarMulIstanbul{},
+	common.BytesToAddress([]byte{0x08}): &bn256PairingIstanbul{},
+	common.BytesToAddress([]byte{0x09}): &blake2F{},
+	common.BytesToAddress([]byte{0x0a}): &kzgPointEvaluation{},
+	common.BytesToAddress([]byte{0x0b}): &bls12381G1Add{},
+	common.BytesToAddress([]byte{0x0c}): &bls12381G1MultiExp{},
+	common.BytesToAddress([]byte{0x0d}): &bls12381G2Add{},
+	common.BytesToAddress([]byte{0x0e}): &bls12381G2MultiExp{},
+	common.BytesToAddress([]byte{0x0f}): &bls12381Pairing{},
+	common.BytesToAddress([]byte{0x10}): &bls12381MapG1{},
+	common.BytesToAddress([]byte{0x11}): &bls12381MapG2{},
+}
+```
+
+每次升级进行添加，必须要保持向前兼容，分配一个固定的位置方便合约调用。实现的接口是：
+
+```
+type PrecompiledContract interface {
+	RequiredGas(input []byte) uint64  // RequiredPrice calculates the contract gas use
+	Run(input []byte) ([]byte, error) // Run runs the precompiled contract
+}
+```
+
+比如 ecrecover 的实现就是：
+
+```
+// ecrecover implemented as a native contract.
+type ecrecover struct{}
+
+func (c *ecrecover) RequiredGas(input []byte) uint64 {
+	return params.EcrecoverGas
+}
+
+func (c *ecrecover) Run(input []byte) ([]byte, error) {
+	const ecRecoverInputLength = 128
+
+	input = common.RightPadBytes(input, ecRecoverInputLength)
+	// "input" is (hash, v, r, s), each 32 bytes
+	// but for ecrecover we want (r, s, v)
+
+	r := new(big.Int).SetBytes(input[64:96])
+	s := new(big.Int).SetBytes(input[96:128])
+	v := input[63] - 27
+
+	// tighter sig s values input homestead only apply to tx sigs
+	if !allZero(input[32:63]) || !crypto.ValidateSignatureValues(v, r, s, false) {
+		return nil, nil
+	}
+	// We must make sure not to modify the 'input', so placing the 'v' along with
+	// the signature needs to be done on a new allocation
+	sig := make([]byte, 65)
+	copy(sig, input[64:128])
+	sig[64] = v
+	// v needs to be at the end for libsecp256k1
+	pubKey, err := crypto.Ecrecover(input[:32], sig)
+	// make sure the public key is a valid one
+	if err != nil {
+		return nil, nil
+	}
+
+	// the first byte of pubkey is bitcoin heritage
+	return common.LeftPadBytes(crypto.Keccak256(pubKey[1:])[12:], 32), nil
+}
+```
+
+所以这里的实现还挺重要的，不能有问题，以后也不能随便改。由于直接在客户端上执行，gas 消耗比较低，性能比较高，但是不能加入太多，太多的话会导致客户端代码和复杂度增加。
+
+TODO debug 到 	evm := vm.NewEVM(context, tracingStateDB, p.config, cfg) 了，明天继续 debug 完。
+
+
+
+---
+
+EVM 主要是一个 stack machine。The Ethereum VM is a stack-based, big-endian VM with a word size of 256-bits and is used to run the smart contracts on the Ethereum blockchain.
+Smart contracts are just like regular accounts, except they run EVM bytecode when receiving a transaction, allowing them to perform calculations and further transactions.
+Transactions can carry a payload of 0 or more bytes of data, which is used to specify the type of interaction with a contract and any additional information.
+
+TODO EVM 是如何将 EVM bytecode 一步步执行的？Debug 一个简单的
+
+
+
+
+p2p 主要是三件工作，t包括历史数据、pending txs、状态同步，同时可以通过 snap 文件的方式快速的同步状态。
+
 
 
 
