@@ -405,6 +405,16 @@ EL 会判断如果 tx 是 invalid 就不会发到 CL 了，只是负责打包等
 
 打算把 go-ethereum 的代码跑起来，直接 debug 看源代码，暂时卡住了，对 Go 语言不熟悉。
 
+# 2025.02.18
+
+因为后面的一些实现逻辑等想直接看 go-ethereum 代码了，所以花了一些时间研究如何使用 dlv 来 debug go。结果发现 VSCode 默认就支持针对 Unit Test 的 debug，在可以执行的方法上面会有 debug test 按钮，下断点，点一下就可以进入 debug 模式。实在是太高级太简单了。
+
+![image](https://github.com/user-attachments/assets/54ce4bcd-d4cd-480c-b6f3-18c73e7fbdcf)
+
+
+然后通过 AI 工具帮忙找到对应的功能，直接就可以开始下断点 debug 看看具体的实现逻辑：
+
+![image](https://github.com/user-attachments/assets/11a14590-3a2c-4f2d-acc2-967d8268f536)
 
 
 
