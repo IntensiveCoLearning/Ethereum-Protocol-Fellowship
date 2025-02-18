@@ -154,4 +154,28 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
 2. UTXO 账号模型 （BTC 中使用的账号模型）
    1. 每个 UTXO （unspent transaction output） 都是一个独立的数据单元，记录着资产的来源、归属、和转移规则
 
+### 2025.02.18
+
+1. JSON-RPC 是一个轻量级的远程过程调用，使用 json 格式进行通信，允许客户端和节点进行通信
+2. 可扩张 和语言无关、无状态
+3. 特定的格式
+
+```json
+{
+  "id": 1, // 请求的唯一标识
+  "jsonrpc": "2.0", // JSON-RPC 版本
+  "method": "<prefix_methodName>", // 方法名
+  "params": [...] // 调用参数
+}
+
+{
+  "jsonrpc": "2.0", // JSON-RPC 版本
+  "result": "0x1", // 方法返回值
+  "id": 1 // 与请求中的 id 对应
+}
+```
+
+4. 每一个调用方法 都有 命名空间前缀 和方法名组成：比如：eth_getBlockByNumber 获取最新区块号
+5. 一般由 http、wss、ipc 等协议进行通信
+
 <!-- Content_END -->
