@@ -297,4 +297,72 @@ post_state = state_transition(pre_state, block)
 - 安裝後可用 Python 執行測試案例，確保狀態轉換符合規範。
 - 開發者可參與 Pyspec 貢獻，甚至尋找漏洞來參與 Bug Bounty。
 
+### 2025.02.18
+
+#### [SGweek6](https://epf.wiki/#/eps/week6)
+
+今天看 week 6 **Ethereum Execution Layer
+Specification**的內容。
+
+#### **1. 簡介**
+**EELS（Ethereum Execution Layer Specification）**
+- 以 Python 方式實作 Ethereum Execution Layer，作為 Yellow Paper 的後繼版本。
+- 由 Consensys 的 Quilt 團隊於 2021 年 5 月創建，後由 Ethereum Foundation 維護。
+- 目標是讓 Ethereum 內部運作更容易被程式設計師理解，並提供可測試的規範。
+
+#### **2. Yellow Paper（以太坊黃皮書）**
+**歷史背景**
+- 2014 年由 Gavin Wood 創建，採用 CC-BY-SA 4.0 授權。
+- 是 Ethereum 的技術規範，但對程式設計師而言難以理解。
+
+**內容涵蓋**
+- 區塊鏈架構
+- 分叉選擇（Fork Choice）
+- 狀態（State）
+- 交易（Transaction）
+- 區塊（Block）
+- 其他技術（Gas、合約、EVM、RLP、MPT、預編譯合約、EVM 指令等）
+
+**Yellow Paper 的問題**
+- **不易讀**：大多數程式設計師難以理解。
+- **無法測試**：規範以人類語言描述，無法直接用來測試。
+- **與 EIP 不匹配**：許多核心 EIP 並未使用 Yellow Paper 的數學記法。
+
+**Yellow Paper 的優勢**
+- **簡潔**
+- **形式化**
+- **與演算法無關**
+
+#### **3. EELS（Ethereum Execution Layer Specification）**
+**為何需要 EELS？**
+- Yellow Paper 難以理解，EELS 提供更友善的 Python 版本。
+- Yellow Paper 只提供過去的狀態，EELS 提供當前 Ethereum Execution Layer 的完整規範。
+- 讓 Ethereum 的規範同時可以用來進行自動化測試。
+
+**EELS 的架構**
+- **Forks**
+- **區塊鏈（Blockchain）**
+- **分叉選擇（Fork Choice）**（EELS 假設僅接收 canonical chain）
+- **狀態（State）**
+- **交易（Transaction）**
+- **區塊（Block）**
+
+**EELS 的問題**
+- **需要 Python 知識**
+- **包含具體演算法選擇**（不像 Yellow Paper 一樣抽象）
+- **較冗長**
+- **對學術界不夠友好**
+
+**EELS 的優勢**
+- **對程式設計師更友善**（用 Python 撰寫，EIP 也開始使用 Python 風格的偽代碼）
+- **可維護性強**（任何會寫 Python 的人都可以閱讀和維護）
+- **可測試性強**（可以同步鏈，通過 ethereum/tests 測試）
+
+#### **4. EELS 的創新**
+**1. 變更比較（Diffs）**
+- 追蹤 Ethereum 版本變更，並用程式碼來描述更新內容。
+
+**2. 模糊測試（Fuzzing）**
+- 產生隨機輸入並與其他 Ethereum 客戶端比較輸出，確保正確性。
+
 <!-- Content_END -->

@@ -81,4 +81,7 @@ EVM 這篇教學不錯，有圖解很詳細，不過我還要多看看下面的 
 week2 介紹 excute layer， env tx state 幾個包進去驗證在驗證 gas
 大致這樣
 
+# 2025.02.18
+
+EL 大致看完了，主要就在講驗證 tx 還有 tx 的細節，到時候來整理一下
 <!-- Content_END -->

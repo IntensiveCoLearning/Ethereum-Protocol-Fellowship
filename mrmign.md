@@ -303,5 +303,15 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 	- TODO [][Ethereum data structures](https://epf.wiki/#/wiki/EL/data-structures) for details on how the world state is implemented.
 	- [Virtual machine paradigm](https://epf.wiki/#/wiki/EL/evm?id=virtual-machine-paradigm) go on...
 
-
+### 2025.02.18
+- [Virtual machine paradigm](https://epf.wiki/#/wiki/EL/evm?id=virtual-machine-paradigm)
+	- EVM has a word size of 32 bytes.
+	- EVM bytecodes: is a representation of a program as a sequence of bytes. Each byte is either:
+		- an instruction known as `opcode`
+		- input to an opcode known as `operand`
+	- EVM bytecode is commonly expressed in [**hexadecimal**](https://en.wikipedia.org/wiki/Hexadecimal) notation
+	- `EVM assembly`, human readable
+	- The **EVM stack** has a maximum size of 1024 items.
+	- EVM memory is a byte array of 2^256 (or [practically infinite](https://www.talkcrypto.org/blog/2019/04/08/all-you-need-to-know-about-2256/)) bytes
+	-
 <!-- Content_END -->

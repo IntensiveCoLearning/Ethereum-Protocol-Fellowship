@@ -1008,4 +1008,98 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 
 通过本课程的系统学习，开发者将掌握现代以太坊客户端的架构设计精髓，具备参与Reth等新一代客户端开发的能力。建议结合[Erigon代码库](https://github.com/ledgerwatch/erigon)对比学习传统与创新设计差异，通过[Tokio文档](https://tokio.rs/)深化异步编程理解。
 
+### 2025.02.18
+
+EPF WIKI Week 7 | Verkle Trees
+
+#### **I. 核心学习目标**
+
+**主题**: Verkle树技术及其在以太坊中的应用
+**目标**: 理解Verkle树如何替代Merkle Patricia Trie（MPT），实现无状态客户端与状态验证优化。
+
+#### **II. 课程大纲重点**
+
+##### **1. Verkle树核心优势**
+
+- **证明尺寸优化**：相比MPT的KB级证明，Verkle证明可压缩至约200字节
+- **树高度降低**：通过向量承诺（KZG多项式）实现宽树结构（每个节点256个子节点）
+- **无状态客户端**：轻节点只需存储根哈希，通过证明验证状态数据
+
+##### **2. 密码学基础**
+
+- **KZG承诺**：实现常数大小的多项式承诺（需可信设置）
+- **Pedersen哈希**：结合椭圆曲线加密构建树节点哈希
+- **零知识证明兼容**：支持未来与zk-SNARKs集成
+
+##### **3. 数据结构设计**
+
+- 树结构分层：
+  - **扩展层**（Extension Node）：处理长路径压缩
+  - **内部节点**（Inner Node）：存储子节点承诺
+  - **叶子节点**（Leaf Node）：包含实际状态数据
+- **路径压缩**：通过地址空间划分优化访问效率
+
+##### **4. 迁移挑战**
+
+- 状态转换方案：
+  - 分阶段迁移（柏林硬分叉后的状态快照）
+  - 双树并行期（MPT与Verkle共存）
+- Gas模型调整：
+  - 状态访问操作码（如`SLOAD`）Gas成本重构
+  - 证明验证Gas定价（约5,000 Gas/证明）
+
+##### **5. 当前进展**
+
+- **测试网集成**：已部署在Ephemery测试网
+- **客户端支持**：Geth、Nethermind的初期实现
+- 开放问题：
+  - 长期状态存储激励
+  - 证明聚合优化
+
+#### **III. 关键学习资源**
+
+##### **必读材料**：
+
+- [Verkle证明解析](https://ihagopian.com/posts/anatomy-of-a-verkle-proof)（Ignacio Hagopian）
+- [Verkle技术门户](https://verkle.info)：整合各类技术文档
+
+##### **深度解析**：
+
+- [Verkle状态迁移提案](https://github.com/ethereum/pm/issues/977)（开发者讨论）
+- [The Verge升级解析](https://www.youtube.com/watch?v=F1Ne19Vew6w)（Guillaume Ballet演讲）
+
+#### **IV. 技术术语对照**
+
+| 英文术语              | 中文解释         |
+| --------------------- | ---------------- |
+| Vector Commitment     | 向量承诺         |
+| Polynomial Commitment | 多项式承诺       |
+| Stateless Client      | 无状态客户端     |
+| Witness               | 见证（状态证明） |
+
+#### **V. 实践建议**
+
+1. **验证工具使用**：
+
+   ```python
+   # 使用py_verkle生成验证结果
+   from py_verkle import VerkleTree
+   tree = VerkleTree()
+   tree.insert(b'\x01'*32, b'data')
+   proof = tree.prove(b'\x01'*32)
+   assert tree.verify(proof)
+   ```
+
+2. **Gas成本测算**：
+
+   - 对比MPT与Verkle在`SLOAD`操作中的Gas消耗差异
+   - 分析状态证明批量验证的经济性
+
+3. **迁移测试**：
+
+   - 在本地私有链部署Verkle过渡分叉
+   - 监控双树并行期的状态同步效率
+
+通过本课程的系统学习，研究者将深入理解Verkle树的技术革新及其对以太坊生态的影响。建议参与[Verkle开发者会议](https://github.com/ethereum/pm/issues/977)跟进最新进展，通过[Verkle测试网](https://ephemery.dev/)进行实践验证。
+
 <!-- Content_END -->
