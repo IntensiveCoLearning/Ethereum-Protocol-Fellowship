@@ -939,5 +939,105 @@ EVM 處理交易時，會改變以太坊的整體狀態，因此可以將以太�
 
 ### 2025.02.18
 
+JSON-RPC 是一種基於 OpenRPC 的遠端程序呼叫 (RPC) 協議，使用 JSON 編碼。它允許在遠端伺服器上執行函式並返回結果，屬於 **Execution API** 規範的一部分。JSON-RPC 主要用於讓使用者透過客戶端與 Ethereum 區塊鏈互動，也包括 **共識層 (CL)** 與 **執行層 (EL)** 透過 **Engine API** 進行通信。  
+
+### API 規範  
+JSON-RPC 方法透過 **命名空間 (namespace)** 來分類，並遵循統一的請求格式：  
+```json
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "<prefix_methodName>",
+  "params": [...]
+}
+```
+- **id**：請求的唯一識別碼  
+- **jsonrpc**：JSON-RPC 協議的版本 (2.0)  
+- **method**：要調用的方法名稱 (帶有命名空間前綴)  
+- **params**：方法的參數，若無則為空陣列  
+
+### Namespaces
+每個方法名稱由 **命名空間前綴** 和 **方法名稱** 組成，例如 `eth_getBlockByNumber` (eth 為命名空間)。Ethereum 客戶端必須至少支援與網路互動的基本 RPC 方法，此外，每個客戶端還可能提供額外的專屬方法，例如 Geth 和 Reth 各自的命名空間與方法集。因此，使用時應參考特定客戶端的官方文件。
+
+### **編碼方式**  
+JSON-RPC 方法的參數遵循 **十六進位 (hex) 編碼** 規範：  
+- 數值 (Quantities) 以 `"0x"` 前綴的十六進位格式表示。例如：  
+  - **數字 65** 表示為 `"0x41"`  
+  - **數字 0** 表示為 `"0x0"`  
+  - **無效示例**：`"0x"` (沒有數字) 或 `"ff"` (缺少 `"0x"` 前綴)  
+- **未格式化資料** (如哈希值、帳戶地址、位元組陣列) 也需使用 `"0x"` 前綴。例如：  
+  - `0x400` (十進位 1014)  
+  - **無效示例**：`0x0400` (不允許前導零)  
+
+---
+
+### **傳輸協議 (Transport Agnostic)**  
+JSON-RPC 不依賴特定的傳輸方式，可透過 **HTTP、WebSockets (WSS) 或 IPC** 進行通信：  
+- **HTTP**：單向請求-回應模式，回應發送後即關閉連線。  
+- **WebSockets (WSS)**：雙向持續連線，可用於事件驅動 (訂閱) 通訊。  
+- **IPC (進程間通信)**：用於同機器上的進程間通信，速度最快，但無法用於遠端連線 (如本地 JS 控制台)。  
+
+---
+
+### **使用工具**  
+#### 1. **透過 curl 發送 JSON-RPC 請求**  
+使用 `curl` 查詢最新區塊號：  
+```sh
+curl <node-endpoint> \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+```
+此請求的 `params` 為空，因為 `eth_blockNumber` 預設回傳 `"latest"`。  
+
+#### 2. **透過 axios (JavaScript/TypeScript)**  
+查詢地址餘額：  
+```js
+import axios from 'axios';
+
+const node = '<node-endpoint>';
+const address = '<address>';
+
+const response = await axios.post(node, {
+  jsonrpc: '2.0',
+  method: 'eth_getBalance',
+  params: [address, 'latest'],
+  id: 1,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+```
+JSON-RPC 方法透過 **POST 請求**，參數放在請求主體 (body) 內。  
+
+#### 3. **使用 web3 庫 (web3py / ethers.js)**  
+使用 `web3py` (Python)：  
+```python
+from web3 import Web3
+
+# 設定 HTTPProvider
+w3 = Web3(Web3.HTTPProvider('http://localhost:8545'))
+
+# 查詢餘額
+w3.eth.get_balance('0xaddress')
+```
+使用 `ethers.js` (JavaScript/TypeScript)：  
+```js
+import { ethers } from "ethers";
+
+const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+
+await provider.getBlockNumber();
+```
+**web3 庫 (web3py、web3.js、ethers.js)** 封裝了 JSON-RPC 方法，使與 Ethereum 執行層的交互更方便，建議根據使用的編程語言選擇適合的庫。
+
+### **執行層的 P2P 通訊協議**  
+Ethereum **執行層 (EL)** 使用 **devp2p** 作為其與網路中節點的通信協議，包含多種子協議與功能，例如：  
+- **eth**：主要的 Ethereum P2P 協議  
+- **snap**：用於快速同步狀態的協議  
+- **les**：輕客戶端 (Light Ethereum Subprotocol)  
+- **pip**、**wit**：其他輔助協議  
+
+由於 **libp2p** (共識層 CL 使用的 P2P 協議) 在 Ethereum 創建時尚未準備就緒，因此 Ethereum 自行開發了 **devp2p** 作為專屬的 P2P 協議棧。
 
 <!-- Content_END -->
