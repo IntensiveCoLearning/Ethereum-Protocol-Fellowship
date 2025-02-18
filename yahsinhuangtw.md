@@ -109,5 +109,24 @@ https://epf.wiki/#/eps/week4
 
 <img width="879" alt="Screenshot 2025-02-16 at 10 57 28 PM" src="https://github.com/user-attachments/assets/79c54b40-31e9-4293-a14f-c2db1b5a0eb0" />
 
+### 2025.02.18
+
+週二晚上殘酷學習時間來關心第五週的主題 https://epf.wiki/#/eps/week5 Ethereum Research and Roadmap | Domothy | Week 5 
+
+https://www.youtube.com/live/UClaoL12W00?si=BnPEXWymzFRuuAs2 
+
+<img width="867" alt="Screenshot 2025-02-18 at 11 33 18 PM" src="https://github.com/user-attachments/assets/cbc1aa15-6c39-4adf-afbe-aafc7a47511b" />
+
+<img width="865" alt="Screenshot 2025-02-18 at 11 34 57 PM" src="https://github.com/user-attachments/assets/39576d99-6d85-4435-8d9c-7a94660f93bc" />
+
+<img width="208" alt="Screenshot 2025-02-18 at 11 38 44 PM" src="https://github.com/user-attachments/assets/137c5733-fa34-4dc0-8d94-c4115e5a2d98" />
+
+老師的大橘貓登場五秒鐘
+
+<img width="864" alt="Screenshot 2025-02-18 at 11 40 03 PM" src="https://github.com/user-attachments/assets/d6060e0a-b868-4d0d-9e1d-3fd3ca968e2a" />
+
+Rollups from 10,000 feet
+
+
 
 <!-- Content_END -->
