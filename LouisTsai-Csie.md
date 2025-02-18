@@ -46,4 +46,6 @@ I reviewed the recent discussion of Fusaka upgrade, and found some people are ag
 ### 2025.02.17
 I start my contribution to the EEST projects, but I encounter some problem during installation. And I review the documentation and try to solve the issue but failed. I join the office hour hosted by EPF to ask for answer.
 
+### 2025.02.18
+I review the EIP-3540, and start integrate the EIP into my EVM decompilation project. I encounter some issue when dealing with the layout. But there is some problem in Java language.
 <!-- Content_END -->
