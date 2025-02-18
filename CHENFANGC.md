@@ -200,4 +200,9 @@ EOA 可以发起交易，交易类型包括：
 - LMD-GHOST 中总结的分叉选择规则
 - 得益于 Casper，它确保了活跃度
 - 提供更高的加密经济安全性
+
+### 2025.02.18
+
+[观看 Alex Stokes 的 CL 概述演](https://www.youtube.com/watch?v=FqKjWYt6yWk)
+
 <!-- Content_END -->
