@@ -160,5 +160,44 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
 
 ![](https://epf.wiki/images/el-specs/stf_eels.png)
 
+### 2025.02.18
+**学习主题 What happens when you send 1 DAI？**
+参考：[中英文文档](https://learnblockchain.cn/article/5805#%E6%9E%84%E5%BB%BA%E4%BA%A4%E6%98%93)
+
+1. You Initiate the Transaction:
+* You use a wallet (like MetaMask, Trust Wallet, etc.) to initiate a transaction to send 1 DAI to a specific recipient address.
+* Your wallet needs to be connected to the Ethereum network.
+2. The Wallet Prepares the Transaction:
+* ABI Encoding: Your wallet uses the DAI token's ABI (Application Binary Interface) to encode the transaction data. This involves:
+    * Specifying the transfer function (the standard function for sending tokens).
+    * Encoding the recipient's Ethereum address.
+    * Encoding the amount (1 DAI, which is often represented as 10^18 because DAI typically has 18 decimal places).
+* Gas Limit and Gas Price: Your wallet estimates the amount of gas (computational energy) needed to execute the transaction and sets a gas price (how much you're willing to pay per unit of gas).
+* Signing: Your wallet uses your private key to digitally sign the transaction. This signature proves that you authorized the transaction.
+3. The Transaction is Broadcast to the Ethereum Network:
+* Your wallet sends the signed transaction to one or more Ethereum nodes.
+* These nodes then propagate the transaction to other nodes in the network via the peer-to-peer (p2p) network.
+* The transaction sits in the "mempool" of various nodes, waiting to be included in a block.
+4. A Miner (or Validator in PoS) Includes the Transaction in a Block:
+* A miner (in PoW) or a validator (in PoS) selects your transaction from the mempool (along with other transactions) to include in a new block.
+* They prioritize transactions based on the gas price – higher gas prices usually mean faster inclusion.
+* The miner/validator constructs a valid block, including the transaction, a timestamp, and a reference to the previous block.
+5. The Block is Mined/Validated and Added to the Blockchain:
+* PoW (before The Merge): The miner solves a complex cryptographic puzzle to create a valid block.
+* PoS (after The Merge): Validators attest to the validity of the block, and the Beacon Chain's consensus mechanism determines which block is added to the chain.
+* The new block is added to the Ethereum blockchain, becoming part of the permanent, immutable record.
+6. The Transaction is Executed:
+* The Ethereum Virtual Machine (EVM) executes the transfer function within the DAI smart contract.
+* The EVM checks:
+    * That your account has enough DAI to send.
+    * That the signature is valid.
+* If everything is valid, the EVM updates the DAI token's state:
+    * Decreases your DAI balance by 1 DAI.
+    * Increases the recipient's DAI balance by 1 DAI.
+* The gas used for the transaction is deducted from your account.
+7. Confirmation:
+* As more blocks are added to the blockchain on top of the block containing your transaction, it becomes increasingly difficult to reverse the transaction.
+* After a certain number of confirmations (e.g., 6 confirmations), the transaction is considered highly secure and irreversible.
+
 
 <!-- Content_END -->
