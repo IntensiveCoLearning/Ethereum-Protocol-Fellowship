@@ -258,6 +258,8 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 Update notes on 
 - What problem does portal network solve for light clients
 - Why portal needs DHT
+### 2025.02.18
+- Participated Portal implementer call and updated the call notes: https://hackmd.io/@chloezhux/H1x36pYIJg
 
 
 

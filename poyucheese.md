@@ -253,7 +253,7 @@ CL 在 Ethereum 2.0 中負責整個網絡的共識機制。若 CL 客戶端出�
 
 ### 2025.02.17
 
-#### [SGweek6](https://epf.wiki/#/eps/week6)
+#### [SGweek6-dev](https://epf.wiki/#/eps/week6-dev)
 
 今天看 week 6 **Ethereum Consensus Layer Pyspec**（可執行的共識規範）的內容。 
 
@@ -296,5 +296,127 @@ post_state = state_transition(pre_state, block)
 - Pyspec 是 Ethereum 共識層的核心規範，可用來執行、驗證及測試。
 - 安裝後可用 Python 執行測試案例，確保狀態轉換符合規範。
 - 開發者可參與 Pyspec 貢獻，甚至尋找漏洞來參與 Bug Bounty。
+
+### 2025.02.18
+
+#### [SGweek6-dev](https://epf.wiki/#/eps/week6-dev)
+
+今天看 week 6 **Ethereum Execution Layer
+Specification**的內容。
+
+#### **1. 簡介**
+**EELS（Ethereum Execution Layer Specification）**
+- 以 Python 方式實作 Ethereum Execution Layer，作為 Yellow Paper 的後繼版本。
+- 由 Consensys 的 Quilt 團隊於 2021 年 5 月創建，後由 Ethereum Foundation 維護。
+- 目標是讓 Ethereum 內部運作更容易被程式設計師理解，並提供可測試的規範。
+
+#### **2. Yellow Paper（以太坊黃皮書）**
+**歷史背景**
+- 2014 年由 Gavin Wood 創建，採用 CC-BY-SA 4.0 授權。
+- 是 Ethereum 的技術規範，但對程式設計師而言難以理解。
+
+**內容涵蓋**
+- 區塊鏈架構
+- 分叉選擇（Fork Choice）
+- 狀態（State）
+- 交易（Transaction）
+- 區塊（Block）
+- 其他技術（Gas、合約、EVM、RLP、MPT、預編譯合約、EVM 指令等）
+
+**Yellow Paper 的問題**
+- **不易讀**：大多數程式設計師難以理解。
+- **無法測試**：規範以人類語言描述，無法直接用來測試。
+- **與 EIP 不匹配**：許多核心 EIP 並未使用 Yellow Paper 的數學記法。
+
+**Yellow Paper 的優勢**
+- **簡潔**
+- **形式化**
+- **與演算法無關**
+
+#### **3. EELS（Ethereum Execution Layer Specification）**
+**為何需要 EELS？**
+- Yellow Paper 難以理解，EELS 提供更友善的 Python 版本。
+- Yellow Paper 只提供過去的狀態，EELS 提供當前 Ethereum Execution Layer 的完整規範。
+- 讓 Ethereum 的規範同時可以用來進行自動化測試。
+
+**EELS 的架構**
+- **Forks**
+- **區塊鏈（Blockchain）**
+- **分叉選擇（Fork Choice）**（EELS 假設僅接收 canonical chain）
+- **狀態（State）**
+- **交易（Transaction）**
+- **區塊（Block）**
+
+**EELS 的問題**
+- **需要 Python 知識**
+- **包含具體演算法選擇**（不像 Yellow Paper 一樣抽象）
+- **較冗長**
+- **對學術界不夠友好**
+
+**EELS 的優勢**
+- **對程式設計師更友善**（用 Python 撰寫，EIP 也開始使用 Python 風格的偽代碼）
+- **可維護性強**（任何會寫 Python 的人都可以閱讀和維護）
+- **可測試性強**（可以同步鏈，通過 ethereum/tests 測試）
+
+#### **4. EELS 的創新**
+**1. 變更比較（Diffs）**
+- 追蹤 Ethereum 版本變更，並用程式碼來描述更新內容。
+
+**2. 模糊測試（Fuzzing）**
+- 產生隨機輸入並與其他 Ethereum 客戶端比較輸出，確保正確性。
+
+### 2025.02.19
+
+#### [SGweek6-research](https://epf.wiki/#/eps/week6-research)
+
+今天看 week 6 **Sharding and Data
+Availability Sampling**的內容。
+
+#### 1. 區塊鏈擴展性三難困境（Scalability Trilemma）
+- 設計區塊鏈時，通常需要在 **擴展性（Scalability）、安全性（Security）、去中心化（Decentralization）** 之間權衡。
+- 目前的區塊鏈架構包括：
+  - **執行層（Execution）**
+  - **結算層（Settlement）**
+  - **數據可用性層（Data Availability）**
+  - **共識層（Consensus）**
+
+#### 2. 數據可用性問題（Data Availability Problem）
+- **定義**：確保數據已發布且不可被任何節點（即使是超級多數節點）隱藏或丟棄。
+- 目前傳統解法：
+  - **所有全節點（Full Node）下載所有數據**
+  - 缺點：影響可擴展性，數據量過大
+- 可擴展的數據可用性解法需要減少下載的數據量（如常數或對數級的工作量）
+
+#### 3. 數據可用性取樣（Data Availability Sampling, DAS）
+- **核心概念**：節點只隨機取樣部分數據來檢查區塊是否可用。
+- **問題**：
+  - 假設客戶端取樣 10% 的數據，若區塊生產者隱藏了一筆交易，則只有 10% 的機率能檢測到問題，這仍然太低。
+  - 需要更高效的驗證方式。
+
+#### 4. 糾刪碼（Erasure Coding）
+- **方法**：使用 Reed-Solomon 編碼進行數據擴展，生成額外的冗餘數據。
+- **優勢**：即使 50% 的原始數據遺失，仍可透過剩餘數據重建完整內容。
+- **驗證方式**：
+  - 採用 KZG 承諾（KZG Commitments）
+  - 確保數據在同一多項式上（避免惡意篡改）
+
+#### 5. Danksharding 方案
+- **機制**：
+  - 透過分離「提議者（Proposer）」與「建構者（Builder）」角色，優化區塊生成。
+  - 採用 KZG 2D 方案，透過行列驗證確保數據可用性。
+  - 75% 可用性以下的區塊會自動失敗。
+  - 若有遺失數據，驗證者會重建缺失部分，確保數據完整。
+
+#### 6. 以太坊提案 EIP-4844（Proto-Danksharding）
+- **目標**：透過數據 Blob 來提升數據可用性並降低成本。
+- **特色**：
+  - Blob 與執行層分離，定價獨立。
+  - Blob 不是狀態計算的一部分，只會短期存儲。
+  - 未來可透過網絡升級（如引入糾刪碼）進一步提升擴展性。
+
+#### 7. 研究未來展望
+- **短期**：EIP-4844 將作為 Proto-Danksharding 的基礎，提供過渡解決方案。
+- **中期**：引入糾刪碼，增強 DAS 的效率。
+- **長期**：全面實施 Danksharding，最終實現高效、低成本的數據可用性方案。
 
 <!-- Content_END -->

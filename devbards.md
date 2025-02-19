@@ -77,6 +77,12 @@ Materials in Day 1
 [Discord Live Talk](https://discord.com/channels/1205546645496795137/1205546645937463356)
 
 ### 2025.02.18
+The topic today is about Validator machanism.
+It still in progress now.
+
+### 2025.02.19
+
+### 2025.02.20
 
 
 <!-- Content_END -->
