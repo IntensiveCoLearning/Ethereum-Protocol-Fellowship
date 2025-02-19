@@ -439,9 +439,21 @@ If enough validators vote for a *target* as the new justified checkpoint, and th
 At the end of each epoch (after 32 slots), the start of each epoch, the validator start to submit their FFG vote.
 > Be cautious that FFG and block proposal and confirmation are two different processes, this will be mentioned again in the next section of Finality
 
-### 2025.02.19
-
-
-
 ### 2025.02.20
+
+**How long does FFG vote last?**  
+Because one FFG attestation only can be submitted at one slot from one committee, 
+it will last until receiving ⅔ of attestations, means 22 slots(which was mentioned below). 
+
+> $\mathcal{def}$ **Supermajority**: A vote that is made by ⅔ of the total balance of all active validators, is deemed a supermajority.  
+
+**Finality**
+
+> $\mathcal{def}$ **Justified**: At the start of a epoch(slot 1), all validators is gave a justify query to justify the checkpoint of prior epoch, once ⅔ of attestations reached, this checkpoint is justified.  Typically, a checkpoint is justified in ⅔ ~ 1 epoch.  
+
+> $\mathcal{def}$ **Finality**: If a checkpoint B is justified and the checkpoint in the immediate next epoch becomes justified, then B becomes finalized.  Typically, a checkpoint is finalized in 1⅔ ~ 2 epochs, 10.7 ~ 12.8 minutes.  
+
+Note that the time is measured from when the FFG vote is recorded (slot 1 of the next epoch). If a Tx is written in the middle of an epoch (slot 16), the total time required is 0.5 + 1 + ⅔ epochs until finalized.
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Justification-and-Finalization.png.webp)
 <!-- Content_END -->
