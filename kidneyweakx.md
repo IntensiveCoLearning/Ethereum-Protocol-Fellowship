@@ -84,4 +84,8 @@ week2 介紹 excute layer， env tx state 幾個包進去驗證在驗證 gas
 # 2025.02.18
 
 EL 大致看完了，主要就在講驗證 tx 還有 tx 的細節，到時候來整理一下
+
+# 2025.02.19
+開始看CL 正在研究中，PoS 研究下，想看些源碼
+
 <!-- Content_END -->
