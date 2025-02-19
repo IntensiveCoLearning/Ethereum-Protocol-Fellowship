@@ -403,8 +403,10 @@ Let's see what happened to the blocks in this diagram:
 - For Bob, it received only two attests from committee B
 - For Eve, it received three attests, all of them came from the committee.
 
-Do you think which block will be choose by LMD GHOST? The answer is Eve, who
-received a complete committee vote.
+Do you think which blocks will be chose by LMD GHOST? The answer is Alice and Eve, 
+and the Eve is built based on the Alice.  
+At slot1, none of them were selected as head, at slot2, Alice was set as head, 
+at slot3, Eve was set as head based on Alice.
 
 Let's see what happened to the validator in this diagram:
 - One in committee A is offline.
@@ -426,7 +428,7 @@ Eventually, Eve was reached a consensus.
 #### FFG vote
 
 **What is FFG vote?**  
-At the end of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
+At the end of each epoch, the start of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
 FFG vote consists of two parts:
 - *source*: The latest justified checkpoint that has been voted before.
 - *target*: The checkpoint block of the current epoch.
@@ -434,8 +436,12 @@ FFG vote consists of two parts:
 If enough validators vote for a *target* as the new justified checkpoint, and the next epoch votes to confirm it, it will be finalized.
 
 **When dose FFG vote happen?**  
-At the end of each epoch (after 32 slots), the validator submits their FFG vote.
-
+At the end of each epoch (after 32 slots), the start of each epoch, the validator start to submit their FFG vote.
+> Be cautious that FFG and block proposal and confirmation are two different processes, this will be mentioned again in the next section of Finality
 
 ### 2025.02.19
+
+
+
+### 2025.02.20
 <!-- Content_END -->

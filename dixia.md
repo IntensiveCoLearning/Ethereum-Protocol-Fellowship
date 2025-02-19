@@ -176,4 +176,36 @@ https://eth2book.info/capella/part2/consensus/lmd_ghost/#confirmation-rule
 
 keep read page 10 (ghost)
 
+### 2025.02.19
+
+confirmation rule:
+
+In ETH2, consensus layer has more information of a block's consensus perspective than PoW version. Namely beside the view of a proposer, you can get the head block's vote from other validators( derived from fork rule)
+
+The exact rule is basically the vote of one sub root recevive since that subtree root has been proposed.
+
+incentive design for fork rule:
+
+* proposer has incentive to build on best head given there is higher chance to get the block included. if their block is reorged, they will not received rewards.
+* validators have incentive to head vote (attestion is included next slot (block) so it can get the more reward.(22% for total reward)
+
+discourage double building:
+
+reason that proposer will multiple building is the cost of building a block is almost 0.
+next proposer can submit a proof that previous proposer is double building. given it is all signed so it can be verified. And proposer will get reward to prove that.
+
+same for attesetion
+
+LMD GHOST is speced in 2018.it's original idea started as early as 2015.
+
+TODO:
+
+https://eth2book.info/capella/part2/consensus/casper_ffg/
+
+rewriting notes
+
+keep read page 10 (ghost)
+
+
+
 <!-- Content_END -->

@@ -203,4 +203,9 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 ### 2025.02.19
 
+今天休息一天，简单计划一下 brownievm。回头把任务再 breakdown 大家一起做。
+
+ * 实现 transfer balance 功能
+ * 实现 deploy contract 功能
+
 <!-- Content_END -->
