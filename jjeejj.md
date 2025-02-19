@@ -178,4 +178,13 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
 4. 每一个调用方法 都有 命名空间前缀 和方法名组成：比如：eth_getBlockByNumber 获取最新区块号
 5. 一般由 http、wss、ipc 等协议进行通信
 
+### 2025.02.19
+
+1. 现在生产环境常用的 执行层客户端
+   1. Besu java 开发的 https://github.com/hyperledger/besu
+   2. Geth Go 开发 最常用的 https://github.com/ethereum/go-ethereum
+   3. erigon Go 开发 是 Geth 的一个分子，专注于性能优化，快速同步，减少磁盘空间使用。 优化版本 https://github.com/erigontech/erigon
+   4. Reth Rust 开发 受到 erigon 的设计启发  https://github.com/paradigmxyz/reth
+   5. nethermind C# 开发 https://github.com/NethermindEth/nethermind
+
 <!-- Content_END -->
