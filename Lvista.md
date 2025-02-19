@@ -428,7 +428,7 @@ Eventually, Eve was reached a consensus.
 #### FFG vote
 
 **What is FFG vote?**  
-At the end of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
+At the end of each epoch, the start of each epoch, the validator votes on the checkpoint block and tries to finalize the block.
 FFG vote consists of two parts:
 - *source*: The latest justified checkpoint that has been voted before.
 - *target*: The checkpoint block of the current epoch.
@@ -436,8 +436,12 @@ FFG vote consists of two parts:
 If enough validators vote for a *target* as the new justified checkpoint, and the next epoch votes to confirm it, it will be finalized.
 
 **When dose FFG vote happen?**  
-At the end of each epoch (after 32 slots), the validator submits their FFG vote.
-
+At the end of each epoch (after 32 slots), the start of each epoch, the validator start to submit their FFG vote.
+> Be cautious that FFG and block proposal and confirmation are two different processes, this will be mentioned again in the next section of Finality
 
 ### 2025.02.19
+
+
+
+### 2025.02.20
 <!-- Content_END -->
