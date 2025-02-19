@@ -129,5 +129,10 @@ Rollups from 10,000 feet
 
 <img width="871" alt="Screenshot 2025-02-18 at 11 48 13 PM" src="https://github.com/user-attachments/assets/355b553e-10f7-4aaf-9e84-b9764a3dc753" />
 
+### 2025.02.19
+
+今日的殘酷學習 帕斯卡 Blaise Pascal 機率論，同時也關心 a16z crypto research 近期在忙些什麼。
+
+https://a16zcrypto.com/posts/article/crypto-readings-resources/
 
 <!-- Content_END -->
