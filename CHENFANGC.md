@@ -205,4 +205,8 @@ EOA 可以发起交易，交易类型包括：
 
 [观看 Alex Stokes 的 CL 概述演](https://www.youtube.com/watch?v=FqKjWYt6yWk)
 
+### 2025.02.19
+
+[观看 week 4 内容](https://www.youtube.com/watch?v=PQVW5dJ8J0c)
+
 <!-- Content_END -->
