@@ -151,4 +151,23 @@ Ref:
 - [evmchainbenchmark by 0glabs](https://github.com/0glabs/evmchainbench)
 - [monad db](https://docs.monad.xyz/monad-arch/execution/monaddb)
 
+### 2025.02.17
+学习了下EIP2930 access list相关内容，它定义了一种新的交易类型，可以在交易中定义需要访问的address和storage slots, 从而对相应数据进行预取，以节约gas开销。gas主要分为两部分:
+- prewarm的冷数据读取gas消耗相比于直接SLOAD或者CALL更低
+- warm数据读取gas只需要100
+以前(EIP2929):
+- COLD_SLOAD_COST	2100
+- COLD_ACCOUNT_ACCESS_COST	2600
+- WARM_STORAGE_READ_COST	100
+现在(EIP2930)：
+- ACCESS_LIST_STORAGE_KEY_COST	1900
+- ACCESS_LIST_ADDRESS_COST	2400
+总体下来一个slot数据读取会节约200gas。
+
+同时写了相应的[forge合约](https://github.com/dajuguan/lab/blob/a1110742bdb9d6cfc21a9fd2492afed3a874e79d/eth/contracts/src/Accesslist.sol)来测试
+
+Refs:
+- https://eips.ethereum.org/EIPS/eip-2930
+- https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum
+
 <!-- Content_END -->
