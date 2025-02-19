@@ -403,8 +403,10 @@ Let's see what happened to the blocks in this diagram:
 - For Bob, it received only two attests from committee B
 - For Eve, it received three attests, all of them came from the committee.
 
-Do you think which block will be choose by LMD GHOST? The answer is Eve, who
-received a complete committee vote.
+Do you think which blocks will be chose by LMD GHOST? The answer is Alice and Eve, 
+and the Eve is built based on the Alice.  
+At slot1, none of them were selected as head, at slot2, Alice was set as head, 
+at slot3, Eve was set as head based on Alice.
 
 Let's see what happened to the validator in this diagram:
 - One in committee A is offline.
