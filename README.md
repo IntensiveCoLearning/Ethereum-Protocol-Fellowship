@@ -167,7 +167,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [affe](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/affe.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [dundun930326](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/dundun930326.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ |   | | | | | | | | | |   |   |
 | [Echocipher](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Echocipher.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
-| [poyucheese](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/poyucheese.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |   |   |
+| [poyucheese](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/poyucheese.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |   |   |
 | [amandakelake](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/amandakelake.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
 | [ALiangNe](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/ALiangNe.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [tienshaoku](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/tienshaoku.md) | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ✅ | ❌ | | | | | | | | | | | | | | | | | |
@@ -192,6 +192,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [Juktong](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Juktong.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
