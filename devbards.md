@@ -68,7 +68,7 @@ Still preparing for next week, the record would be update after then.
 
 ### 2025.02.16
 
--- new week --
+-- EPF week 1 --
 ### 2025.02.17
 
 Materials in Day 1
@@ -82,7 +82,18 @@ It still in progress now.
 
 ### 2025.02.19
 
-### 2025.02.20
+Pass
 
+### 2025.02.20
+ Exercution Layer today.
+
+### 2025.02.21
+
+### 2025.02.22
+
+### 2025.02.23
+
+-- EPF week 2 --
+### 2025.02.24
 
 <!-- Content_END -->
