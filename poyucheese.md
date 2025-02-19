@@ -253,7 +253,7 @@ CL 在 Ethereum 2.0 中負責整個網絡的共識機制。若 CL 客戶端出�
 
 ### 2025.02.17
 
-#### [SGweek6](https://epf.wiki/#/eps/week6)
+#### [SGweek6-dev](https://epf.wiki/#/eps/week6-dev)
 
 今天看 week 6 **Ethereum Consensus Layer Pyspec**（可執行的共識規範）的內容。 
 
@@ -299,7 +299,7 @@ post_state = state_transition(pre_state, block)
 
 ### 2025.02.18
 
-#### [SGweek6](https://epf.wiki/#/eps/week6)
+#### [SGweek6-dev](https://epf.wiki/#/eps/week6-dev)
 
 今天看 week 6 **Ethereum Execution Layer
 Specification**的內容。
@@ -364,5 +364,59 @@ Specification**的內容。
 
 **2. 模糊測試（Fuzzing）**
 - 產生隨機輸入並與其他 Ethereum 客戶端比較輸出，確保正確性。
+
+### 2025.02.19
+
+#### [SGweek6-research](https://epf.wiki/#/eps/week6-research)
+
+今天看 week 6 **Sharding and Data
+Availability Sampling**的內容。
+
+#### 1. 區塊鏈擴展性三難困境（Scalability Trilemma）
+- 設計區塊鏈時，通常需要在 **擴展性（Scalability）、安全性（Security）、去中心化（Decentralization）** 之間權衡。
+- 目前的區塊鏈架構包括：
+  - **執行層（Execution）**
+  - **結算層（Settlement）**
+  - **數據可用性層（Data Availability）**
+  - **共識層（Consensus）**
+
+#### 2. 數據可用性問題（Data Availability Problem）
+- **定義**：確保數據已發布且不可被任何節點（即使是超級多數節點）隱藏或丟棄。
+- 目前傳統解法：
+  - **所有全節點（Full Node）下載所有數據**
+  - 缺點：影響可擴展性，數據量過大
+- 可擴展的數據可用性解法需要減少下載的數據量（如常數或對數級的工作量）
+
+#### 3. 數據可用性取樣（Data Availability Sampling, DAS）
+- **核心概念**：節點只隨機取樣部分數據來檢查區塊是否可用。
+- **問題**：
+  - 假設客戶端取樣 10% 的數據，若區塊生產者隱藏了一筆交易，則只有 10% 的機率能檢測到問題，這仍然太低。
+  - 需要更高效的驗證方式。
+
+#### 4. 糾刪碼（Erasure Coding）
+- **方法**：使用 Reed-Solomon 編碼進行數據擴展，生成額外的冗餘數據。
+- **優勢**：即使 50% 的原始數據遺失，仍可透過剩餘數據重建完整內容。
+- **驗證方式**：
+  - 採用 KZG 承諾（KZG Commitments）
+  - 確保數據在同一多項式上（避免惡意篡改）
+
+#### 5. Danksharding 方案
+- **機制**：
+  - 透過分離「提議者（Proposer）」與「建構者（Builder）」角色，優化區塊生成。
+  - 採用 KZG 2D 方案，透過行列驗證確保數據可用性。
+  - 75% 可用性以下的區塊會自動失敗。
+  - 若有遺失數據，驗證者會重建缺失部分，確保數據完整。
+
+#### 6. 以太坊提案 EIP-4844（Proto-Danksharding）
+- **目標**：透過數據 Blob 來提升數據可用性並降低成本。
+- **特色**：
+  - Blob 與執行層分離，定價獨立。
+  - Blob 不是狀態計算的一部分，只會短期存儲。
+  - 未來可透過網絡升級（如引入糾刪碼）進一步提升擴展性。
+
+#### 7. 研究未來展望
+- **短期**：EIP-4844 將作為 Proto-Danksharding 的基礎，提供過渡解決方案。
+- **中期**：引入糾刪碼，增強 DAS 的效率。
+- **長期**：全面實施 Danksharding，最終實現高效、低成本的數據可用性方案。
 
 <!-- Content_END -->
