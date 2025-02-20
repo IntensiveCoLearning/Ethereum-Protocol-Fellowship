@@ -266,7 +266,8 @@ Update notes on
 - To finish: different sync modes for EL and CL
 https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 ### 2025.02.20
-- Followed the node setup workshop, but had some issue with lighthouse client
-  - always timeout when checkpoint syncing
+- Followed the node setup workshop to setup the Geth & Lighthouse pair https://epf.wiki/#/eps/nodes_workshop
+  - On Holesky, lighthouse always timeout when checkpoint syncing
+  - On Sepolia, everything works well (why?)
 
 <!-- Content_END -->
