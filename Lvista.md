@@ -388,6 +388,7 @@ with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of
 
 > Why $\frac{2}{3}$
 > https://www.fanwb.xyz/posts/casperffg/#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%88%86%E4%B9%8B%E4%BA%8C
+> https://eth2book.info/capella/part2/consensus/casper_ffg/#why-two-thirds
 
 ### 2025.02.15
 ### 2025.02.17
