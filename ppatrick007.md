@@ -471,6 +471,22 @@ def integer_squareroot(n: uint64) -> uint64:
     return x
 ```
 
+### 2025.02.20
+
+## Beacon State Mutators 学习
+
+今天的学习内容涉及 Beacon State 中关于验证者余额的增加和减少操作，以及验证者退出机制的相关函数。下面是详细的内容：
+
+### increase_balance 函数
+
+```python
+def increase_balance(state: BeaconState, index: ValidatorIndex, delta: Gwei) -> None:
+    """
+    增加验证者在索引 ``index`` 处的余额 by ``delta``。
+    """
+    state.balances[index] += delta
+```
+
 
 
 
