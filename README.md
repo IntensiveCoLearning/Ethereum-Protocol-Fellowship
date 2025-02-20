@@ -157,7 +157,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [zhwindy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/zhwindy.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [rectinajh](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/rectinajh.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [letsgoexplore](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/letsgoexplore.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
-| [Lvista](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Lvista.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | |   |   |
+| [Lvista](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Lvista.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [lanpan999](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/lanpan999.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [liuxulife](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/liuxulife.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [CHENFANGC](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/CHENFANGC.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ |   | | | | | | | | |   |   |
@@ -192,6 +192,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [Juktong](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Juktong.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
