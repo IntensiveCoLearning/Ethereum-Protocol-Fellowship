@@ -1010,7 +1010,7 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 
 ### 2025.02.18
 
-EPF WIKI Week 7 | Verkle Trees
+#### EPF WIKI Week 7 | Verkle Trees
 
 #### **I. 核心学习目标**
 
@@ -1101,5 +1101,110 @@ EPF WIKI Week 7 | Verkle Trees
    - 监控双树并行期的状态同步效率
 
 通过本课程的系统学习，研究者将深入理解Verkle树的技术革新及其对以太坊生态的影响。建议参与[Verkle开发者会议](https://github.com/ethereum/pm/issues/977)跟进最新进展，通过[Verkle测试网](https://ephemery.dev/)进行实践验证。
+
+### 2025.2.20
+
+#### EPF WIKI Week 7 | Consensus client architecture
+
+#### **I. 核心学习目标**
+
+**主题**: 共识层客户端架构与Teku实现解析
+**目标**: 掌握共识层客户端设计原理，理解EIP实施流程。
+
+#### **II. 课程大纲重点**
+
+##### **1. Teku客户端架构**
+
+- **开发语言**：Java（企业级应用特性）
+- 核心模块：
+  - **信标节点**：处理区块同步与状态转换
+  - **验证者客户端**：签名见证与区块提案
+  - **REST API**：符合[Beacon API规范](https://github.com/ethereum/beacon-APIs)
+- 创新设计：
+  - 声明式同步框架（Declarative Sync）
+  - 模块化验证者服务（远程签名支持）
+
+##### **2. EIP实施流程**
+
+- EIP-7251（Max EB）案例：
+  1. **规范制定**：在[共识规范库](https://github.com/ethereum/consensus-specs)定义`MAX_EFFECTIVE_BALANCE`
+  2. **测试生成**：通过`generate_tests.py`创建状态转换测试
+  3. **代码实现**：修改`BeaconState`类处理余额上限
+  4. **网络集成**：配置预设文件更新链参数
+
+##### **3. 同步机制**
+
+- **检查点同步**：快速获取最新可信状态
+- **增量同步**：基于Finalized Checkpoint的区块回溯
+- **P2P优化**：使用GossipSub协议广播见证
+
+##### **4. 开发实践**
+
+- **代码规范**：遵循[Hyperledger编码标准](https://wiki.hyperledger.org/display/BESU/Coding+Conventions)
+
+- 调试技巧
+
+  ```bash
+  # 启用调试日志
+  java -Dlogging=DEBUG -jar teku.jar --network=mainnet
+  # 监控内存使用
+  jstat -gc <pid> 1000
+  ```
+
+#### **III. 关键学习资源**
+
+##### **必读材料**：
+
+- [Teku官方文档](https://docs.teku.consensys.io/)：部署与API指南
+- [EIP-7251规范](https://github.com/ethereum/consensus-specs/tree/dev/specs/_features/eip7251)：MaxEB技术细节
+
+##### **深度解析**：
+
+- [Teku架构演进](https://www.youtube.com/watch?v=1PHZHpVPLk4)（2020技术分享）
+- [合并后客户端架构](https://www.youtube.com/watch?v=6d4pkhL37Ao)（Adrian Sutton演讲）
+
+#### **IV. 技术术语对照**
+
+| 英文术语             | 中文解释      |
+| -------------------- | ------------- |
+| Finalized Checkpoint | 最终化检查点  |
+| GossipSub Protocol   | GossipSub协议 |
+| Validator Client     | 验证者客户端  |
+| State Transition     | 状态转换      |
+
+------
+
+#### **V. 实践建议**
+
+1. **本地环境搭建**：
+
+   ```bash
+   # 克隆Teku代码库
+   git clone https://github.com/Consensys/teku
+   # 编译并运行测试网节点
+   ./gradlew distTar && cd build/distributions
+   tar -xzf teku-*.tar.gz && ./teku/bin/teku --network=holesky
+   ```
+
+2. **API交互测试**：
+
+   ```bash
+   # 查询信标链头部信息
+   curl http://localhost:5051/eth/v1/beacon/headers
+   # 提交自愿退出交易
+   curl -X POST http://localhost:5051/eth/v1/beacon/pool/voluntary_exits -H "Content-Type: application/json" -d '{"message": {...}, "signature": "0x..."}'
+   ```
+
+3. **自定义EIP实现**：
+
+   - 在`consensus-specs`中添加新EIP草案
+   - 修改`BeaconChainController`处理新逻辑
+   - 生成并运行一致性测试
+
+------
+
+
+
+通过本课程的系统学习，开发者将深入理解共识层客户端的运作机制，具备参与以太坊核心协议改进的能力。建议结合[Lighthouse](https://github.com/sigp/lighthouse)等其他客户端实现进行对比研究，通过[PEEPanEIP](https://www.youtube.com/watch?v=YTWaZ-NBpbM)系列深化协议知识。
 
 <!-- Content_END -->
