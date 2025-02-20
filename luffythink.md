@@ -201,11 +201,28 @@ EPF 学习小组是一个实时网络研讨会式项目，由两个阶段组成�
 
 ### 2025.02.19
 **学习主题 Development**
+
 The Ethereum core development process is characterized by decentralization and client diversity, with numerous teams across various organizations contributing to the protocol's specification, implementation, and testing. This distributed approach, rooted in the Unix philosophy and the open-source nature of Ethereum, necessitates significant coordination efforts.
 
 Coordination Mechanisms:
 - Ethereum PM Repository: The ethereum/pm repository serves as a central hub for project management, coordinating developer calls, and archiving recordings. This provides a transparent and accessible record of discussions and decisions. 
 - Public Channels: Discussions and collaborations occur in public channels, including weekly meetings (AllCoreDevs calls for Execution and Consensus Layers), breakout rooms for specific topics (e.g., EOF, account abstraction), and online forums (Ethereum R&D Discord, Eth Magicians, EthResearch). 
-- Client Diversity and its Importance:Different teams implement the same specifications in various languages, resulting in diverse clients with different features and performance profiles. This client diversity is a core principle of Ethereum, enhancing network stability and security. A range of clients ensures that no single point of failure can compromise the entire network. Essential Computer
+- Client Diversity and its Importance:Different teams implement the same specifications in various languages, resulting in diverse clients with different features and performance profiles. This client diversity is a core principle of Ethereum, enhancing network stability and security. A range of clients ensures that no single point of failure can compromise the entire network. 
+
+### 2025.02.20
+**学习主题 Key Aspects of the EPF**
+
+- Open and Permissionless: The fellowship is open to anyone interested in contributing, regardless of their background or experience.
+- Cohort-Based Structure: The program is organized into yearly cohorts, each lasting 4-5 months, providing a structured learning and contribution experience.
+- Community Focus: EPF emphasizes community involvement, encouraging participants to connect with other contributors and work collaboratively.
+- Project-Based Learning: Participants work on projects related to Ethereum core protocol development, gaining practical experience and contributing to the ecosystem.
+- Stipends: Active and skilled contributors may be eligible for stipends, providing financial support for their work.
+- EPF Day at Devcon: The cohort culminates in an in-person event at Devcon, providing an opportunity for fellows to showcase their work and connect with the broader Ethereum community.
+
+The EPF directly addresses the challenges faced by new contributors:
+
+- Understanding Current Issues
+- Identifying a Project
+- Connecting with Other Contributors
 
 <!-- Content_END -->
