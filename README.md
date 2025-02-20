@@ -152,7 +152,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [huahuahua1223](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/huahuahua1223.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [dethan3](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/dethan3.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
 | [Azleal](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Azleal.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
-| [jjeejj](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/jjeejj.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | | | | | |   |   |
+| [jjeejj](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/jjeejj.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | | | | | | | | |   |   |
 | [buctor41](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/buctor41.md) | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [zhwindy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/zhwindy.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [rectinajh](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/rectinajh.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -192,6 +192,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [Juktong](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Juktong.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
