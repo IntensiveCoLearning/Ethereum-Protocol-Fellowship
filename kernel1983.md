@@ -218,4 +218,10 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 对于区块链来说，开源是一种必须手段，但是我们更要学习除了写代码以外的其它技能。
 如果没有组织协调的能力，一味写代码，开源是很难获得成功的。
 
+### 2025.02.21
+
+尝试了一下 bruce 的方法，用 unittest 读 go-ethereum 的代码。我们做区块链开发的时候，应该不仅限于这种方法，搭测试网应该是家常便饭。
+
+花了时间写了一个提交 https://github.com/kernel1983/brownievm/commit/456204622f8b41da7372870960bcdef36a8acce2 参考 anvil 把10个测试账号导了进去。
+
 <!-- Content_END -->
