@@ -455,5 +455,10 @@ it will last until receiving ⅔ of attestations, means 22 slots(which was menti
 
 Note that the time is measured from when the FFG vote is recorded (slot 1 of the next epoch). If a Tx is written in the middle of an epoch (slot 16), the total time required is 0.5 + 1 + ⅔ epochs until finalized.
 
+In this diagram below, checkpoint at slot 32 is justified before slot 64. Info of FFG voting at 32 is saved at slot 32, and these info is proved at slot 96, which mean being finalized.
+
+> ⚠ If checkpoint at slot 32 haven't been justified in epoch 1, FFG will restart from slot 64.
+
+> 💡 The issue of delay about justify.
+
 ![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Justification-and-Finalization.png.webp)
-<!-- Content_END -->
