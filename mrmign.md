@@ -339,5 +339,18 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
     return core.Finalize(env, transactions, state) //8
   }
   ```
--
+### 2025.02.20
+- Data Structures in Execution Layer
+	- the Ethereum data are stored in trie like structures, mainly `Merkle Patricia Tree` MPT
+	- Patricia Tries is a tree data structure where all the data is store in the leaf nodes, and each non-leaf nodes is a character of a unique string identifying the data
+	- three types of nodes within the MPT:
+		- **Branch Nodes**: consists of a 17-element array, includes one node value and 16 branches.
+		- **Extension Nodes**: function as optimized nodes within the MPT
+		- **Leaf Nodes**: key-value pair. key is the node's hash, value is the MPT node's content.
+	- Ethereum state is stored in four different modified merkle patricia tries (MMPTs):
+		- Transaction Trie
+		- Receipt Trie
+		- World State Trie
+		- Account State Trie
+	- Verkle Trees
 <!-- Content_END -->
