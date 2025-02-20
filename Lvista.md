@@ -466,8 +466,8 @@ In this diagram below, checkpoint at slot 32 is justified before slot 64. Info o
 
 ![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Justification-and-Finalization.png.webp)
 
-**Proposers and bribery(贿赂)**
-TODO
+**Proposers and bribery(贿赂)**  
+TODO  
 Proposers are only assigned to slots once the epoch starts, 
 But how to avoid a bribery of proposers?[secret leader election](https://ethresear.ch/t/low-overhead-secret-single-leader-election/5994)
 
