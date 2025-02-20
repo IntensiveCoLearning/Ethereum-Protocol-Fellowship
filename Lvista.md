@@ -283,6 +283,8 @@ contract nameSys{
 
 ```
 1. ⚠️ Here the `nameNew`func is unsafe, Anyone can use this function to peek into the database or steal certain names and resell them.
+> The resolve is commit-reveal
+> TODO
 2. The `nameLookup` is used by contracts, humans do not need this.(use etherscan.io)
 
 **EVM mechanics: execution environment**
@@ -460,6 +462,13 @@ In this diagram below, checkpoint at slot 32 is justified before slot 64. Info o
 
 > ⚠ If checkpoint at slot 32 haven't been justified in epoch 1, FFG will restart from slot 64.
 
-> 💡 The issue of delay about justify.
+> 💡 The issue about the justification of a block can sometimes finalize a block two or more epochs ago.
 
 ![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Justification-and-Finalization.png.webp)
+
+**Proposers and bribery(贿赂)**
+TODO
+Proposers are only assigned to slots once the epoch starts, 
+But how to avoid a bribery of proposers?[secret leader election](https://ethresear.ch/t/low-overhead-secret-single-leader-election/5994)
+
+
