@@ -207,5 +207,29 @@ rewriting notes
 keep read page 10 (ghost)
 
 
+### 2025.02.20
+
+FFG make it possible finalised a block with the 2 phrase commit but it requires 2/3 honest validators. 
+
+so how could 1/3 bad validator do?
+
+LMD GHOST does not provide finality
+
+"Casper FFG is also able to provide economic finality (accountable safety) even when more than one-third of the validator set is faulty or adversarial."
+
+what is the economic finality (accountable safety)
+
+https://eth2book.info/capella/part2/consensus/casper_ffg/#epochs-and-checkpoints
+
+Why we need Epoch?
+
+"In Ethereum, the validator set is potentially very large, and it is infeasible for votes from several hundred thousand validators to be broadcast, gossiped, and processed simultaneously."
+
+too many validator for all of them to partcipate. So basically the latency
+
+"an epoch3, which, in Eth2, is 32 slots of 12 seconds each. At each slot, of the total validator set is scheduled to broadcast a vote, so each validator is scheduled to cast a vote exactly once per epoch."
+
+in FFG, validators vote for Checkpoint
+
 
 <!-- Content_END -->
