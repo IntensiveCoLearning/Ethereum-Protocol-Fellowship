@@ -313,5 +313,44 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 	- `EVM assembly`, human readable
 	- The **EVM stack** has a maximum size of 1024 items.
 	- EVM memory is a byte array of 2^256 (or [practically infinite](https://www.talkcrypto.org/blog/2019/04/08/all-you-need-to-know-about-2256/)) bytes
-	-
+### 2025.02.19
+- Block Building
+	- Importantly, a validator isn't limited to broadcasting a block solely from its own EL
+- Nodes broadcast transactions through a peer-to-peer network using the gossip protocol
+- Each slot has a designated block proposer, selected through a psuedo-random process by the consensus layer.
+
+  ```go
+  func build(env environment, pool txpool.Pool, state state.StateDB) (types.Block, state.StateDB, error) { //1
+      var (
+          gasUsed = 0
+          txs []types.Transactions
+      ) //2
+  
+    for ; gasUsed < 30_000_000 || !pool.Empty(); { //3
+        transaction := pool.Pop() //4
+        res, gas, err := vm.Run(env, transaction, state) //5
+        if err != nil { // 6
+            // transaction invalid
+            continue
+        }
+        gasUsed += gas // 7
+        transactions = append(transactions, transaction)
+    }
+    return core.Finalize(env, transactions, state) //8
+  }
+  ```
+### 2025.02.20
+- Data Structures in Execution Layer
+	- the Ethereum data are stored in trie like structures, mainly `Merkle Patricia Tree` MPT
+	- Patricia Tries is a tree data structure where all the data is store in the leaf nodes, and each non-leaf nodes is a character of a unique string identifying the data
+	- three types of nodes within the MPT:
+		- **Branch Nodes**: consists of a 17-element array, includes one node value and 16 branches.
+		- **Extension Nodes**: function as optimized nodes within the MPT
+		- **Leaf Nodes**: key-value pair. key is the node's hash, value is the MPT node's content.
+	- Ethereum state is stored in four different modified merkle patricia tries (MMPTs):
+		- Transaction Trie
+		- Receipt Trie
+		- World State Trie
+		- Account State Trie
+	- Verkle Trees
 <!-- Content_END -->

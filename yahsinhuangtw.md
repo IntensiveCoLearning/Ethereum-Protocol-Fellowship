@@ -129,5 +129,24 @@ Rollups from 10,000 feet
 
 <img width="871" alt="Screenshot 2025-02-18 at 11 48 13 PM" src="https://github.com/user-attachments/assets/355b553e-10f7-4aaf-9e84-b9764a3dc753" />
 
+### 2025.02.19
+
+今日的殘酷學習 帕斯卡 Blaise Pascal 機率論，同時也關心 a16z crypto research 近期在忙些什麼。
+
+https://a16zcrypto.com/posts/article/crypto-readings-resources/
+
+### 2025.02.20
+
+<img width="662" alt="Screenshot 2025-02-20 at 10 08 24 PM" src="https://github.com/user-attachments/assets/31a1e8be-1830-4bcb-998e-8217dd9cba2a" />
+
+今天的殘酷學習有 a16z crypto research 的長官降臨家附近的餐廳給我上課 講有關 Network Token 和 Arcade Tokens
+
+https://youtu.be/miAbQdXg6Gc?si=qbg0YSwfkLPLbAiK
+
+https://a16zcrypto.com/research/
+
+以及提到一本書 Suicide of the West: An Essay on the Meaning and Destiny of Liberalism by James Burnham 
+https://www.amazon.com/Suicide-West-Meaning-Destiny-Liberalism/dp/1594037833
+
 
 <!-- Content_END -->

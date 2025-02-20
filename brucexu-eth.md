@@ -558,5 +558,44 @@ p2p 主要是三件工作，t包括历史数据、pending txs、状态同步，�
 
 fork 了一个学习注解版本的 go-ethereum 仓库 https://github.com/brucexu-eth/go-ethereum/commit/16ab6c3351a9cd5f612633409e7828876e1a37b0 方便大家使用，使用 cursor 生成自己想要的 unit test 进行 debug，很方便。
 
+# 2025.02.20
+
+继续 debug EL 的代码。
+
+```
+// IsVerkle returns whether time is either equal to the Verkle fork time or greater.
+func (c *ChainConfig) IsVerkle(num *big.Int, time uint64) bool {
+	return c.IsLondon(num) && isTimestampForked(c.VerkleTime, time)
+}
+```
+
+使用检测时间的方式使升级生效，所以客户端都是提前更新和部署的，定好区块时间上线。这里面估计有一些协调工作。
+
+Go debug 的时候，如果要执行某个方法，需要在 debug console 里面使用 `call value.String()` 这样的方式，添加 call。
+
+```
+evm := &EVM{
+	Context:     blockCtx,
+	StateDB:     statedb,
+	Config:      config,
+	chainConfig: chainConfig,
+	chainRules:  chainConfig.Rules(blockCtx.BlockNumber, blockCtx.Random != nil, blockCtx.Time),
+	jumpDests:   make(map[common.Hash]bitvec),
+}
+```
+
+这个 jumpDests 还挺有意思的，是 EVM 里面用于优化 JUMP/JUMPI 指令执行的缓存，先把合约代码里面有效的跳转目标位置进行记录，方便进行跳转。bitvec 位向量用于标记代码哪些位置是有效的跳转目标，但是具体的运算逻辑还不是很清楚。
+
+![image](https://github.com/user-attachments/assets/8786f08d-d9ec-4992-8afd-49015b6ccf42)
+
+会提前将 transaction 转换成 message，然后 apply 到 evm 上面，然后就到了具体的执行逻辑，TODO 明天继续看
+
+![Cursor 2025-02-20 19 30 28](https://github.com/user-attachments/assets/d01269a7-5d92-42bd-9a10-c9156fefbf27)
+
+
+
+
+
+
 
 <!-- Content_END -->

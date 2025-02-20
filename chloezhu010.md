@@ -260,7 +260,13 @@ Update notes on
 - Why portal needs DHT
 ### 2025.02.18
 - Participated Portal implementer call and updated the call notes: https://hackmd.io/@chloezhux/H1x36pYIJg
-
-
+### 2025.02.19
+- Go through how CL and EL client work in pair, what's the workflow?
+- Lookup what's block header, body, and receipt
+- To finish: different sync modes for EL and CL
+https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
+### 2025.02.20
+- Followed the node setup workshop, but had some issue with lighthouse client
+  - always timeout when checkpoint syncing
 
 <!-- Content_END -->

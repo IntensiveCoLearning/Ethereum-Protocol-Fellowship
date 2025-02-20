@@ -283,6 +283,8 @@ contract nameSys{
 
 ```
 1. ⚠️ Here the `nameNew`func is unsafe, Anyone can use this function to peek into the database or steal certain names and resell them.
+> The resolve is commit-reveal
+> TODO
 2. The `nameLookup` is used by contracts, humans do not need this.(use etherscan.io)
 
 **EVM mechanics: execution environment**
@@ -388,6 +390,7 @@ with $n$ validators is chosen. The $\frac{2}{3}$ here does not means the rate of
 
 > Why $\frac{2}{3}$
 > https://www.fanwb.xyz/posts/casperffg/#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%88%86%E4%B9%8B%E4%BA%8C
+> https://eth2book.info/capella/part2/consensus/casper_ffg/#why-two-thirds
 
 ### 2025.02.15
 ### 2025.02.17
@@ -439,9 +442,33 @@ If enough validators vote for a *target* as the new justified checkpoint, and th
 At the end of each epoch (after 32 slots), the start of each epoch, the validator start to submit their FFG vote.
 > Be cautious that FFG and block proposal and confirmation are two different processes, this will be mentioned again in the next section of Finality
 
-### 2025.02.19
-
-
-
 ### 2025.02.20
-<!-- Content_END -->
+
+**How long does FFG vote last?**  
+Because one FFG attestation only can be submitted at one slot from one committee, 
+it will last until receiving ⅔ of attestations, means 22 slots(which was mentioned below). 
+
+> $\mathcal{def}$ **Supermajority**: A vote that is made by ⅔ of the total balance of all active validators, is deemed a supermajority.  
+
+**Finality**
+
+> $\mathcal{def}$ **Justified**: At the start of a epoch(slot 1), all validators is gave a justify query to justify the checkpoint of prior epoch, once ⅔ of attestations reached, this checkpoint is justified.  Typically, a checkpoint is justified in ⅔ ~ 1 epoch.  
+
+> $\mathcal{def}$ **Finality**: If a checkpoint B is justified and the checkpoint in the immediate next epoch becomes justified, then B becomes finalized.  Typically, a checkpoint is finalized in 1⅔ ~ 2 epochs, 10.7 ~ 12.8 minutes.  
+
+Note that the time is measured from when the FFG vote is recorded (slot 1 of the next epoch). If a Tx is written in the middle of an epoch (slot 16), the total time required is 0.5 + 1 + ⅔ epochs until finalized.
+
+In this diagram below, checkpoint at slot 32 is justified before slot 64. Info of FFG voting at 32 is saved at slot 32, and these info is proved at slot 96, which mean being finalized.
+
+> ⚠ If checkpoint at slot 32 haven't been justified in epoch 1, FFG will restart from slot 64.
+
+> 💡 The issue about the justification of a block can sometimes finalize a block two or more epochs ago.
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Justification-and-Finalization.png.webp)
+
+**Proposers and bribery(贿赂)**  
+TODO  
+Proposers are only assigned to slots once the epoch starts, 
+But how to avoid a bribery of proposers?[secret leader election](https://ethresear.ch/t/low-overhead-secret-single-leader-election/5994)
+
+

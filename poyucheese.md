@@ -419,4 +419,8 @@ Availability Sampling**的內容。
 - **中期**：引入糾刪碼，增強 DAS 的效率。
 - **長期**：全面實施 Danksharding，最終實現高效、低成本的數據可用性方案。
 
+### 2025.02.20
+
+昨天參加了 ETHTaipei的活動，當中介紹了以 EIP-7702 為主將在 Pectra 升級啟用的 EIP，EIP-7702 實現了 AA 錢包，在 EOA 的 code 欄位存了一個 pointer 指向 SCA，能同時擁有 EOA 和 SCA 的優點，分別是 **EOA 能發起交易**、**SCA 能執行 smart contract**。
+
 <!-- Content_END -->
