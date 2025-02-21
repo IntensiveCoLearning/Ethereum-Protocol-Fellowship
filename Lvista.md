@@ -548,7 +548,7 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 
    ![](https://ethos.dev/assets/images/posts/beacon-chain/Casper-FFG-Double-Vote-Example-1.png)
 
-   - 同source不同target
+   - 同source不同target  
      ![](https://ethos.dev/assets/images/posts/beacon-chain/Casper-FFG-Double-Vote-Example-2.png)
 
 > ✅同一个attestation出现在不同aggrevates(聚合)
