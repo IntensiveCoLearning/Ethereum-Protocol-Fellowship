@@ -202,4 +202,16 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
       8. 其他：CREATE、CALL、DELEGATECALL、STATICCALL、SELFDESTRUCT
    3. 每个 opcode 都有对应的 gas 成本，用于限制执行成本
 
+### 2025.02.21
+
+1. Solidity 编译过程
+   1. 词法分析：识别关键词 ，去除空白符和注释 将源代码解析为 Token Stream
+   2. 语法分析：根据语法规则 将 Token Stream 转换为 AST
+   3. 语义分析：检查 AST 的语义正确性，类型检查、作用域检查、函数调用检查
+   4. IR 中间代码生成：将 AST 转换为中间代码，用于优化和调优
+   5. 优化：优化中间代码，提高执行效率和减少 Gas 消耗
+   6. 目标代码生成：将优化后的中间代码转换为目标代码，如 EVM Bytecode
+      1. Bytecode 字节码生成 用于 EVM 执行
+      2. ABI （application binary interface）是合约与外部交互的接口定义，包含函数签名、事件定义等
+2. Solidity 官方编译器 solc 支持将 Solidity 源代码编译为 EVM Bytecode 和 ABI
 <!-- Content_END -->
