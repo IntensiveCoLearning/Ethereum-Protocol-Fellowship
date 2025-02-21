@@ -88,6 +88,7 @@ Pass
  Exercution Layer today.
 
 ### 2025.02.21
+ Network Layer has been updated since the previous study materail published.
 
 ### 2025.02.22
 
