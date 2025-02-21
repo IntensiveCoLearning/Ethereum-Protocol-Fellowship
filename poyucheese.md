@@ -423,4 +423,79 @@ Availability Sampling**的內容。
 
 昨天參加了 ETHTaipei的活動，當中介紹了以 EIP-7702 為主將在 Pectra 升級啟用的 EIP，EIP-7702 實現了 AA 錢包，在 EOA 的 code 欄位存了一個 pointer 指向 SCA，能同時擁有 EOA 和 SCA 的優點，分別是 **EOA 能發起交易**、**SCA 能執行 smart contract**。
 
+### 2025.02.21
+
+#### [SGweek7-dev](https://epf.wiki/#/eps/week7-dev)
+
+今天看 week 7 **Execution client architecture** 的內容，是關於 **Reth**（一個用 Rust 開發的以太坊客戶端）的最新進展、2024 年的發展路線圖，以及未來的可能發展方向。
+
+#### **為什麼要開發 Reth？**
+1. **客戶端多樣性**：以太坊需要獨立的客戶端來確保 Staking 的去中心化與安全性。
+2. **人才培養**：吸引新開發者參與，以提高 Ethereum 核心協議的可維護性與開發者數量。
+3. **擴展能力**：為高 Gas 消耗的 L2 世界設計高效能客戶端。
+4. **代碼可擴展性**：以可維護、模組化的方式設計，而非不規則的分叉或 Rebasing。
+
+#### **2024 年目標**
+1. **成為 L1 Ethereum 的可靠替代客戶端**
+2. **成為最快的 L2 EVM 客戶端**
+3. **打造最先進的 EVM 基礎設施開發框架**
+
+#### **目前的進展**
+- **開源文化與貢獻**
+- **性能測試**
+  - 歷史同步速率達 **2-4K mg/s**
+  - Tip 狀態同步達 **100-200 mg/s**
+- **已完成的里程碑**
+  - 與 Ethereum Foundation 進行 Fuzzing 測試
+  - L1 Cancun 升級測試完成
+  - L2 OP Stack 支持（OP Reth）
+  - **完整的 JSON-RPC 支持**（兼容 Geth 和 Parity）
+  - **快照同步**：[Merkle.io](https://snapshots.merkle.io)
+  - **文檔與開發者支持**：[Reth Docs](https://paradigmxyz.github.io/reth/)
+
+#### **Reth 何時能用於生產環境？**
+- **1.0 版本計劃於 2024 年 5 月發布**
+- **審計與安全測試**
+  - Sigma Prime（Lighthouse 團隊）進行 Reth 審計
+  - Revm Fuzzing 測試（Guido Vranken，ETH Bug Bounty 排行第一）
+
+#### **未來開發路線圖**
+
+Reth 的開發將沿三條主線進行：
+
+##### **1. 核心開發：以太坊 L1 的穩健性**
+- **Cancun 升級已發布**
+- **Electra 升級計劃**
+  - **EOF（EVM Object Format）**
+  - **Verkle Tries**
+  - **Account Abstraction**
+- **參與核心開發進程，提供精確的寫作與基準測試**
+
+##### **2. 性能優化：最大化 Gas 處理能力**
+- **並行 EVM**：不同場景下的並行執行（歷史同步、實時同步、Builder、Sequencer）
+- **JIT/AOT EVM**：使用原生代碼執行，減少解釋器開銷
+- **優化狀態提交**：並行計算 state root + 新算法
+- **優化數據庫**：考慮替換 MDBX，探索 MonadDB 或基於 Perfect Hash Table 的索引設計
+- **系統性優化**：回歸測試與 CI，壓榨最大性能
+
+##### **3. Reth Kernel：構建最先進的 EVM 基礎設施**
+- **Node Builder API**：模組化組件，避免 Fork Geth，直接使用 `reth::cli::*`
+- **Rust 節點基礎設施**：
+  - **Rethhouse**：Reth + Lighthouse（CL+EL）合併為單一二進制文件
+  - **Reth + Helios**：輕量客戶端 CL+EL 整合
+  - **OP Reth + Helios + Magi**：同時支持 L1、L2
+- **應用案例**
+  - 測試網 Rollup + 自定義 EIP？
+
+#### **Reth 2.0 – 面向 Rollup 的節點架構**
+##### **多 Rollup & 雲端架構**
+- **讓 Rollup 節點變得像 BigQuery / Amazon Aurora**
+- **多 Rollup 支持**
+  - **可同時運行多條 Rollup**（如 `reth node --chains=mainnet,op-mainnet,base-mainnet,zora`）
+  - **減少 DevOps 成本，提升可擴展性**
+- **多租戶架構**
+  - **基於 Actor 模型**
+  - **計算與存儲分離，適合雲端部署**
+  - **為 Rollup 提供真正的彈性伸縮能力**
+
 <!-- Content_END -->
