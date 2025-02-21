@@ -593,7 +593,26 @@ evm := &EVM{
 ![Cursor 2025-02-20 19 30 28](https://github.com/user-attachments/assets/d01269a7-5d92-42bd-9a10-c9156fefbf27)
 
 
+# 2025.02.21
 
+今天搭建一下 node 玩玩 https://epf.wiki/#/eps/nodes_workshop
+
+去年跑过，我的笔记和命令 https://github.com/IntensiveCoLearning/ethereum-protocol/blob/main/brucexu.md#52
+
+下载最新版的，然后执行：
+
+```
+# Generate jwtsecret
+openssl rand -hex 32 > ./jwt
+
+./geth --holesky --datadir ./geth-data --syncmode snap --http --http.port 8545 --authrpc.jwtsecret ./jwt --authrpc.port 8551
+
+./lighthouse bn --network holesky --execution-endpoint http://localhost:8551 --datadir ./lh-data --execution-jwt ./jwt --http --checkpoint-sync-url https://holesky.beaconstate.ethstaker.cc/
+```
+
+然后等待同步就可以了。
+
+![image](https://github.com/user-attachments/assets/1df5ea9c-345c-4982-b46c-46d86878f7f0)
 
 
 

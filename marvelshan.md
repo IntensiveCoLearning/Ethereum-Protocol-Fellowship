@@ -1184,5 +1184,59 @@ Ethereum PoS 的 **時間結構**：
 
 ### 2025.02.21
 
+#### **網路協議**
+- **共識客戶端** 使用 **libp2p** 作為點對點協議，**discv5** 進行節點發現，**libp2p-noise** 進行加密，**SSZ** 進行資料編碼，並可選擇使用 **Snappy** 進行壓縮。  
+- **Ethereum Node Records (ENR)** 用於節點發現。  
+- **libp2p-noise** 使用 XX（transmit-transmit）模式進行金鑰交換。  
+- **SSZ**（Simple Serialize）是共識層的主要序列化機制，可高效進行 Merkle 化。  
+
+#### **共識層與 Beacon Chain**
+- **以太坊最初使用工作量證明 (PoW)，後來轉向權益證明 (PoS)**，共識機制結合 **Casper 和 GHOST**，並在 **Gasper** 論文中發布。  
+- **Pyspec** 是共識層的可執行 Python 規範，供客戶端開發者參考。  
+- **Beacon Chain** 是以太坊 PoS 系統的核心，負責管理驗證者註冊、存款與退出機制，主要負載來自「驗證投票」（Attestations）。  
+
+#### **共識客戶端**
+- **共識客戶端（CL）負責 PoS 協議運行**，但不執行交易或狀態轉換，這部分由執行客戶端（EL）負責。  
+- **主要共識客戶端**：  
+  - **Lighthouse（Rust）**：安全性與效能導向  
+  - **Lodestar（TypeScript）**：適用於瀏覽器與快速原型開發  
+  - **Prysm（Go）**：專注於易用性與可靠性  
+  - **Nimbus（Nim）**：適合低資源設備  
+  - **Teku（Java）**：企業級應用  
+  - **Grandine（Rust）**：高效能與輕量化  
+  - **Caplin（Go）**：與 Erigon 執行客戶端整合  
+  - **LambdaClass（Elixir）**：仍在開發階段  
+
+#### **弱主觀性與同步機制**
+- **「客觀性」與「主觀性」**  
+  - PoW 時代：區塊鏈歷史可透過創世區塊回溯驗證，屬於**弱客觀性**。  
+  - PoS 時代：共識層與執行層分離，**創世區塊同步變得不安全**，引入**弱主觀性**。  
+
+- **同步機制變化**
+  1. **同步方向改變**：共識層節點需從弱主觀性檢查點回溯到創世區塊。  
+  2. **同步目標帶有信任需求**：由於歷史可被改變，節點需透過**可信來源**獲取同步檢查點（不透過隨機 P2P 連接）。  
+  3. **同步時間限制**：若節點長時間不同步，可能會受到歷史篡改攻擊，因此需**樂觀導入區塊**（optimistic importing）。  
+
+- **完整同步流程**
+  1. **獲取弱主觀性檢查點**（透過可信來源）。  
+  2. **回溯同步至創世區塊**。  
+  3. **更新執行層的目標區塊頭**。  
+  4. **樂觀導入新區塊**（不驗證執行層狀態）。  
+  5. **執行層同步完成後，再標記共識層區塊為已驗證**。  
+
+補充:
+
+[全節點與輕節點：以太坊節點面面觀 <10> 文組也該知道的區塊鏈技術知識](https://medium.com/pelith/ethereum-nodes-d3e07745d189)
+
+[Libp2p简介](https://woxinfei666.medium.com/libp2p%E7%AE%80%E4%BB%8B-42c6d1fae469)
+
+[點對點網路組建：從 Kademlia 到 Discv5](https://www.chaindaily.cc/posts/1dd47a7905a813bf5cf5a06ae98ed6fb)
+
+[一文讀懂以太坊Beam Chain的願景和技術架構](https://www.gate.io/zh-tw/post/status/7695610)
+
+[如何跑起以太坊執行層與共識層客戶端](https://medium.com/swf-lab/%E5%A6%82%E4%BD%95%E8%B7%91%E8%B5%B7%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9F%B7%E8%A1%8C%E5%B1%A4%E8%88%87%E5%85%B1%E8%AD%98%E5%B1%A4%E5%AE%A2%E6%88%B6%E7%AB%AF-54d0b472e7ac)
+
+### 2025.02.22
+
 
 <!-- Content_END -->

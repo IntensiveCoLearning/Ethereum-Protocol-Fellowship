@@ -471,4 +471,46 @@ TODO
 Proposers are only assigned to slots once the epoch starts, 
 But how to avoid a bribery of proposers?[secret leader election](https://ethresear.ch/t/low-overhead-secret-single-leader-election/5994)
 
+### 2025.02.21
+# Staking 奖励和惩罚
 
+1. attester rewards：
+
+   - validators通过参与attest(LMD GHOST and FFG votes)获得rewards
+   - 如果成功达成一个Finalized block，你将获得更多
+
+2. attester penalties：
+
+   - attesting未执行（无作为）
+   - attesting给一个未被finalized的block（错误行为）
+
+3. typical downside risk for stakers
+
+   站在一个Staker的角度来看，我们关注的是收益损失的回报比
+
+   - penalty是reward的¾（比如，好人😇全勤一年获得10%的reward，那么坏人😈会被penaltied 7.5%）
+
+4. slashings and whistleblower rewards
+
+   slashings就是举报的意思
+
+   - $\mathcal{def}$: The protocol also imposes an ==additional penalty== based on how many others have been slashed near the same time.
+     $$
+     Additional\_penalty = validator\_balance\times 3\times fraction\_of\_validators\_slashed
+     $$
+
+5. proposer rewards
+
+   proposer能得到更多的奖励
+
+   - validator在Tx中提出slash，proposer将该Tx推送到block中，就能获得reward
+
+     > 😕Currently, all of the whistleblower’s reward actually goes to the proposer.
+
+6. inactivity leak penalty
+
+   这与#3所说的不一样，这个惩罚机制主要是针对集体事件的
+
+   - 当一个block在4个epoch后依然没被finalized，就可判定为1/3以上的validator不活跃😈，就会触发inactivity leak penalty
+   - 惩罚力度成2次指数（quadratic）递增，目的是为了让坏人😈尽快下线，让剩下的人😇达成2/3多数。
+### 2025.02.22

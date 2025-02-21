@@ -266,7 +266,24 @@ Update notes on
 - To finish: different sync modes for EL and CL
 https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 ### 2025.02.20
-- Followed the node setup workshop, but had some issue with lighthouse client
-  - always timeout when checkpoint syncing
+- Followed the node setup workshop to setup the Geth & Lighthouse pair https://epf.wiki/#/eps/nodes_workshop
+  - On Holesky, lighthouse always timeout when checkpoint syncing
+  - On Sepolia, everything works well (why?)
+### 2025.02.21
+- Learned different sync modes of EL & CL
+- Setup node notes
+    - Always verify the downloaded package first
+    - Geth 用的 pebbleDB 而不是 levelDB
+    - Setup CL client 需要先 generate jwtsecret file 用于 EL CL 之间的沟通
+    - Default sync mode
+        - geth: snap sync
+        - lighthouse: default mode 会显示 syncing from the genesis is insecure 推荐 checkpoint sync
+            - checkpoint sync endpoitns: https://eth-clients.github.io/checkpoint-sync-endpoints/
+    - Testnet: Holesky 在我本地总是 timeout，我再重新 run 一个看看问题
+    - EL run 起来后
+        - 会一直 looking for peers，没有 CL 给 header EL 无法 sync
+    - CL run 起来后
+        - syncing deposit contract block cache
+        - synced
 
 <!-- Content_END -->

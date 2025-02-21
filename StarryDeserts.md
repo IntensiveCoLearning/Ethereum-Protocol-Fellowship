@@ -1381,4 +1381,113 @@ func applyTransaction(tx *Transaction, state *StateDB) error {
   2. 执行层执行交易 → 返回状态根和 Gas 消耗
   3. 共识层验证状态根 → 广播认证（Attestation）
 
+
+
+### 2025.02.21
+
+#### 状态转换与验证逻辑
+
+------
+
+##### **信标链状态转换**
+
+- **状态驱动机制**：
+
+  - **时隙驱动（Slot-driven）**：每个时隙（12秒）触发状态更新，无论是否有新区块
+  - **区块驱动（Block-driven）**：接收新区块时更新状态
+
+- **状态转换函数**：
+
+  ```python
+  def state_transition(state: BeaconState, signed_block: SignedBeaconBlock):
+      # 处理时隙过渡（包括空时隙）
+      process_slots(state, block.slot)
+      # 验证区块签名
+      if validate_result:
+          assert verify_block_signature(state, signed_block)
+      # 处理区块内容
+      process_block(state, block)
+      # 验证状态根一致性
+      if validate_result:
+          assert block.state_root == hash_tree_root(state)
+  ```
+
+- **关键子函数**：
+
+  | 函数              | 功能                                      |
+  | ----------------- | ----------------------------------------- |
+  | `process_slots()` | 处理时隙过渡，必要时触发纪元（Epoch）处理 |
+  | `process_epoch()` | 纪元结束时更新验证者状态、惩罚机制等      |
+  | `process_block()` | 处理区块内的认证、质押操作等              |
+
+------
+
+##### **区块验证条件**
+
+- **有效性校验**：
+  1. **签名验证**：区块提议者的 BLS 签名合法
+  2. **时隙顺序**：区块时隙必须大于当前状态时隙
+  3. **状态根匹配**：执行层计算的状态根必须与区块头一致
+  4. **无异常中断**：状态转换过程不得触发未处理异常（如断言失败、越界访问）
+- **无效区块处理**：
+  - 直接丢弃区块及其所有子孙区块
+  - 记录无效原因并广播至网络
+
+------
+
+##### **控制流程（区块生产与验证）**
+
+- **非出块节点流程**：
+  1. 接收区块 → 预验证（签名、时隙）
+  2. 发送交易到执行层 → 获取执行结果
+  3. 验证状态根 → 添加区块到链
+  4. 广播认证（Attestation）
+- **出块节点流程**：
+  1. 接收出块通知 → 调用执行层打包交易
+  2. 执行层生成交易包 → 返回执行状态根
+  3. 构建信标区块（含状态根） → 签名并广播
+  4. 其他节点验证 → 达成共识后固化区块
+
+------
+
+##### **设计约束与验证者惩罚**
+
+- **状态一致性约束**：
+
+  - 所有节点从相同创世状态开始
+  - 相同区块序列必须产生相同最终状态
+  - 状态分歧视为共识失败
+
+- **验证者惩罚场景**：
+
+  | 违规类型                  | 处罚措施                       |
+  | ------------------------- | ------------------------------ |
+  | 双签（Double Voting）     | 罚没质押金（≥1 ETH）并强制退出 |
+  | 离线（Inactivity）        | 按离线时间比例扣除余额         |
+  | 包围投票（Surround Vote） | 高额罚没（与违规程度正相关）   |
+
+------
+
+##### **关键数据结构**
+
+- **信标区块（Beacon Block）**：
+
+  ```python
+  class BeaconBlock:
+      slot: Slot          # 所属时隙
+      proposer_index: ValidatorIndex  # 提议者索引
+      parent_root: Root   # 父区块哈希
+      state_root: Root    # 状态根（由执行层计算）
+      body: BeaconBlockBody  # 包含认证、质押操作等
+  ```
+
+- **认证（Attestation）**：
+
+  ```python
+  class Attestation:
+      aggregation_bits: Bitlist  # 聚合签名位图
+      data: AttestationData      # 投票目标（区块/检查点）
+      signature: BLSSignature    # 聚合 BLS 签名
+  ```
+
 <!-- Content_END -->

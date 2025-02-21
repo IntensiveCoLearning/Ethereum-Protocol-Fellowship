@@ -1207,4 +1207,95 @@ docker run -d -p 9000:9000 -p 9001:9001 -v /data/lighthouse:/root/.lighthouse \
 
 通过本课程的系统学习，开发者将深入理解共识层客户端的运作机制，具备参与以太坊核心协议改进的能力。建议结合[Lighthouse](https://github.com/sigp/lighthouse)等其他客户端实现进行对比研究，通过[PEEPanEIP](https://www.youtube.com/watch?v=YTWaZ-NBpbM)系列深化协议知识。
 
+### 2025.2.21
+
+EPF WIKI Week 7 | Protocol services
+
+#### **I. 核心学习目标**
+
+**主题**: MEV（矿工可提取价值）与抗审查协议服务
+**目标**: 理解MEV对协议经济的影响，掌握PBS（提议者-构建者分离）等核心解决方案。
+
+#### **II. 课程大纲重点**
+
+##### **1. MEV现状分析**
+
+- MEV类型：
+  - **套利交易**：DEX间价格差异
+  - **清算优先权**：借贷协议清算收益
+  - **三明治攻击**：操纵交易排序获利
+- 负面影响：
+  - 网络拥堵与Gas费波动
+  - 验证者中心化风险
+
+##### **2. PBS（提议者-构建者分离）**
+
+- 架构设计：
+  - **提议者**：负责区块最终确认
+  - **构建者**：优化交易排序获取MEV
+  - **中继**：防止MEV信息泄露
+- 实现变体：
+  - **ePBS（Enshrined PBS）**：协议内强制实施
+  - **市场驱动PBS**：通过竞拍机制分配构建权
+
+##### **3. MEV-Burn机制**
+
+- **费用销毁**：将部分MEV收益通过EIP-1559销毁
+- **经济平衡**：减少验证者过度激励，增强网络安全性
+- **实施挑战**：精确测算可销毁比例（当前提案约50%）
+
+##### **4. 彩虹质押（Rainbow Staking）**
+
+- 角色解绑：
+  - **区块提议**：高硬件要求的专业节点
+  - **见证签名**：普通用户参与
+- 优势：
+  - 降低质押门槛（无需32 ETH）
+  - 提升网络去中心化程度
+
+#### **III. 关键学习资源**
+
+##### **必读材料**：
+
+- [MEV基础指南](https://ethereum.org/en/developers/docs/mev/)
+- [PBS技术笔记](https://barnabe.substack.com/p/pbs)（Barnabé Monnot）
+
+##### **深度解析**：
+
+- [彩虹质押提案](https://ethresear.ch/t/unbundling-staking-towards-rainbow-staking/)（EthResearch讨论）
+- [审查监控仪表盘](https://dotpics.info/)：实时追踪区块审查情况
+
+#### **IV. 技术术语对照**
+
+| 英文术语                    | 中文解释          |
+| --------------------------- | ----------------- |
+| Miner Extractable Value     | 矿工可提取价值    |
+| Proposer-Builder Separation | 提议者-构建者分离 |
+| MEV-Burn                    | MEV销毁机制       |
+| Relay                       | 中继节点          |
+
+#### **V. 实践建议**
+
+1. **MEV模拟实验**：
+
+   ```python
+   # 使用mev-inspect分析区块MEV
+   import mev_inspect
+   block = mev_inspect.get_block(16500000)
+   arb_opportunities = mev_inspect.find_arbitrages(block)
+   print(f"Block {block.number} MEV: {sum(opp.profit for opp in arb_opportunities)} ETH")
+   ```
+
+2. **PBS经济模型构建**：
+
+   - 设计构建者竞拍收益分配模型
+   - 测算不同销毁比例对验证者收益的影响
+
+3. **抗审查监控**：
+
+   - 通过[dotpics.info](https://dotpics.info/)追踪OFAC合规交易占比
+   - 开发插件检测本地节点的交易过滤行为
+
+通过本课程的系统学习，研究者将深入理解MEV经济模型及其治理方案，为参与协议层改进奠定基础。建议结合[RIG开放问题列表](https://efdn.notion.site/RIG-Open-Problems-ROPs-c11382c213f949a4b89927ef4e962adf)探索前沿课题，通过[mev-boost](https://github.com/flashbots/mev-boost)实践PBS实现。
+
 <!-- Content_END -->
