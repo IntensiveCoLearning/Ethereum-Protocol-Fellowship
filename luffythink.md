@@ -225,4 +225,12 @@ The EPF directly addresses the challenges faced by new contributors:
 - Identifying a Project
 - Connecting with Other Contributors
 
+### 2025.02.21
+**学习了解 Cryptography**
+
+- Signatures (ECDSA, BLS): Are about proving authenticity and authorization. They ensure that a message or transaction comes from a specific person and hasn't been tampered with.
+- Hashes (Keccak256): Are about ensuring data integrity and enabling efficient data verification.
+- Commitments (KZG): Are about enabling efficient data availability and allowing verification of data without needing to access the entire dataset.
+- Post-Quantum Cryptography: Is about ensuring that all of these systems remain secure in the future when quantum computers become a reality.
+
 <!-- Content_END -->
