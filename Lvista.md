@@ -513,4 +513,45 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 
    - 当一个block在4个epoch后依然没被finalized，就可判定为1/3以上的validator不活跃😈，就会触发inactivity leak penalty
    - 惩罚力度成2次指数（quadratic）递增，目的是为了让坏人😈尽快下线，让剩下的人😇达成2/3多数。
+
+# Slashable Offences
+
+有四种情况能被指控：
+
+1. **double proposal**：一个slot提出一个以上block
+
+2. **LMD GHOST double vote**：在同一个slot，同时attest给两个head block
+
+   > 验证者如何同时看到两个不同的 Beacon Chain 头？
+   >
+   > 1. 网络延迟或分区; 2. 恶意行为; 3. 客户端 Bug
+
+3. **surround vote**: 
+   See also: https://github.com/protolambda/eth2-surround?tab=readme-ov-file
+
+   - $\mathcal{def}$: 
+     ```
+     s: source
+     t: target
+     
+     a surrounds b if: s_a < s_b < t_b < t_a
+     
+     s < t is a pre, so the condition can also be:
+     
+     s_a < s_b and t_b < t_a
+     ```
+
+4. **FFG double vote**: 
+   在一个Epoch(或slot)同时提出两个不一样的FFG vote对。比如：
+
+   - 同target不同source
+
+   ![](https://ethos.dev/assets/images/posts/beacon-chain/Casper-FFG-Double-Vote-Example-1.png)
+
+   - 同source不同target
+     ![](https://ethos.dev/assets/images/posts/beacon-chain/Casper-FFG-Double-Vote-Example-2.png)
+
+> ✅同一个attestation出现在不同aggrevates(聚合)
+>
+> - 同一个attestation可能会被不同的[aggrevators](https://eth2book.info/capella/part2/building_blocks/aggregator/)收集，但本质上是同一个attestation，所以并不会被判定为double vote
 ### 2025.02.22
