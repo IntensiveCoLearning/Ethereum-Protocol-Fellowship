@@ -353,4 +353,24 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- World State Trie
 		- Account State Trie
 	- Verkle Trees
+   ### 2025.02.21
+  - Transaction
+	- A **transaction** is a cryptographically-signed instruction issued by **an external account**, broadcasted to the entire network using [JSON-RPC](https://epf.wiki/#/wiki/EL/JSON-RPC).
+	- Fields:
+		- **nonce**: An integer value equal to the number of transactions sent by the sender.
+			- **Prevent replay attack**
+			- **Determine contract account address**
+			- **Replace a transaction**
+		- **gasPrice**
+		- **gasLimit**
+		- **to**: 20-byte address of the recipient.
+		  | Value of `to` | Transaction Mode | Description |
+		  |---|---|---|
+		  | *Empty* | Contract creation | The transaction creates a new contract account. |
+		  | External Account | Value transfer | The transaction transfers Ether to an external account. |
+		  | Contract Account | Contract execution | The transaction invokes the existing smart contract code. |
+		- **value**: An integer value equal to the number of Wei to be transferred to this transaction's recipient.
+		- **data or init**
+		- **signature**
+		-
 <!-- Content_END -->
