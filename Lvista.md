@@ -555,3 +555,17 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 >
 > - 同一个attestation可能会被不同的[aggrevators](https://eth2book.info/capella/part2/building_blocks/aggregator/)收集，但本质上是同一个attestation，所以并不会被判定为double vote
 ### 2025.02.22
+
+# Beacon Chain Validator Activation and Lifecycle
+
+下面的图展示了validator从进入beacon chain到退出的lifecycle，可以看到退出有三种情况：
+
+- get slashed
+- insufficient balance
+- voluntary exit: （前提：要求行使至少2^11^epochs的工作）
+
+![](https://ethos.dev/assets/images/posts/beacon-chain/Beacon-Chain-Validator-Lifecycle.png)
+
+> ☝️validators不能短时间内大量进入或退出以防止攻击，Beacon Chain使用一种*effective balances*机制以防止这种情况的发生。
+
+See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
