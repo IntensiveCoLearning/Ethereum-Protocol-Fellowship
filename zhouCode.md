@@ -1024,6 +1024,12 @@ contract HelloWorld {
 }
 ```
 
+### 2025.02.22
 
+跟着epf run一个node
+
+1. 安装geth https://geth.ethereum.org/downloads
+2. 安装gpg 
+3. 安装lighthouse https://github.com/sigp/lighthouse/releases
 
 <!-- Content_END -->
