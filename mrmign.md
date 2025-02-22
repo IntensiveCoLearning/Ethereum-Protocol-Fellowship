@@ -353,7 +353,7 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- World State Trie
 		- Account State Trie
 	- Verkle Trees
-   ### 2025.02.21
+ ### 2025.02.21
   - Transaction
 	- A **transaction** is a cryptographically-signed instruction issued by **an external account**, broadcasted to the entire network using [JSON-RPC](https://epf.wiki/#/wiki/EL/JSON-RPC).
 	- Fields:
@@ -372,5 +372,29 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- **value**: An integer value equal to the number of Wei to be transferred to this transaction's recipient.
 		- **data or init**
 		- **signature**
-		-
+   
+### 2025.02.22
+- JSON-RPC
+  ```json
+  {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "method": "<prefix_methodName>",
+    "params": [...]
+  }
+  ```
+- Namespaces
+  | **Namespace** | **Description** | **Sensitive** |
+  |---|---|---|
+  | eth | The eth API allows you to interact with Ethereum. | Maybe |
+  | web3 | The web3 API provides utility functions for the web3 client. | No |
+  | net | The net API provides access to network information of the node. | No |
+  | txpool | The txpool API allows you to inspect the transaction pool. | No |
+  | debug | The debug API provides several methods to inspect the Ethereum state, including Geth-style traces. | No |
+  | trace | The trace API provides several methods to inspect the Ethereum state, including Parity-style traces. | No |
+  | admin | The admin API allows you to configure your node. | Yes |
+  | rpc | The rpc API provides information about the RPC server and its modules | No |
+	- Eth is probably. the most used namespace providing basic access to Ethereum network. 
+	  The full list can be found in the [Ethereum JSON-RPC specification](https://ethereum.github.io/execution-apis/api-documentation/).  
+-
 <!-- Content_END -->
