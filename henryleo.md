@@ -485,4 +485,15 @@ Gasper 是一种定义验证者如何受到奖惩的机制，决定要接受和�
 - [以太坊 Safe Head 機制介紹 | NIC Lin](https://medium.com/imtoken/safe-head-part-1-14071f14016b)
 - [共识层客户端架构 | EPF Wiki](https://epf.wiki/#/wiki/CL/cl-architecture)
 
+### 2025.02.22
+
+#### 数据结构
+又回到执行层的内容
+
+##### 交易字典树 
+Transaction Trie 交易字典树是用于存储特定区块内的交易的数据结构。Trie 字典树，是一种键-值型树状数据结构。在以太坊中，键是交易索引，值是交易内容。
+
+另外，不论是交易索引还是交易内容均为 RLP(Recursive Length Prefix) 递归长度前缀编码。
+
+
 <!-- Content_END -->
