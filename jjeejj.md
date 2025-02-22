@@ -214,4 +214,17 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
       1. Bytecode 字节码生成 用于 EVM 执行
       2. ABI （application binary interface）是合约与外部交互的接口定义，包含函数签名、事件定义等
 2. Solidity 官方编译器 solc 支持将 Solidity 源代码编译为 EVM Bytecode 和 ABI
+
+### 2025.02.22
+
+1. Gas 介绍
+   1. 是执行交易和智能合约的 燃料 用于支付给矿工为交易和合约执行的费用。可以防止网络滥用和确保资源的合理分配
+   2. 防止资源被滥用：限制每个交易或者合约执行的计算资源消耗
+   3. 可以激励矿工
+2. Gas 组成
+   1. Gas limit: 用户愿意为交易设置的最大 limit , 由用户自己进行设置
+   2. Gas price: 用户愿意为每个 unit gas 设置的价格，由用户自己进行设置 (单位： Gwei , 1ETH=10^9 Wei),矿工会优先打包 Gas price 高的交易
+   3. Gas Cost: 每种 opcode 对应的 gas 消耗，有以太坊黄皮书定义
+   4. Total Gas: 交易实际消耗的 Gas 总量
+   5. Total Gas Fee: 交易实际消耗的 Gas 总量乘以 Gas price，得到总费用
 <!-- Content_END -->
