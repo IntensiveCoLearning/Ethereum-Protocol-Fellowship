@@ -91,7 +91,7 @@ Pass
  Network Layer has been updated since the previous study materail published.
 
 ### 2025.02.22
-Pass
+ Trace back with the history of cryptocurrency and get some knowhow about why it is now be combined with ethereum.
 
 ### 2025.02.23
 
