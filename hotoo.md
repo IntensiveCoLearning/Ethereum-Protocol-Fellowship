@@ -95,5 +95,8 @@ timezone: Asia/Shanghai
   - [Portal Network web](https://www.ethportal.net/)
   - [EL Data structure](https://epf.wiki/#/wiki/EL/data-structures)
 
+### 2025.02.22
+
+今天学习了 ENS 并完成 ENS 注册。
 
 <!-- Content_END -->
