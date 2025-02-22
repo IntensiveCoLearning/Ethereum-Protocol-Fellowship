@@ -487,6 +487,76 @@ def increase_balance(state: BeaconState, index: ValidatorIndex, delta: Gwei) -> 
     state.balances[index] += delta
 ```
 
+### 2025.02.22
+
+## 初始化状态（Initialise State）学习
+
+今天学习了关于以太坊 beacon 链的状态初始化过程。主要包括通过以太坊 1.0 的块数据初始化 beacon 链的状态，并处理相关的存款和激活。下面是具体的学习内容。
+
+### 引言
+
+在以太坊 beacon 链的创世事件触发之前，以及每个以太坊的工作量证明块（Proof of Work Block），通过调用 `initialize_beacon_state_from_eth1()` 函数来初始化一个候选状态 `candidate_state`，该函数的参数如下：
+
+- **eth1_block_hash**：以太坊工作量证明块的哈希值。
+- **eth1_timestamp**：与 `eth1_block_hash` 对应的 Unix 时间戳。
+- **deposits**：所有存款的序列，按照时间顺序排列，直到并包括 `eth1_block_hash` 对应的区块。
+
+在以太坊工作量证明块的情况下，必须保证这些块至少经过 `SECONDS_PER_ETH1_BLOCK * ETH1_FOLLOW_DISTANCE` 秒后才会被考虑。这意味着，`eth1_timestamp + SECONDS_PER_ETH1_BLOCK * ETH1_FOLLOW_DISTANCE <= current_unix_time`。因此，如果 `GENESIS_DELAY < SECONDS_PER_ETH1_BLOCK * ETH1_FOLLOW_DISTANCE`，创世事件的时间可能会在时间/状态首次可用之前发生，应该配置合适的值以避免这种情况。
+
+### 初始化状态（Initialisation）
+
+初始化过程也称为创世事件。此函数仅用于纯 Capella 测试网和测试中初始化状态。
+
+#### `initialize_beacon_state_from_eth1` 函数
+
+```python
+def initialize_beacon_state_from_eth1(eth1_block_hash: Hash32,
+                                      eth1_timestamp: uint64,
+                                      deposits: Sequence[Deposit],
+                                      execution_payload_header: ExecutionPayloadHeader=ExecutionPayloadHeader()
+                                      ) -> BeaconState:
+    fork = Fork(
+        previous_version=CAPELLA_FORK_VERSION,  # [Modified in Capella] for testing only
+        current_version=CAPELLA_FORK_VERSION,  # [Modified in Capella]
+        epoch=GENESIS_EPOCH,
+    )
+    state = BeaconState(
+        genesis_time=eth1_timestamp + GENESIS_DELAY,
+        fork=fork,
+        eth1_data=Eth1Data(block_hash=eth1_block_hash, deposit_count=uint64(len(deposits))),
+        latest_block_header=BeaconBlockHeader(body_root=hash_tree_root(BeaconBlockBody())),
+        randao_mixes=[eth1_block_hash] * EPOCHS_PER_HISTORICAL_VECTOR,  # Seed RANDAO with Eth1 entropy
+    )
+
+    # Process deposits
+    leaves = list(map(lambda deposit: deposit.data, deposits))
+    for index, deposit in enumerate(deposits):
+        deposit_data_list = List[DepositData, 2**DEPOSIT_CONTRACT_TREE_DEPTH](*leaves[:index + 1])
+        state.eth1_data.deposit_root = hash_tree_root(deposit_data_list)
+        process_deposit(state, deposit)
+
+    # Process activations
+    for index, validator in enumerate(state.validators):
+        balance = state.balances[index]
+        validator.effective_balance = min(balance - balance % EFFECTIVE_BALANCE_INCREMENT, MAX_EFFECTIVE_BALANCE)
+        if validator.effective_balance == MAX_EFFECTIVE_BALANCE:
+            validator.activation_eligibility_epoch = GENESIS_EPOCH
+            validator.activation_epoch = GENESIS_EPOCH
+
+    # Set genesis validators root for domain separation and chain versioning
+    state.genesis_validators_root = hash_tree_root(state.validators)
+
+    # Fill in sync committees
+    # Note: A duplicate committee is assigned for the current and next committee at genesis
+    state.current_sync_committee = get_next_sync_committee(state)
+    state.next_sync_committee = get_next_sync_committee(state)
+
+    # Initialize the execution payload header
+    state.latest_execution_payload_header = execution_payload_header
+
+    return state
+```
+
 
 
 
