@@ -498,4 +498,41 @@ Reth 的開發將沿三條主線進行：
   - **計算與存儲分離，適合雲端部署**
   - **為 Rollup 提供真正的彈性伸縮能力**
 
+### 2025.02.22
+
+#### [SGweek7-research](https://epf.wiki/#/eps/week7-research)
+
+今天看 week 7 介紹了 **Verkle Trees**
+
+#### **1. 動機**
+- **有狀態應用的挑戰**
+  - 需要下載完整狀態才能驗證區塊，導致同步時間長
+  - 目前 Ethereum 全節點需要約 1TiB+300GiB 磁碟空間
+  - MPT（Merkle Patricia Tree）數據結構複雜，不利於 zk-friendly 設計
+- **轉向無狀態設計**
+  - 減少新節點同步狀態的需求
+  - 降低硬體需求，使 EL（Execution Layer）客戶端更容易實作
+  - 可能允許提升 gas 限制
+  - 促進區塊鏈角色的專業化（如分離驗證者與執行者）
+- **引入 Execution Witness**
+  - 包含執行區塊所需的狀態
+  - 包含小型加密證明確保狀態正確性
+  - 狀態包括合約程式碼
+
+#### **2. 密碼學**
+##### **目前 Ethereum 的狀態樹**
+- **Merkle Patricia Tree（MPT）**
+- **使用 Keccak 哈希函數**
+
+##### **Verkle Tree 使用的密碼學**
+- **向量承諾（Vector Commitments）**
+- **內積證明（Inner Product Argument）**
+- **多重證明（Multiproof）**
+- **EC 群選擇**
+  - **Bandersnatch 橢圓曲線**（Banderwagon，移除 cofactor）
+  - **標量場（Fr）= 253 bits**，**基數場（Fp）= 255 bits**
+  - **無配對運算（No pairings）→ 更高效**
+- **與 zk 友好**
+  - **Fp 是 BLS12-381 的標量場 Fr**
+  - **橢圓曲線計算可作為原生操作執行**
 <!-- Content_END -->
