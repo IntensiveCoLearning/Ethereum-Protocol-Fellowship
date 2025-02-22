@@ -186,12 +186,13 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [yenchihliao](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yenchihliao.md) | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [DasNarrenschiff](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/DasNarrenschiff.md) | ✅ | ⭕️ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [awsomecty](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/awsomecty.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
-| [devbards](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/devbards.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | | | |   |   |
+| [devbards](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/devbards.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | | | | | | |   |   |
 | [StellaWang5209](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/StellaWang5209.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/pillowtalk-Qy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [yoona333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yoona333.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [Juktong](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Juktong.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
