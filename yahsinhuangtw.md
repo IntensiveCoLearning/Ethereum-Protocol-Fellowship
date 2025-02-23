@@ -156,4 +156,13 @@ https://www.amazon.com/Suicide-West-Meaning-Destiny-Liberalism/dp/1594037833
 
 https://medium.com/@RadiantCapital/radiant-post-mortem-fecd6cd38081
 
+### 2025.02.23
+
+<img width="647" alt="Screenshot 2025-02-23 at 11 37 10 PM" src="https://github.com/user-attachments/assets/d5b5d45e-1ec5-42d2-a79d-7dcd73643527" />
+
+
+今日殘酷學習跳著看 Intro to Ethereum Protocol | Mario Havel 老師的第一週最新報告 https://youtu.be/WB6rOQCV-4U?si=bPWLAPqe895vAGi2 
+
+其中有頁簡報提到針對 spec 加有解釋性內容的參考網站 https://eth2book.info/capella/
+
 <!-- Content_END -->
