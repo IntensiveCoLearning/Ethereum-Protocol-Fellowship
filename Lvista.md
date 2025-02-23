@@ -569,3 +569,39 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 > ☝️validators不能短时间内大量进入或退出以防止攻击，Beacon Chain使用一种*effective balances*机制以防止这种情况的发生。
 
 See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
+
+### 2025.02.23
+
+# 开始实验
+
+>  See: https://epf.wiki/#/eps/week6-dev
+
+## Pyspec
+
+这里有一些可以参考的文档：https://github.com/ethereum/consensus-specs/tree/dev/specs/phase0
+
+## 部署
+
+根据https://github.com/ethereum/consensus-specs的指南：
+
+- clone repo
+
+- 安装makefile：推荐使用choco安装，期间会自动安装`WSL（Windows Subsystem for Linux）`
+
+- 这里由于是windows系统，python生成的venv的目录结构是不同的，所以修改`Makefile`如下：
+
+  ```makefile
+  VENV = venv
+  PYTHON_VENV = $(VENV)\Scripts\python.exe
+  PIP_VENV = $(VENV)\Scripts\pip3.exe
+  CODESPELL_VENV = $(VENV)\Scripts\codespell
+  
+  # Make a virtual environment.
+  $(VENV):
+  	@echo "Creating virtual environment"
+  	@python -m venv $(VENV)
+  	@$(PIP_VENV) install --quiet uv==0.5.24
+  ```
+
+  - `PYTHON_VENV`等变量的路径根据`venv`修改。
+  - `@python3 -m venv $(VENV)`改为`@python -m venv $(VENV)`
