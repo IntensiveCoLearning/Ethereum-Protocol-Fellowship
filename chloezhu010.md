@@ -285,5 +285,9 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
     - CL run 起来后
         - syncing deposit contract block cache
         - synced
+### 2025.02.23
+- Rewatched the EL overview by lightclient
+    - review the state transition function and the execution payload building function
+    - https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 
 <!-- Content_END -->
