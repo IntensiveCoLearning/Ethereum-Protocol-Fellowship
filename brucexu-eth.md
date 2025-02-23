@@ -615,6 +615,25 @@ openssl rand -hex 32 > ./jwt
 ![image](https://github.com/user-attachments/assets/1df5ea9c-345c-4982-b46c-46d86878f7f0)
 
 
+# 2025.02.23
+
+继续 debug processor logic 里面的 evm 和后续 tx 的逻辑：
+
+```
+func (st *stateTransition) execute() (*ExecutionResult, error) {
+	// First check this message satisfies all consensus rules before
+	// applying the message. The rules include these clauses
+	//
+	// 1. the nonce of the message caller is correct
+	// 2. caller has enough balance to cover transaction fee(gaslimit * gasprice)
+	// 3. the amount of gas required is available in the block
+	// 4. the purchased gas is enough to cover intrinsic usage
+	// 5. there is no overflow when calculating intrinsic gas
+	// 6. caller has enough balance to cover asset transfer for **topmost** call
+
+```
+
+测试用例有点问题，需要修改参数继续下去，目前会报错显示 gas 不足。
 
 
 <!-- Content_END -->
