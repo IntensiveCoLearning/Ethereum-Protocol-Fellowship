@@ -227,4 +227,15 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    3. Gas Cost: 每种 opcode 对应的 gas 消耗，有以太坊黄皮书定义
    4. Total Gas: 交易实际消耗的 Gas 总量
    5. Total Gas Fee: 交易实际消耗的 Gas 总量乘以 Gas price，得到总费用
+
+### 2025.02.23
+
+1. Gas 费用如何优化
+   1. 减少 存储操作：SSTORE 是 Gas 消耗最高的操作之一，尽可能使用 内存(memory)变量 或者 栈变量 减少存储写操作
+   2. 合并 存储变量：多个存储变量会占用更多的存储槽，增加 Gas 的消耗
+   3. 使用外部函数：public 函数会生成额外的代码 增加合约大小和 Gas 消耗
+   4. 避免重复计算：重复计算会反复消耗 gas，可以将计算结果保存到 变量中
+   5. 使用 require 提前终止，避免无效操作
+2. 有没有 好用的 gas 分析优化工具的
+
 <!-- Content_END -->
