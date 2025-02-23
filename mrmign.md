@@ -396,5 +396,11 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
   | rpc | The rpc API provides information about the RPC server and its modules | No |
 	- Eth is probably. the most used namespace providing basic access to Ethereum network. 
 	  The full list can be found in the [Ethereum JSON-RPC specification](https://ethereum.github.io/execution-apis/api-documentation/).  
--
+
+### 2025.02.23
+- [Recursive-Length Prefix (RLP) Serialization](https://epf.wiki/#/wiki/EL/RLP?id=recursive-length-prefix-rlp-serialization)
+	- [Data Serialization in Ethereum](https://epf.wiki/#/wiki/EL/RLP?id=data-serialization-in-ethereum)
+	- Ethereum actually utilizes 2 formats: RLP and Simple Serialize (SSZ) which is more modern standard used by consensus layer.
+	- RLP
+	-
 <!-- Content_END -->
