@@ -202,4 +202,40 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
       8. 其他：CREATE、CALL、DELEGATECALL、STATICCALL、SELFDESTRUCT
    3. 每个 opcode 都有对应的 gas 成本，用于限制执行成本
 
+### 2025.02.21
+
+1. Solidity 编译过程
+   1. 词法分析：识别关键词 ，去除空白符和注释 将源代码解析为 Token Stream
+   2. 语法分析：根据语法规则 将 Token Stream 转换为 AST
+   3. 语义分析：检查 AST 的语义正确性，类型检查、作用域检查、函数调用检查
+   4. IR 中间代码生成：将 AST 转换为中间代码，用于优化和调优
+   5. 优化：优化中间代码，提高执行效率和减少 Gas 消耗
+   6. 目标代码生成：将优化后的中间代码转换为目标代码，如 EVM Bytecode
+      1. Bytecode 字节码生成 用于 EVM 执行
+      2. ABI （application binary interface）是合约与外部交互的接口定义，包含函数签名、事件定义等
+2. Solidity 官方编译器 solc 支持将 Solidity 源代码编译为 EVM Bytecode 和 ABI
+
+### 2025.02.22
+
+1. Gas 介绍
+   1. 是执行交易和智能合约的 燃料 用于支付给矿工为交易和合约执行的费用。可以防止网络滥用和确保资源的合理分配
+   2. 防止资源被滥用：限制每个交易或者合约执行的计算资源消耗
+   3. 可以激励矿工
+2. Gas 组成
+   1. Gas limit: 用户愿意为交易设置的最大 limit , 由用户自己进行设置
+   2. Gas price: 用户愿意为每个 unit gas 设置的价格，由用户自己进行设置 (单位： Gwei , 1ETH=10^9 Wei),矿工会优先打包 Gas price 高的交易
+   3. Gas Cost: 每种 opcode 对应的 gas 消耗，有以太坊黄皮书定义
+   4. Total Gas: 交易实际消耗的 Gas 总量
+   5. Total Gas Fee: 交易实际消耗的 Gas 总量乘以 Gas price，得到总费用
+
+### 2025.02.23
+
+1. Gas 费用如何优化
+   1. 减少 存储操作：SSTORE 是 Gas 消耗最高的操作之一，尽可能使用 内存(memory)变量 或者 栈变量 减少存储写操作
+   2. 合并 存储变量：多个存储变量会占用更多的存储槽，增加 Gas 的消耗
+   3. 使用外部函数：public 函数会生成额外的代码 增加合约大小和 Gas 消耗
+   4. 避免重复计算：重复计算会反复消耗 gas，可以将计算结果保存到 变量中
+   5. 使用 require 提前终止，避免无效操作
+2. 有没有 好用的 gas 分析优化工具的
+
 <!-- Content_END -->

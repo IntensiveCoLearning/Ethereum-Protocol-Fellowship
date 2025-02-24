@@ -88,8 +88,10 @@ Pass
  Exercution Layer today.
 
 ### 2025.02.21
+ Network Layer has been updated since the previous study materail published.
 
 ### 2025.02.22
+ Trace back with the history of cryptocurrency and get some knowhow about why it is now be combined with ethereum.
 
 ### 2025.02.23
 

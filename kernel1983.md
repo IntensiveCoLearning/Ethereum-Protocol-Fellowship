@@ -224,4 +224,8 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 花了时间写了一个提交 https://github.com/kernel1983/brownievm/commit/456204622f8b41da7372870960bcdef36a8acce2 参考 anvil 把10个测试账号导了进去。
 
+### 2025.02.22
+
+今天摸鱼提交 https://github.com/kernel1983/brownievm/commit/d59670db5b2226737d0cfd48aff657057b585b50
+
 <!-- Content_END -->

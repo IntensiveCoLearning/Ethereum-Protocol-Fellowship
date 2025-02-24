@@ -498,4 +498,101 @@ Reth 的開發將沿三條主線進行：
   - **計算與存儲分離，適合雲端部署**
   - **為 Rollup 提供真正的彈性伸縮能力**
 
+### 2025.02.22
+
+#### [SGweek7-research](https://epf.wiki/#/eps/week7-research)
+
+今天看 week 7 介紹了 **Verkle Trees**
+
+#### **1. 動機**
+- **有狀態應用的挑戰**
+  - 需要下載完整狀態才能驗證區塊，導致同步時間長
+  - 目前 Ethereum 全節點需要約 1TiB+300GiB 磁碟空間
+  - MPT（Merkle Patricia Tree）數據結構複雜，不利於 zk-friendly 設計
+- **轉向無狀態設計**
+  - 減少新節點同步狀態的需求
+  - 降低硬體需求，使 EL（Execution Layer）客戶端更容易實作
+  - 可能允許提升 gas 限制
+  - 促進區塊鏈角色的專業化（如分離驗證者與執行者）
+- **引入 Execution Witness**
+  - 包含執行區塊所需的狀態
+  - 包含小型加密證明確保狀態正確性
+  - 狀態包括合約程式碼
+
+#### **2. 密碼學**
+##### **目前 Ethereum 的狀態樹**
+- **Merkle Patricia Tree（MPT）**
+- **使用 Keccak 哈希函數**
+
+##### **Verkle Tree 使用的密碼學**
+- **向量承諾（Vector Commitments）**
+- **內積證明（Inner Product Argument）**
+- **多重證明（Multiproof）**
+- **EC 群選擇**
+  - **Bandersnatch 橢圓曲線**（Banderwagon，移除 cofactor）
+  - **標量場（Fr）= 253 bits**，**基數場（Fp）= 255 bits**
+  - **無配對運算（No pairings）→ 更高效**
+- **與 zk 友好**
+  - **Fp 是 BLS12-381 的標量場 Fr**
+  - **橢圓曲線計算可作為原生操作執行**
+
+### 2025.02.23
+
+#### [SGweek7-research](https://epf.wiki/#/eps/week7-research)
+
+延續昨天的內容
+
+#### **3. 資料結構**
+- **從 Merkle Patricia Tree（MPT）轉換到 Verkle Tree**
+  - Verkle Tree = **向量承諾（Vector Commitment）+ Merkle Tree**
+- **EIP-6800 提案**
+  - **leaf 節點存儲 256 個 32-byte 數值**
+  - **帳戶標頭（Account Header）與額外存儲槽**
+  - **合約程式碼存儲**
+    - **程式碼以 32-byte 塊（Code Chunks）存儲**
+    - **Chunk[0] 表示當前塊是否延續前一 PUSHX 指令**
+    - **Chunk[1:32] 為對應的程式碼部分**
+- **計算樹鍵（Tree Keys）**
+  - **不再使用 Keccak**
+  - **改用 EC-based 哈希函數（Pedersen hash）**
+  - **範例**
+    ```plaintext
+    TreeKey(address, treeIndex, subIndex) = Commit(2+256*64, address[0:16], address[16:32], treeIndex[0:16], treeIndex[16:32])[0:31] ++ subIndex
+    ```
+  - **帳戶資訊**
+    - 0 = 版本（Version）
+    - 1 = 餘額（Balance）
+    - 2 = Nonce
+    - 3 = CodeHash
+    - 4 = CodeSize
+  - **存儲槽與程式碼索引**
+    - **主存儲計算方式**
+      ```plaintext
+      pos = MAIN_STORAGE_OFFSET + storage_key
+      TreeKey(address, pos / VERKLE_NODE_WIDTH, pos % VERKLE_NODE_WIDTH)
+      ```
+    - **程式碼塊索引**
+      ```plaintext
+      chunk_id = CODE_OFFSET + chunk_id
+      TreeKey(address, chunk_id / VERKLE_NODE_WIDTH, chunk_id % VERKLE_NODE_WIDTH)
+      ```
+
+#### **4. Gas 計算（Gas Accounting, EIP-4762）**
+- **狀態大小不再是主要關心點，gas 需考慮 Execution Witness**
+- **增加 witness 大小的操作**
+  - **讀取狀態**
+  - **寫入狀態**
+  - **執行合約程式碼**
+- **主要 Gas 成本**
+  | 操作 | 成本 |
+  |------|------|
+  | 訪問新樹分支 | 1900 |
+  | 訪問 leaf 節點的值 | 200 |
+  | 寫入觸發更新 | 3000 |
+  | 變更 leaf 節點的值 | 500 |
+  | 寫入原本為空的 leaf 節點 | 6200 |
+
+- **這些成本在每筆交易內僅收取一次**
+- **重複訪問已存儲的 key，僅收取「暖存取」成本（100 gas）**
+
 <!-- Content_END -->

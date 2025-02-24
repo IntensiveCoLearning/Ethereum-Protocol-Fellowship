@@ -898,4 +898,165 @@ Enums	// 枚举
   - `private` 函数仅在其被定义的合约内部可见，并且在该合约的派生合约中不可见。
 - 函数和状态变量都可以被定义为 public 或 private
 
+### 2025.02.21
+
+继续智能合约
+
+```soli
+// 一个更新状态变量的函数
+function update_name(string value) public {
+    dapp_name = value;
+}
+```
+
+- 函数没有被声明为view，因此它可以修改合约状态
+
+#### 视图(view)函数
+
+顾名思义，只看，不修改数据的函数
+
+```soli
+// Solidity 示例
+function balanceOf(address _owner) public view returns (uint256 _balance) {
+    return ownerPizzaCount[_owner];
+}
+```
+
+这些操作被视为修改状态：
+
+1. 写入状态变量。
+2. [正在导出事件(opens in a new tab)](https://solidity.readthedocs.io/en/v0.7.0/contracts.html#events)。
+3. [创建其它合约(opens in a new tab)](https://solidity.readthedocs.io/en/v0.7.0/control-structures.html#creating-contracts)。
+4. 使用 `selfdestruct`。
+5. 通过调用发送 ether。
+6. 调用任何未标记为 `view` 或 `pure` 的函数。
+7. 使用底层调用。
+8. 使用包含某些操作码的内联程序组。
+
+#### 构造函数
+
+```sol
+// Solidity 示例
+// 初始化合约数据，设置 `owner`为合约的创建者。
+constructor() public {
+    // 所有智能合约依赖外部交易来触发其函数。
+    // `msg` 是一个全局变量，包含了给定交易的相关数据，
+    // 例如发送者的地址和交易中包含的 ETH 数量。
+    // 了解更多：https://solidity.readthedocs.io/en/v0.5.10/units-and-global-variables.html#block-and-transaction-properties
+    owner = msg.sender;
+}
+```
+
+#### 内置函数
+
+除了自己在合约中定义的变量和函数外，还有一些特殊的内置函数。 最明显的例子是：
+
+- `address.send()` – Solidity
+- `send(address)` – Vyper
+
+这使合约可以发送以太币给其它帐户。
+
+#### 编写函数
+
+你的函数需要：
+
+- 参数变量及其类型（如果它接受参数）
+- 声明为 internal/external
+- 声明为 pure/view/payable
+- 返回类型（如果它返回值）
+
+```solo
+pragma solidity >=0.4.0 <=0.6.0;
+
+contract ExampleDapp {
+    string dapp_name; // state variable
+
+    // Called when the contract is deployed and initializes the value
+    constructor() public {
+        dapp_name = "My Example dapp";
+    }
+
+    // Get Function
+    function read_name() public view returns(string) {
+        return dapp_name;
+    }
+
+    // Set Function
+    function update_name(string value) public {
+        dapp_name = value;
+    }
+}
+```
+
+在这里，`constructor` 函数为 `dapp_name` 变量提供了初始化值。
+
+```solo
+// Specifies the version of Solidity, using semantic versioning.
+// 了解更多：https://solidity.readthedocs.io/en/v0.5.10/layout-of-source-files.html#pragma
+pragma solidity ^0.5.10;
+
+// 定义合约名称 `HelloWorld`。
+// 一个合约是函数和数据（其状态）的集合。
+// 一旦部署，合约就会留在以太坊区块链的一个特定地址上。
+// 了解更多： https://solidity.readthedocs.io/en/v0.5.10/structure-of-a-contract.html
+contract HelloWorld {
+
+    // 定义`string`类型变量 `message`
+    // 状态变量是其值永久存储在合约存储中的变量。
+    // 关键字 `public` 使得可以从合约外部访问。
+    // 并创建了一个其它合约或客户端可以调用访问该值的函数。
+    string public message;
+
+    // 类似于很多基于类的面向对象语言，
+    // 构造函数是仅在合约创建时执行的特殊函数。
+    // 构造器用于初始化合约的数据。
+    // 了解更多：https://solidity.readthedocs.io/en/v0.5.10/contracts.html#constructors
+    constructor(string memory initMessage) public {
+        // 接受一个字符变量 `initMessage` 
+        // 并为合约的存储变量`message` 赋值
+        message = initMessage;
+    }
+
+    // 一个 public 函数接受字符参数并更新存储变量 `message`
+    function update(string memory newMessage) public {
+        message = newMessage;
+    }
+}
+```
+
+### 2025.02.22
+
+跟着epf run一个node
+
+1. 安装geth https://geth.ethereum.org/downloads
+2. 安装gpg 
+3. 安装lighthouse https://github.com/sigp/lighthouse/releases
+
+### 2025.02.23
+
+硬盘吃紧，节点安装中道崩殂
+#### 了解Pectra升级
+
+**1. 提高验证者质押灵活性**
+
+在以太坊的权益证明（PoS）机制中，验证者的有效质押余额之前固定为 32 ETH。 Pectra 升级后，验证者的有效余额范围扩大至 32 至 2048 ETH。 这意味着验证者可以根据自身需求调整质押金额，增强了质押的灵活性和参与度。 
+
+**2. 简化验证者退出流程**
+
+在升级前，验证者的退出需要通过活跃验证者密钥进行操作。 Pectra 升级引入了二级“提款”凭证，使验证者能够更方便地发起退出请求，无需直接使用活跃验证者密钥，从而简化了退出流程。 
+
+**3. 改进存款处理机制**
+
+以太坊网络的存款处理机制在 Pectra 升级前依赖于从存款合约解析事件。 升级后，信标层将直接处理来自常规以太坊合约的请求，添加了新的通用框架，以提高存款处理的效率和可靠性。 
+
+**4. 支持无状态客户端**
+
+Pectra 升级引入了一个新的系统合约，用于存储和访问多达 8192 个历史区块哈希。 这对于无状态客户端（如 rollup）非常有用，允许它们直接访问历史数据，增强了以太坊网络的可扩展性和灵活性。 
+
+**5. 优化数据存储和费用结构**
+
+Pectra 升级通过增加 calldata gas 成本，鼓励项目将 calldata 密集型操作迁移到 Dencun 升级中引入的 blobs。 这有助于降低主链的存储压力，提高网络的整体性能和效率。 
+
+通过这些改进，Pectra 升级旨在提升以太坊网络的性能、可扩展性和用户体验，进一步巩固其在区块链领域的领先地位。
+
 <!-- Content_END -->

@@ -48,4 +48,10 @@ I start my contribution to the EEST projects, but I encounter some problem durin
 
 ### 2025.02.18
 I review the EIP-3540, and start integrate the EIP into my EVM decompilation project. I encounter some issue when dealing with the layout. But there is some problem in Java language.
+
+### 2025.02.21
+Integrating EOF into Mothra, extracting header information from the bytecode and display in the decompilation header.
+
+### 2025.02.22
+Start analyzing the EIP-7702 in the Pectra upgrade, and participate in the Ethereum audit contest. I start with the virtual machine section and try to find issues.
 <!-- Content_END -->

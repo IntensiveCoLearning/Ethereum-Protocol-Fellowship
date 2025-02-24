@@ -148,5 +148,21 @@ https://a16zcrypto.com/research/
 以及提到一本書 Suicide of the West: An Essay on the Meaning and Destiny of Liberalism by James Burnham 
 https://www.amazon.com/Suicide-West-Meaning-Destiny-Liberalism/dp/1594037833
 
+### 2025.02.22
+
+<img width="823" alt="Screenshot 2025-02-22 at 11 10 44 PM" src="https://github.com/user-attachments/assets/db0c05ea-73e4-4ada-abba-ebcb811252f0" />
+
+本日的殘酷學習時間了解近期一個資安事件，有關多簽錢包被攻擊者掌握。因為不少使用者，甚至是資安意識高的軟體開發者，常認為送交易失敗很正常（如圖文章段落所提），可能因為手續費不夠等等的各種原因需重送交易。工程師操作時碰到重新送交易不以為意，最後居然被騙到 transferOwnership 這個動作。
+
+https://medium.com/@RadiantCapital/radiant-post-mortem-fecd6cd38081
+
+### 2025.02.23
+
+<img width="647" alt="Screenshot 2025-02-23 at 11 37 10 PM" src="https://github.com/user-attachments/assets/d5b5d45e-1ec5-42d2-a79d-7dcd73643527" />
+
+
+今日殘酷學習跳著看 Intro to Ethereum Protocol | Mario Havel 老師的第一週最新報告 https://youtu.be/WB6rOQCV-4U?si=bPWLAPqe895vAGi2 
+
+其中有頁簡報提到針對 spec 加有解釋性內容的參考網站 https://eth2book.info/capella/
 
 <!-- Content_END -->
