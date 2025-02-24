@@ -514,5 +514,24 @@ EVM 中有一些关键的组件：
                 - 然后使用 DIV 将 slot 0 的除以 e1，这实际是将 value1 所使用的底部 4 字节修剪掉，得到 v1
                 - 最后将 v1 与前 四个字节的位掩码做按位 and 操作，就得到了 value2
 
+### 2025.02.24
+- 以太坊的每个区块中有三棵树，这三棵树的结构都是 MPT（Merkle Patricia Trie）：
+    - State Root：执行万区块中所有交易的以太坊中，所有账户状态的 merkle 树根 Keccak 哈希值
+    - Transaction Root：交易生成的 Merkle 树根 Keccak 哈希值
+    - Receipt Root：交易回执生成的 Merkle 树根 Keccak 哈希值
+    - 在 Geth 的实现中， State 的存储会和三个结构有关系
+        - StateAccount 是以太坊账户的共识表示
+            - 代表一个以太坊账户，其中的 root 表示存储根
+        - StateObject 是交易执行中正在被修改的以太坊账户状态
+            - stateObject 中有一个 StateAccount 类型，是代码实现里的中间态，映射到一个以太坊账户
+        - StateDB：StateDB 结构是用来存储 MPT 内的错有数据，用于检索合约和以太坊账户的查询接口
+            - StateDB 中有一个 stateObjects 的字段，是地址到 stateObject 的映射集
+    - 当一个新的地址产生状态时，就需要创建一个新的 StateAccount
+        - StateDB 有一个 createObject 函数，可以创建一个新的 stateObject
+        - createObject 调用 newObject，传入 stateDB、地址和一个空的 StateAccount，返回一个stateObject
+        - stateObject 被成功创建并带着已经初始化完成的 StateAccount 返回
+        - 在当前区块中被修改的状态会先存储到 dirtyStorage 中，然后被复制到 pendingStroage 中，在 MPT 被更新之后，StateAccount 的 root 也会被更新
+        - StateDB 中的 GetState 函数会获得与该合约地址相关的 stateObject，如果 dirtyStorage 存在，那么就直接使用 dirtyStorage 中的值，如果不存在就返回 pending Storage 中值，最后再检查 oroginStorage 中值
+
 
 <!-- Content_END -->
