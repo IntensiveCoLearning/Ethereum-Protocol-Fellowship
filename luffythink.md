@@ -233,4 +233,13 @@ The EPF directly addresses the challenges faced by new contributors:
 - Commitments (KZG): Are about enabling efficient data availability and allowing verification of data without needing to access the entire dataset.
 - Post-Quantum Cryptography: Is about ensuring that all of these systems remain secure in the future when quantum computers become a reality.
 
+### 2025.02.24
+**学习了解 The Pectra upgrade**
+The Pectra upgrade (Prague on the execution client side, Electra on the consensus layer side) represents the next major evolution of the Ethereum network, building upon the foundation laid by The Merge. The FAQ primarily addresses changes relevant to app developers, stakers, and node operators, focusing on three key EIPs:
+- EIP-7251 (MaxEB - Max Effective Balance): This simplifies validator management by allowing a single validator to have an effective balance greater than 32 ETH (up to 2048 ETH). This reduces the need for numerous small validators, improving network efficiency. Using 0x02 withdrawal credentials is now necessary.
+- EIP-7702 (Execution Abstraction): While not full account abstraction, EIP-7702 empowers externally owned accounts (EOAs) with features previously only available to smart contract accounts. This opens up new design possibilities for wallet and app interactions, paving the way for more complete account abstraction solutions in the future. Now EOAs can perform batched transactions. The price of this is setting the code of the EOA as a protocal level proxy.
+- EIP-7002 (EL-Triggered Exits): Simplifies the validator lifecycle for staking pools by allowing them to initiate validator exits directly from the execution layer (using smart contracts). Previously, this required pre-signed BLS keys, adding complexity and potential security risks. 0x01 or 0x02 withdrawal credentials enable this capability.
+- EIP-2537 (BLS Precompile): Efficient BLS signature verification. This is useful for applications where multiple signatures need to be verified, such as proof-checking systems.
+- Access the last 8192 blockhash are now possible via BLOCKHASH system contract. 
+
 <!-- Content_END -->
