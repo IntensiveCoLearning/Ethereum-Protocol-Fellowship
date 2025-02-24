@@ -628,4 +628,32 @@ TODO
   print(block.body.graffiti.decode('utf-8'))
   ```
 ### 2025.02.24
+## test_blocks.py
+
+在[`~/consensus-specs/tests/core/pyspec/eth2spec/test/phase0/sanity/test_blocks.py`](https://github.com/ethereum/consensus-specs/blob/dev/tests/core/pyspec/eth2spec/test/phase0/sanity/test_blocks.py)展示了`$ make test k=test_empty_block_transition fork=altair`命令用到的源代码。
+
+```python
+@with_all_phases
+@spec_state_test
+def test_invalid_prev_slot_block_transition(spec, state):
+    # Go to clean slot
+    spec.process_slots(state, state.slot + 1)
+    # Make a block for it
+    block = build_empty_block(spec, state, slot=state.slot)
+    proposer_index = spec.get_beacon_proposer_index(state)
+    # Transition to next slot, above block will not be invalid on top of new state.
+    spec.process_slots(state, state.slot + 1)
+
+    yield 'pre', state
+    # State is beyond block slot, but the block can still be realistic when invalid.
+    # Try the transition, and update the state root to where it is halted. Then sign with the supposed proposer.
+    expect_assertion_error(lambda: transition_unsigned_block(spec, state, block))
+    block.state_root = state.hash_tree_root()
+    signed_block = sign_block(spec, state, block, proposer_index=proposer_index)
+    yield 'blocks', [signed_block]
+    yield 'post', None
+```
+### 2025.02.25
+
+
 <!-- Content_END -->
