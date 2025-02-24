@@ -559,4 +559,13 @@ Recursive Length Prefix PLP 递归长度前缀编码，是以太坊中最常使�
 - [详解以太坊RLP编码 | 以太坊技术与实现](https://learnblockchain.cn/books/geth/part3/rlp.html)
 - [RLP | EPF.Wiki](https://epf.wiki/#/wiki/EL/RLP)
 
+
+### 2025.02.24
+
+Geth 是一个执行客户端，运行Geth需要空出`8545`端口。文档中通过以下命令生成EOA：
+```bash
+clef newaccount --keystore geth-tutorial/keystore
+```
+密钥将被保存在`geth-tutorial/keystore`中
+
 <!-- Content_END -->
