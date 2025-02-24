@@ -94,8 +94,24 @@ Pass
  Trace back with the history of cryptocurrency and get some knowhow about why it is now be combined with ethereum.
 
 ### 2025.02.23
+Pass
 
 -- EPF week 2 --
 ### 2025.02.24
+Since I knew nothing about cryptocurrency before this project, I spent a lot of time getting an overview of the entire Ethereum ecosystem. I also tried to catch up on advanced knowledge from lecturers and people who shared during our weekly catch-ups. This has been the busiest period in recent months, and I have had almost no time to sleep, yet I am still making progress in my learning. My goal is to become part of the EPF team and contribute to this CoLearning group. Just keep going!
+
+### 2025.02.25
+
+### 2025.02.26
+
+### 2025.02.27
+
+### 2025.02.28
+
+### 2025.03.01
+
+### 2025.03.02
+
+-- EPF week 3 --
 
 <!-- Content_END -->
