@@ -570,7 +570,7 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 
 See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
 
-### 2025.02.23
+### 2025.02.24
 
 # 开始实验
 
@@ -580,28 +580,51 @@ See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
 
 这里有一些可以参考的文档：https://github.com/ethereum/consensus-specs/tree/dev/specs/phase0
 
+TODO
+
 ## 部署
 
 根据https://github.com/ethereum/consensus-specs的指南：
 
 - clone repo
 
-- 安装makefile：推荐使用choco安装，期间会自动安装`WSL（Windows Subsystem for Linux）`
+- 安装makefile：推荐使用chocolatey安装
 
 - 这里由于是windows系统，python生成的venv的目录结构是不同的，所以修改`Makefile`如下：
-
   ```makefile
   VENV = venv
-  PYTHON_VENV = $(VENV)\Scripts\python.exe
-  PIP_VENV = $(VENV)\Scripts\pip3.exe
-  CODESPELL_VENV = $(VENV)\Scripts\codespell
+  PYTHON_VENV = $(VENV)/Scripts/python.exe
+  PIP_VENV = $(VENV)/Scripts/pip3.exe
+  CODESPELL_VENV = $(VENV)/Scripts/codespell
   
   # Make a virtual environment.
   $(VENV):
   	@echo "Creating virtual environment"
   	@python -m venv $(VENV)
-  	@$(PIP_VENV) install --quiet uv==0.5.24
+  	@$(PIP_VENV) install --quiet uv
   ```
 
-  - `PYTHON_VENV`等变量的路径根据`venv`修改。
+  - `PYTHON_VENV`等变量的路径根据`venv`修改。注意需要使用`/`
+  
+    > 如果使用powershell，`\`是能正确读取的，但会有其他的问题
   - `@python3 -m venv $(VENV)`改为`@python -m venv $(VENV)`
+  - `@$(PIP_VENV) install --quiet uv`将版本去掉了，保留会导致找不到uv，uv是一个高性能包管理，并不影响后续测试
+  
+- 将`setup.py`中所有`open()`函数加入参数`encoding='utf-8'`。对于中文区系统，python会以`gbk`来读取文件。
+  
+- 使用powershell会出现一些意想不到的问题，所以这里使用git bash执行`make test`
+
+- 如果出现按间隔跳出`FFss..`之类的字符，说明测试成功
+
+- 在venv的虚拟环境下，运行这样一个`.py`文件：
+  ```python
+  from eth2spec.bellatrix import mainnet as spec
+  
+  hello = b"Hello World"
+  body = spec.BeaconBlockBody(
+      graffiti = hello + b'\0' * (32 - len(hello))
+  )
+  block = spec.BeaconBlock(body=body)
+  print(block.body.graffiti.decode('utf-8'))
+  ```
+
