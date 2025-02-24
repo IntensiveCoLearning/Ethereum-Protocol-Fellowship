@@ -228,4 +228,10 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 今天摸鱼提交 https://github.com/kernel1983/brownievm/commit/d59670db5b2226737d0cfd48aff657057b585b50
 
+### 2025.02.24
+
+和共享开源代码的朋友保持沟通。
+接下来去 Denver 进入高压工作状态，学习任务基本进入摸鱼状态。
+尽可能每日打开。
+
 <!-- Content_END -->
