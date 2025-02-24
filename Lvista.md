@@ -570,7 +570,7 @@ But how to avoid a bribery of proposers?[secret leader election](https://ethrese
 
 See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
 
-### 2025.02.24
+### 2025.02.23
 
 # 开始实验
 
@@ -627,4 +627,4 @@ TODO
   block = spec.BeaconBlock(body=body)
   print(block.body.graffiti.decode('utf-8'))
   ```
-
+### 2025.02.24
