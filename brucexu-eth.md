@@ -635,5 +635,12 @@ func (st *stateTransition) execute() (*ExecutionResult, error) {
 
 测试用例有点问题，需要修改参数继续下去，目前会报错显示 gas 不足。
 
+# 2025.02.24
+
+执行层的 JSON-RPC 规范文档 https://ethereum.github.io/execution-apis/api-documentation/
+
+## https://hackmd.io/@danielrachi/engine_api
+
+
 
 <!-- Content_END -->
