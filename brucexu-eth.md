@@ -641,6 +641,14 @@ func (st *stateTransition) execute() (*ExecutionResult, error) {
 
 ## https://hackmd.io/@danielrachi/engine_api
 
+两个客户端先通过 engine_exchangeCapabilities and engine_forkchoiceUpdatedV2 握手建立通信。
 
+不停地 call API 进行探测是否同步完成了 blocks。
+
+构建一个 Block 的流程：
+
+![image](https://github.com/user-attachments/assets/5469d351-2efc-4483-8697-f4e128760b2b)
+
+先是 Validator 被选中出块，然后构建 execution_payload 然后调用 
 
 <!-- Content_END -->
