@@ -595,4 +595,34 @@ Reth 的開發將沿三條主線進行：
 - **這些成本在每筆交易內僅收取一次**
 - **重複訪問已存儲的 key，僅收取「暖存取」成本（100 gas）**
 
+### 2025.02.24
+
+#### [SGweek7-research](https://epf.wiki/#/eps/week7-research)
+
+#### **5. 狀態轉換**
+- **需要將所有狀態從 MPT 遷移至 VKT**
+- **當前提案：Overlay Tree 方法**
+  - **分叉點 hfork**
+    - **凍結 MPT 狀態**
+    - **新寫入進入 Verkle Tree**
+    - **每個區塊將 N 個葉子轉換到 Verkle Tree**
+  - **數據訪問**
+    1. **優先從 Verkle Tree 讀取**
+    2. **若 Verkle Tree 無對應值，則回溯至 MPT**
+  - **隨時間刪除 MPT 節點**
+    - **N = 1K → 6 個月**
+    - **N = 5K → 1 個月**
+    - **N = 10K → 15 天**
+
+- **挑戰**
+  - **重算樹鍵（Tree Keys）需要 pre-images**
+  - **許多 EL 客戶端未存儲 Keccak pre-images**
+  - **如何確保節點在轉換開始前獲得此資訊？**
+  - 參考 HackMD 提案：[vkt-preimage-generation-and-distribution](https://hackmd.io/@jsign/vkt-preimage-generation-and-distribution)
+
+#### **6. Verkle 同步**
+- **在區塊 n 進行 Verkle Sync**
+- **區塊 n+1 進一步回填（Backfill）數據**
+- **逐步遷移到純 Verkle Tree**
+
 <!-- Content_END -->
