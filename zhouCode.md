@@ -1083,6 +1083,9 @@ root((以太坊))
  (生态图谱)
  (发展方向)
 ```
+### 2025.02.25
 
+了解了区块的结构，还是比较复杂的，包含很多的数据，在思维导图中添加了，比md格式更清晰一些
 
+https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink
 <!-- Content_END -->
