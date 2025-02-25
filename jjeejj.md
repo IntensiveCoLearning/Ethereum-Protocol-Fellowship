@@ -250,4 +250,18 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    2. 低 Gas 读写 需要 3 Gas
    3. 局部变量
 
+### 2025.02.25
+
+1. EVM Stack
+   1. 一个用户存储临时数据 先进后出的数据结构，用户存储 局部变量、中间计算结果、函数参数等
+   2. EVM 的 Stack 是固定最大深度的 1024 个元素（每个元素 256 位, 32byte）, 超出最大深度 会导致 Stack Overflow
+   3. Stack 的操作 Gas 成分非常低，但是频繁操作也会导致 Gas 消耗增加
+   4. 函数内的局部变量 通常保存在Stack 中 (uint256, bool, address)
+   5. 函数参数也会先压入栈中，使用的是在出栈
+   6. 函数内部递归调用 可以会导致 Stack Overflow，要控制好退出条件
+   7. 过多的局部变量或者中间计算 可以会导致 Stack Overflow
+   8. Stack 的生命周期 和外部函数函数的执行周期是一致的，函数调用的时候的创建，执行结束的时候被销毁 （return、revert）
+   9. 内部函数调用 (internal、private) 不会创建新的 Stack，他们共享上下文
+   10. Library 函数的调用，和内部函数调用 不会创建新的 Stack
+
 <!-- Content_END -->
