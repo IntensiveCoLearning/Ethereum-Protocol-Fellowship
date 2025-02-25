@@ -402,5 +402,15 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 	- [Data Serialization in Ethereum](https://epf.wiki/#/wiki/EL/RLP?id=data-serialization-in-ethereum)
 	- Ethereum actually utilizes 2 formats: RLP and Simple Serialize (SSZ) which is more modern standard used by consensus layer.
 	- RLP
-	-
+### 2025.02.24
+- [Consensus Layer Overview](https://epf.wiki/#/wiki/CL/overview?id=consensus-layer-overview)
+	- ensure that tens of thousands of independent nodes around the world stay reasonably synchronized.
+	- a reliable distributed system:
+		- Each node keeps a ledger with the state of every account, and all these ledgers must match exactly.
+		- There can be no differences;
+		- the nodes must agree and do so quickly
+	- Ethereum's consensus protocol:
+		- **LMD GHOST**
+		- **Casper FFG**
+		- the combination known as **Gasper**
 <!-- Content_END -->

@@ -580,28 +580,96 @@ See more: https://github.com/ethereum/consensus-specs?tab=readme-ov-file
 
 这里有一些可以参考的文档：https://github.com/ethereum/consensus-specs/tree/dev/specs/phase0
 
+TODO
+
 ## 部署
 
 根据https://github.com/ethereum/consensus-specs的指南：
 
 - clone repo
 
-- 安装makefile：推荐使用choco安装，期间会自动安装`WSL（Windows Subsystem for Linux）`
+- 安装makefile：推荐使用chocolatey安装
 
 - 这里由于是windows系统，python生成的venv的目录结构是不同的，所以修改`Makefile`如下：
-
   ```makefile
   VENV = venv
-  PYTHON_VENV = $(VENV)\Scripts\python.exe
-  PIP_VENV = $(VENV)\Scripts\pip3.exe
-  CODESPELL_VENV = $(VENV)\Scripts\codespell
+  PYTHON_VENV = $(VENV)/Scripts/python.exe
+  PIP_VENV = $(VENV)/Scripts/pip3.exe
+  CODESPELL_VENV = $(VENV)/Scripts/codespell
   
   # Make a virtual environment.
   $(VENV):
   	@echo "Creating virtual environment"
   	@python -m venv $(VENV)
-  	@$(PIP_VENV) install --quiet uv==0.5.24
+  	@$(PIP_VENV) install --quiet uv
   ```
 
-  - `PYTHON_VENV`等变量的路径根据`venv`修改。
+  - `PYTHON_VENV`等变量的路径根据`venv`修改。注意需要使用`/`
+  
+    > 如果使用powershell，`\`是能正确读取的，但会有其他的问题
   - `@python3 -m venv $(VENV)`改为`@python -m venv $(VENV)`
+  - `@$(PIP_VENV) install --quiet uv`将版本去掉了，保留会导致找不到uv，uv是一个高性能包管理，并不影响后续测试
+  
+- 将`setup.py`中所有`open()`函数加入参数`encoding='utf-8'`。对于中文区系统，python会以`gbk`来读取文件。
+  
+- 使用powershell会出现一些意想不到的问题，所以这里使用git bash执行`make test`
+
+- 如果出现按间隔跳出`FFss..`之类的字符，说明测试成功
+
+- 在venv的虚拟环境下，运行这样一个`.py`文件：
+  ```python
+  from eth2spec.bellatrix import mainnet as spec
+  
+  hello = b"Hello World"
+  body = spec.BeaconBlockBody(
+      graffiti = hello + b'\0' * (32 - len(hello))
+  )
+  block = spec.BeaconBlock(body=body)
+  print(block.body.graffiti.decode('utf-8'))
+  ```
+### 2025.02.24
+## test_blocks.py
+
+在[`~/consensus-specs/tests/core/pyspec/eth2spec/test/phase0/sanity/test_blocks.py`](https://github.com/ethereum/consensus-specs/blob/dev/tests/core/pyspec/eth2spec/test/phase0/sanity/test_blocks.py)展示了`$ make test k=test_empty_block_transition fork=altair`命令用到的源代码。
+
+```python
+@with_all_phases
+@spec_state_test
+def test_invalid_prev_slot_block_transition(spec, state):
+    # Go to clean slot
+    spec.process_slots(state, state.slot + 1)
+    # Make a block for it
+    block = build_empty_block(spec, state, slot=state.slot)
+    proposer_index = spec.get_beacon_proposer_index(state)
+    # Transition to next slot, above block will not be invalid on top of new state.
+    spec.process_slots(state, state.slot + 1)
+
+    yield 'pre', state
+    # State is beyond block slot, but the block can still be realistic when invalid.
+    # Try the transition, and update the state root to where it is halted. Then sign with the supposed proposer.
+    expect_assertion_error(lambda: transition_unsigned_block(spec, state, block))
+    block.state_root = state.hash_tree_root()
+    signed_block = sign_block(spec, state, block, proposer_index=proposer_index)
+    yield 'blocks', [signed_block]
+    yield 'post', None
+```
+### 2025.02.25
+## 开始搭建Geth
+
+> See: https://epf.wiki/#/eps/nodes_workshop
+
+我放弃了对Pyspec的研究，实在是看不懂。
+
+相对的，开始先尝试搭建一个本地链。
+
+## 准备
+
+首先在Linux上搭建，这也是视频中使用的环境。
+
+- 创建一个WSL2版的ubuntu: https://www.youtube.com/watch?v=qPMsV1DSGJY&t=170s
+
+- 根据指引安装：https://geth.ethereum.org/docs/getting-started/installing-geth
+
+  > 下载时间巨长
+### 2025.02.26
+<!-- Content_END -->

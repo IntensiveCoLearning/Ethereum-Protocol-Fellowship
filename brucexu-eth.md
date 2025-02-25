@@ -635,5 +635,188 @@ func (st *stateTransition) execute() (*ExecutionResult, error) {
 
 测试用例有点问题，需要修改参数继续下去，目前会报错显示 gas 不足。
 
+# 2025.02.24
+
+执行层的 JSON-RPC 规范文档 https://ethereum.github.io/execution-apis/api-documentation/
+
+## https://hackmd.io/@danielrachi/engine_api
+
+两个客户端先通过 engine_exchangeCapabilities and engine_forkchoiceUpdatedV2 握手建立通信。
+
+不停地 call API 进行探测是否同步完成了 blocks。
+
+构建一个 Block 的流程：
+
+![image](https://github.com/user-attachments/assets/5469d351-2efc-4483-8697-f4e128760b2b)
+
+先是 Validator 被选中出块，然后构建 execution_payload 然后被 CL 读取，将执行结果放在 BeaconBlock 上面，然后计算 state_root 发送 Block 出去。
+
+# 2025.02.25
+
+## https://gisli.hamstur.is/2020/08/understanding-ethereum-by-studying-the-source-code/
+
+
+### Account model
+
+core/state/state_object.go
+
+```
+// Account is the Ethereum consensus representation of accounts.
+// These objects are stored in the main account trie.
+type Account struct {
+	Nonce    uint64
+	Balance  *big.Int
+	Root     common.Hash // merkle root of the storage trie
+	CodeHash []byte
+}
+```
+
+### p2p network
+
+The Ethereum Node Records (ENR) is an open format for peer-to-peer connectivity information. 
+
+```
+p2p/enr/enr.go
+
+// Record represents a node record. The zero value is an empty record.
+type Record struct {
+	seq       uint64 // sequence number
+	signature []byte // the signature
+	raw       []byte // RLP encoded record
+	pairs     []pair // sorted list of all key/value pairs
+}
+
+p2p/enode/node.go
+
+// ID is a unique identifier for each node.
+type ID [32]byte
+
+// Node represents a host on the network.
+type Node struct {
+	r  enr.Record
+	id ID
+}
+
+// Load retrieves an entry from the underlying record.
+func (n *Node) Load(k enr.Entry) error {
+	return n.r.Load(k)
+}
+
+// IP returns the IP address of the node. This prefers IPv4 addresses.
+func (n *Node) IP() net.IP {
+	var (
+		ip4 enr.IPv4
+		ip6 enr.IPv6
+	)
+	if n.Load(&ip4) == nil {
+		return net.IP(ip4)
+	}
+	if n.Load(&ip6) == nil {
+		return net.IP(ip6)
+	}
+	return nil
+}
+```
+
+### Networks and their genesis
+
+```
+params/config.go
+
+	// MainnetChainConfig is the chain parameters to run a node on the main network.
+	MainnetChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(1),
+		HomesteadBlock:      big.NewInt(1150000),
+		DAOForkBlock:        big.NewInt(1920000),
+		DAOForkSupport:      true,
+		EIP150Block:         big.NewInt(2463000),
+		EIP150Hash:          common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"),
+		EIP155Block:         big.NewInt(2675000),
+		EIP158Block:         big.NewInt(2675000),
+		ByzantiumBlock:      big.NewInt(4370000),
+		ConstantinopleBlock: big.NewInt(7280000),
+		PetersburgBlock:     big.NewInt(7280000),
+		IstanbulBlock:       big.NewInt(9069000),
+		MuirGlacierBlock:    big.NewInt(9200000),
+		Ethash:              new(EthashConfig),
+	}
+```
+
+一些 blockchain 的启动参数。
+
+```
+core/genesis.go
+
+// GenesisAlloc specifies the initial state that is part of the genesis block.
+type GenesisAlloc map[common.Address]GenesisAccount
+
+// DefaultGenesisBlock returns the Ethereum main net genesis block.
+func DefaultGenesisBlock() *Genesis {
+	return &Genesis{
+		Config:     params.MainnetChainConfig,
+		Nonce:      66,
+		ExtraData:  hexutil.MustDecode("0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa"),
+		GasLimit:   5000,
+		Difficulty: big.NewInt(17179869184),
+		Alloc:      decodePrealloc(mainnetAllocData),
+	}
+}
+
+func decodePrealloc(data string) GenesisAlloc {
+	var p []struct{ Addr, Balance *big.Int }
+	if err := rlp.NewStream(strings.NewReader(data), 0).Decode(&p); err != nil {
+		panic(err)
+	}
+	ga := make(GenesisAlloc, len(p))
+	for _, account := range p {
+		ga[common.BigToAddress(account.Addr)] = GenesisAccount{Balance: account.Balance}
+	}
+	return ga
+}
+```
+
+
+**RLP**（**Recursive Length Prefix**）是以太坊中用于**序列化**（或编码）任意嵌套的、基于字节序列的结构的一种编码方式。它的设计初衷是为了在以太坊的各类数据（如账户信息、交易、区块头、默克尔树节点等）之间进行高效和一致的编码与传输。下面对 RLP 的要点进行简要说明：
+
+1. **用途与定位**  
+   - **通用编码方案**：以太坊需要一种通用的编码方式，能够对各种结构化数据进行打包并在网络上传输。RLP 就是以太坊底层所使用的编码规范，可以应用于简单的字符串、数字、列表，以及嵌套列表（比如多层数组）的编码中。
+   - **与 JSON、Protobuf 等的区别**：相比于 JSON 或者 Protocol Buffers（Protobuf），RLP 更加轻量、格式更紧凑，且易于在智能合约、区块链节点之间做快速处理。此外，RLP 只关心原始字节，不关心实际的字段含义或数据类型（例如字符串或数字），这使得它非常灵活。
+
+2. **编码规则**  
+   RLP 通过“前缀 + 数据”的方式来表示一个元素（或列表）。  
+   - **单个字节**：如果一个字符串（或数字在字节层面的表示）本身只包含一个字节，且数值小于 0x80，那么编码后就是它自己，不需要前缀。  
+   - **字符串/字节序列**：对于长度在 0～55 字节之间的非单字节数据，RLP 使用 0x80 + 数据长度作为前缀。若字符串长度超过 55 字节，则采用 0xB7 之后再紧跟表示长度的字节数，之后再跟原始数据。  
+   - **列表**：列表同理。长度在 0～55 字节之间时使用 0xC0 + 列表编码后字节长度作为前缀。如果列表整体长度超过 55 字节，就使用 0xF7 之后再紧跟表示长度的字节数，然后再跟列表的原始内容。
+
+3. **示例**  
+   - 如果要编码一个空字符串 `""`：  
+     - 空字符串表示长度为 0，于是编码结果是 `0x80`。  
+   - 如果要编码单个字节 `0x05`（也就是整数 5 的字节形式），因为它小于 0x80，所以直接就是 `0x05`。  
+   - 如果要编码字符串 `"cat"`（ASCII：0x63 0x61 0x74），其长度为 3，因此前缀会是 `0x80 + 3 = 0x83`，后面跟上 “cat” 的字节，所以编码结果为 `0x83 63 61 74`。  
+   - 如果是包含多个元素的列表（比如 `[ "cat", "dog" ]`），则先分别对 `"cat"` 和 `"dog"` 做 RLP 编码，再将两者拼起来，再对拼起来的结果前面加上表示“列表长度”的前缀。
+
+4. **在以太坊中的应用场景**  
+   - **交易数据**：以太坊交易会用 RLP 对地址、金额、nonce 等字段进行打包。  
+   - **区块数据**：区块头及区块中其他结构（如交易列表、叔块列表等）的编码、解码都使用 RLP。  
+   - **存储及默克尔树节点**：在以太坊的 Patricia Trie（Merkle Patricia Trie）里，节点也是以 RLP 形式存储或进行网络传输。
+
+5. **优势**  
+   - **紧凑性**：RLP 的编码相对简单并且紧凑，尽可能减少冗余信息，提高存储及网络传输效率。  
+   - **实现简单**：RLP 的编码解码逻辑并不依赖具体的数据结构定义，是一套通用的字节级别编码规则，因此很容易在不同编程语言里实现。  
+   - **灵活性**：不对字段意义做过多限制，专注于把任意的（嵌套）字节序列结构给“打包”好。
+
+6. **局限性**  
+   - **缺乏数据类型语义**：例如，对一串字节，你并不知道它到底是字符串还是数字，需要结合上层逻辑解释。  
+   - **调试不如 JSON、Protobuf 直观**：用工具查看 RLP 编码的二进制数据会相对抽象，阅读不如 JSON 或其他更高级别编码来得友好，需要一些解码器工具。
+
+---
+
+综上，**RLP** 就是在以太坊中非常核心的**底层数据编码协议**。它以简洁的前缀规则对各类数据进行序列化，为以太坊在网络与存储中的高效数据传输和存储提供了基础。
+
+
+
+
+
+
 
 <!-- Content_END -->

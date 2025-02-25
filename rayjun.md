@@ -533,5 +533,24 @@ EVM 中有一些关键的组件：
         - 在当前区块中被修改的状态会先存储到 dirtyStorage 中，然后被复制到 pendingStroage 中，在 MPT 被更新之后，StateAccount 的 root 也会被更新
         - StateDB 中的 GetState 函数会获得与该合约地址相关的 stateObject，如果 dirtyStorage 存在，那么就直接使用 dirtyStorage 中的值，如果不存在就返回 pending Storage 中值，最后再检查 oroginStorage 中值
 
+### 2025.02.25
+- EVM 在执行智能合约时，会为其创建一个上下文：
+    - The Code：合约的字节码不可改变， 存储在链上，并使用合约地址进行引用。
+    - The Stack：每个 EVM 合约执行时都会初始化一个空的栈，栈是一个 32 字节的元素列表，用于暂时存储智能合约指令的输入和输出，每个调用上下文创建一个栈，但调用上下文结束时，这个栈就会被销毁，栈的最大限制时 1024
+    - The Memory：为每个EVM 合约执行而初始化的一个空的内存，EVM 内存时临时的，在调用上下文结束的时候被销毁。
+    - The Storage：智能合约的持久化存储，格局合约地址和 slot  寻址，storage 时一个 32 字节的 key 和 32 字节的 value 的应用，最大长度是 2^256 -1，每个合约都有自己的存储，不能读取或者修改其他合约的存储。
+    - The Calldata：交易传入的数据，calldata 区域是作为智能合约交易的一部分发送给交易的数据。如果是创建合约，calldata 就是新合约的构造器的代码。当一个合约执行 xCall 时，也会创建一个 拿不交易，然后在新的上下文中产生一个 calldata 区域，calldata 是不可变的。
+    - The Return Data：合约调用返回的数据。The Return Data 是智能合约在调用后可以返回一个值的方式。
+    - 合约中跨调用函数的方式：
+        - DELEGATECALL：实际的逻辑是从另一个合约从复制粘贴一个函数到当前的合约中执行，所有状态的变更都产生在当前合约，这要求这两个合约的内存布局是一样的，否则会产读写错误的情况
+            - gas：执行所需要消耗的 gas 费
+            - address ：需要执行的账户
+            - argsOffset：输入内存中数据(calldata) 的字节偏移量
+            - argsSize：需要复制数据(calldata) 的字节大小
+            - retOffset：输出内存中数据(return data) 的字节偏移量
+            - retSize：需要复制数据(return data) 的字节大小
+        - CALL：直接跨合约调用，状态的修改都发生在被调用的合约
+        - CALL 和 DELEGATECALL 有完全相同的输入变量，CALL 会多一个 value 的调用，DELEGATECALL 不需要 value 值输入
+
 
 <!-- Content_END -->

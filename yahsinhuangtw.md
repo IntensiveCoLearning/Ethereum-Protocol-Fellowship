@@ -165,4 +165,13 @@ https://medium.com/@RadiantCapital/radiant-post-mortem-fecd6cd38081
 
 其中有頁簡報提到針對 spec 加有解釋性內容的參考網站 https://eth2book.info/capella/
 
+### 2025.02.24
+今天的殘酷學習聽了 Mario Havel 老師第一週的內容 講了一次 Execution layer 大致上的架構，提到 EVM 就相當於平時軟體工程師所認識的 Java virtual machine (JVM)。
+<img width="884" alt="Screenshot 2025-02-24 at 10 00 37 PM" src="https://github.com/user-attachments/assets/cf47f9d5-147c-41ae-a33e-edd45562a044" />
+
+<img width="828" alt="Screenshot 2025-02-24 at 10 02 19 PM" src="https://github.com/user-attachments/assets/1a606497-5f16-406f-b217-6b8530e89cf2" />
+
+<img width="784" alt="Screenshot 2025-02-24 at 10 04 33 PM" src="https://github.com/user-attachments/assets/76d65503-c00d-4afb-b27e-d654a30d59f7" />
+
+
 <!-- Content_END -->

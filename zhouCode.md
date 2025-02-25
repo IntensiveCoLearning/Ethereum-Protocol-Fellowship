@@ -1059,4 +1059,33 @@ Pectra 升级通过增加 calldata gas 成本，鼓励项目将 calldata 密集�
 
 通过这些改进，Pectra 升级旨在提升以太坊网络的性能、可扩展性和用户体验，进一步巩固其在区块链领域的领先地位。
 
+### 2025.02.24
+
+做思维导图整理以太坊主要内容（施工中）
+
+飞书施工中：https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink
+
+```mermaid
+mindmap
+root((以太坊))
+ (基础概念)
+    区块链
+    以太币
+    EVM
+    节点
+    共识机制
+    账户
+    交易
+    区块
+    智能合约
+ (核心技术栈)
+ (开发实践)
+ (生态图谱)
+ (发展方向)
+```
+### 2025.02.25
+
+了解了区块的结构，还是比较复杂的，包含很多的数据，在思维导图中添加了，比md格式更清晰一些
+
+https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink
 <!-- Content_END -->

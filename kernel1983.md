@@ -228,4 +228,32 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 今天摸鱼提交 https://github.com/kernel1983/brownievm/commit/d59670db5b2226737d0cfd48aff657057b585b50
 
+### 2025.02.24
+
+和共享开源代码的朋友保持沟通。
+接下来去 Denver 进入高压工作状态，学习任务基本进入摸鱼状态。
+尽可能每日打开。
+
+扑热点看了一下 safe 的合约 https://github.com/safe-global/safe-smart-account/blob/main/contracts/Safe.sol 
+想不明白这么重要的合约不应该是可读性第一位的嘛，搞那么多继承，我是不敢用。
+
+    contract Safe is
+        Singleton,
+        NativeCurrencyPaymentFallback,
+        ModuleManager,
+        GuardManager,
+        OwnerManager,
+        SignatureDecoder,
+        SecuredTokenTransfer,
+        ISignatureValidatorConstants,
+        FallbackManager,
+        StorageAccessible,
+        ISafe
+
+### 2025.02.25
+
+继续发表感想，Safe 合约中居然有 `execTransaction` 这种功能，它应该老老实实的做一个管钱的多签工具，而不是往里面加功能。
+
+目前看来，对于多签管理资产，应该寻找更加精简的单文件合约，功能要更少，更简单易读。
+
 <!-- Content_END -->

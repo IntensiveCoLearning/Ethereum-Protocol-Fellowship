@@ -595,4 +595,100 @@ Reth 的開發將沿三條主線進行：
 - **這些成本在每筆交易內僅收取一次**
 - **重複訪問已存儲的 key，僅收取「暖存取」成本（100 gas）**
 
+### 2025.02.24
+
+#### [SGweek7-research](https://epf.wiki/#/eps/week7-research)
+
+#### **5. 狀態轉換**
+- **需要將所有狀態從 MPT 遷移至 VKT**
+- **當前提案：Overlay Tree 方法**
+  - **分叉點 hfork**
+    - **凍結 MPT 狀態**
+    - **新寫入進入 Verkle Tree**
+    - **每個區塊將 N 個葉子轉換到 Verkle Tree**
+  - **數據訪問**
+    1. **優先從 Verkle Tree 讀取**
+    2. **若 Verkle Tree 無對應值，則回溯至 MPT**
+  - **隨時間刪除 MPT 節點**
+    - **N = 1K → 6 個月**
+    - **N = 5K → 1 個月**
+    - **N = 10K → 15 天**
+
+- **挑戰**
+  - **重算樹鍵（Tree Keys）需要 pre-images**
+  - **許多 EL 客戶端未存儲 Keccak pre-images**
+  - **如何確保節點在轉換開始前獲得此資訊？**
+  - 參考 HackMD 提案：[vkt-preimage-generation-and-distribution](https://hackmd.io/@jsign/vkt-preimage-generation-and-distribution)
+
+#### **6. Verkle 同步**
+- **在區塊 n 進行 Verkle Sync**
+- **區塊 n+1 進一步回填（Backfill）數據**
+- **逐步遷移到純 Verkle Tree**
+
+### 2025.02.25
+
+#### [SGweek8-dev](https://epf.wiki/#/eps/week8-dev)
+
+今天看 week 8 **Teku 共識層**
+
+#### 1. 簡介
+Teku 是 Consensys 開發的以太坊共識層 (CL) 客戶端，專注於機構級質押者，主要特點包括：
+- **使用 Java 編寫**
+- **強調測試** (單元測試、整合測試、系統測試)
+- **詳盡的指標監控** (Prometheus/Grafana)
+- **頻繁發布**
+- **清晰的日誌**
+- **開源、文件完善**
+- **內部運行 Teku 進行測試**
+
+
+#### 2. Teku 架構與 API 設計
+Teku 的架構包含多個模組，其中 API 扮演關鍵角色。
+
+##### **2.1 API 設計**
+- **Beacon API**：用於與 Beacon 節點交互。
+- **Keymanager API**：管理驗證者密鑰。
+- **Builder API**：與 Execution Layer (EL) 溝通。
+- **安全性設計**：預設僅允許本地主機訪問。
+- **TypeDefinition 框架**：提供宣告式接口，SSZ (Simple Serialize) 物件作為型別定義基礎。
+
+##### **2.2 API 示例**
+- **PostAttestation** (提交簽名認證到 Beacon 節點)
+- **GetBlockRoot** (獲取區塊根)
+
+```java
+EndpointMetadata.post("/eth/v1/beacon/pool/attestations")
+   .operationId("submitPoolAttestations")
+   .summary("提交認證對象到節點")
+   .requestBodyType(DeserializableTypeDefinition.listOf(...))
+   .response(SC_OK, "認證已接收並廣播")
+   .build();
+```
+
+
+#### 3. EIP 原型開發
+**EIP (Ethereum Improvement Proposal) 原型開發** 旨在將研究轉化為實際開發。
+
+##### **3.1 例子 - EIP-7251 (增強最大有效餘額)**
+- 目標：降低初始罰款，解決 2048 ETH 驗證者可能導致的 4 ETH 吹哨人獎勵問題。
+- 調整 **BeaconState** 和相關數據結構。
+- 使用 **_features** 目錄跟蹤變更。
+- 透過 “丟石頭” 方法發掘潛在問題。
+
+##### **3.2 影響與測試**
+- **測試發現問題**：透過“煩人的測試”來找出遺漏點。
+- **罕見的 branch 開發**：Teku 通常使用 trunk 開發方式，但 EIP-7251 需要特例處理。
+
+
+#### 4. 性能優化範例
+
+##### **4.1 Slashing Protection 文件鎖同步優化**
+- 之前使用 synchronized:
+```java
+public synchronized SafeFuture<Boolean> maySignBlock(
+final BLSPublicKey validator, final Bytes32 genesisValidatorsRoot, final UInt64 slot)
+```
+- 新方法透過 **行級鎖定 (row-level locking)** 移除 synchronized。
+- 透過 `--validator-is-local-slashing-protection-synchronized-enabled` 開關控制。
+
 <!-- Content_END -->

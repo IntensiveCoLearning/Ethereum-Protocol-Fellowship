@@ -289,5 +289,185 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 - Rewatched the EL overview by lightclient
     - review the state transition function and the execution payload building function
     - https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
+### 2025.02.24
+- Rerun the client pair with ephemery, had some problem with pairing geth and lighthouse
+- Notes
+- ## Setup the client pair
+### EL: Geth
+1. Download the geth's pre-built binary (in tar.gz) and the stable release (in .asc)
+    - https://geth.ethereum.org/downloads
+
+2. Download the signature
+    - openPGP signature
+3. Import the key
+    ```markdown
+    gpg --import macos_builder_key.asc 
+    ```
+    ```markdown
+    cat macos_builder_key.asc 
+    ```
+    When cat, should return: 
+    ```markdown
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+    Comment: Hostname: 
+    Version: Hockeypuck 2.2
+
+    xsFNBFggyxoBEAC299KoAS43p0FyJetAc7E0m1B/wnpyQesFycop/1csNQCjSGMy
+    EvERt8Mv5VvbyZ696gTnzyLP/YHvx5+j/lKZhixw+7VkOng6JgPF3YgN3WrykIjK
+    .....
+    -----END PGP PUBLIC KEY BLOCK-----
+    ```
+
+4. Verify the downloaded binary with the key
+    ```markdown
+    gpg --verify Geth_Darwin_AMD64_1.15.2.asc Geth_Darwin_AMD64_1.15.2.tar.gz 
+    ```
+
+    Should return:
+    ```markdown
+    gpg: Signature made Lun 17 fév 13:16:21 2025 CET
+    gpg:                using RSA key 558915E17B9E2481
+    gpg: Good signature from "Go Ethereum macOS Builder <geth-ci@ethereum.org>" [unknown]
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg:          There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: 6D1D AF5D 0534 DEA6 1AA7  7AD5 5589 15E1 7B9E 2481
+    ```
+5. Unpack the Geth binary
+    ```markdown
+    tar -xzf Geth_Darwin_AMD64_1.15.2.tar.gz 
+    ```
+
+### CL: Lighthouse
+1. Download the lighthouse's pre-built binary (in tar.gz) and the stable release (in .asc)
+    - https://github.com/sigp/lighthouse/releases
+    - recommended downloading stable release > beta release
+2. Obtain & importe the PGP key
+    - lighthouse PGP key: 15E66D941F697E28F49381F426416DC3F30674B0 from its release page
+    ```markdown
+    gpg --keyserver keys.openpgp.org --search-keys 15E66D941F697E28F49381F426416DC3F30674B0
+    gpg --recv-keys 15E66D941F697E28F49381F426416DC3F30674B0
+    ```
+    Should return:
+    ```markdown
+    gpg: data source: http://keys.openpgp.org:11371
+    (1)	Sigma Prime <security@sigmaprime.io>
+        4096 bit RSA key 26416DC3F30674B0, created: 2020-11-27
+    Keys 1-1 of 1 for "15E66D941F697E28F49381F426416DC3F30674B0".  Enter number(s), N)ext, or Q)uit > 
+
+    gpg: key 26416DC3F30674B0: public key "Sigma Prime <security@sigmaprime.io>" imported
+    gpg: Total number processed: 1
+    gpg:               imported: 1
+    ```
+3. Verify the downloaded binary with the key
+    ```markdown
+    gpg --verify Lighthouse_v6.0.1_macOS.tar.gz.asc Lighthouse_v6.0.1_macOS.tar.gz 
+    ```
+    Should return: 
+    ```markdown
+    gpg: Signature made Lun 16 déc 05:07:42 2024 CET
+    gpg:                using RSA key 15E66D941F697E28F49381F426416DC3F30674B0
+    gpg: Good signature from "Sigma Prime <security@sigmaprime.io>" [unknown]
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg:          There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: 15E6 6D94 1F69 7E28 F493  81F4 2641 6DC3 F306 74B0
+    ```
+4. Unpack the lighthouse binary
+    ```markdown
+    tar -xzf Lighthouse_v6.0.1_macOS.tar.gz 
+    ```
+## Launch the client pair
+1. Launch geth in default
+    ```markdown
+    ./geth
+    ```
+2. Create a separate folder to store data
+    ```markdown
+    mkdir geth_data lighthouse_data
+    ```
+3. See the comments/ flags
+    ```markdown
+    ./geth --help
+    ./lighthouse --help
+    ```
+4. Launch geth with config
+    ```markdown
+    ./geth --holesky \
+    --datadir geth_data \
+    --syncmode snap \
+    --http \
+    --http.port 8545 \
+    --authrpc.jwtsecret /tmp/jwt \
+    --authrpc.port 8551
+    ```
+5. Create/ Cat a JWT secret file
+    ```markdown
+    cat /tmp/jwt
+    ```
+    Should return a 64-bit code
+6. Launch lighthouse with config
+    - launch with checkpoint sync
+    - beacon chain checkpoint endpoints: https://eth-clients.github.io/checkpoint-sync-endpoints/
+
+    ```markdown
+    ./lighthouse beacon_node \
+    --network holesky \
+    --datadir lighthouse_data \
+    --http \
+    --checkpoint-sync-url https://checkpoint-sync.holesky.ethpandaops.io \
+    --execution-endpoint http://127.0.0.1:8551 \
+    --execution-jwt /tmp/jwt
+    ```
+    Mine always return error as below (if switch to Sepolia, everything works fine)
+    ```markdown
+    Feb 24 11:33:32.566 INFO Logging to file                         path: "lighthouse_data/beacon/logs/beacon.log"
+    Feb 24 11:33:32.569 INFO Lighthouse started                      version: Lighthouse/v6.0.1-0d90135
+    Feb 24 11:33:32.569 INFO Configured for network                  name: holesky
+    Feb 24 11:33:32.578 INFO Data directory initialised              datadir: lighthouse_data
+    Feb 24 11:33:32.585 INFO Deposit contract                        address: 0x4242424242424242424242424242424242424242, deploy_block: 0
+    Feb 24 11:33:32.651 INFO Blob DB initialized                     oldest_data_column_slot: None, oldest_blob_slot: Some(Slot(950272)), path: "lighthouse_data/beacon/blobs_db", service: freezer_db
+    Feb 24 11:33:37.180 INFO Starting checkpoint sync                remote_url: https://checkpoint-sync.holesky.ethpandaops.io/, service: beacon
+    Feb 24 11:36:37.877 CRIT Failed to start beacon node             reason: Error loading checkpoint state from remote: HttpClient(, kind: timeout, detail: operation timed out)
+    Feb 24 11:36:37.877 INFO Internal shutdown received              reason: Failed to start beacon node
+    Feb 24 11:36:37.878 INFO Shutting down..                         reason: Failure("Failed to start beacon node")
+    Failed to start beacon node
+    ```
+## Launch the client pair with ephemery
+1. Download the testnet_all.tar.gz from the ephemery release
+    - https://github.com/ephemery-testnet/ephemery-genesis/releases/
+2. Init the ephemery on Geth
+    ```markdown
+    geth --datadir ephemery init ephemery_test_all/genesis.json
+    source ephemery_test_all/nodevars_env.txt 
+    ```
+    Should return
+    ```markdown
+    INFO [02-24|12:50:57.200] Maximum peer count                       ETH=50 total=50
+    INFO [02-24|12:50:57.204] Set global gas cap                       cap=50,000,000
+    INFO [02-24|12:50:57.204] Initializing the KZG library             backend=gokzg
+    INFO [02-24|12:50:57.226] Defaulting to pebble as the backing database
+    INFO [02-24|12:50:57.227] Allocated cache and file handles         database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/chaindata cache=16.00MiB handles=16
+    INFO [02-24|12:50:57.284] Opened ancient database                  database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/chaindata/ancient/chain readonly=false
+    INFO [02-24|12:50:57.284] State schema set to default              scheme=path
+    ERROR[02-24|12:50:57.284] Head block is not reachable
+    INFO [02-24|12:50:57.321] Opened ancient database                  database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/chaindata/ancient/state readonly=false
+    INFO [02-24|12:50:57.321] Writing custom genesis block
+    INFO [02-24|12:50:57.428] Successfully wrote genesis state         database=chaindata hash=a45355..e0c1d2
+    INFO [02-24|12:50:57.428] Defaulting to pebble as the backing database
+    INFO [02-24|12:50:57.428] Allocated cache and file handles         database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/lightchaindata cache=16.00MiB handles=16
+    INFO [02-24|12:50:57.481] Opened ancient database                  database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/lightchaindata/ancient/chain readonly=false
+    INFO [02-24|12:50:57.481] State schema set to default              scheme=path
+    ERROR[02-24|12:50:57.481] Head block is not reachable
+    INFO [02-24|12:50:57.520] Opened ancient database                  database=/Users/chloe/Documents/Github/node_setup_2/ephemery/geth/lightchaindata/ancient/state readonly=false
+    INFO [02-24|12:50:57.520] Writing custom genesis block
+    INFO [02-24|12:50:57.600] Successfully wrote genesis state         database=lightchaindata hash=a45355..e0c1d2
+    ```
+3. Launch geth with config
+    ```markdown
+    geth --datadir ephemery --authrpc.jwtsecret=/tmp/jwt --bootnodes $BOOTNODE_ENODE --networkid $CHAIN_ID  --http
+    ```
+4. Launch lighthouse with config
+    ```markdown
+    ./lighthouse beacon_node -t ephemery_test_all --execution-endpoint http://localhost:8551 --execution-jwt=/tmp/jwt --boot-nodes=$BOOTNODE_ENR_LIST
+    ```
 
 <!-- Content_END -->
