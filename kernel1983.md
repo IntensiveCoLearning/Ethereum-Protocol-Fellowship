@@ -250,4 +250,10 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
         StorageAccessible,
         ISafe
 
+### 2025.02.25
+
+继续发表感想，Safe 合约中居然有 `execTransaction` 这种功能，它应该老老实实的做一个管钱的多签工具，而不是往里面加功能。
+
+目前看来，对于多签管理资产，应该寻找更加精简的单文件合约，功能要更少，更简单易读。
+
 <!-- Content_END -->
