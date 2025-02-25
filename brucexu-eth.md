@@ -655,7 +655,6 @@ func (st *stateTransition) execute() (*ExecutionResult, error) {
 
 ## https://gisli.hamstur.is/2020/08/understanding-ethereum-by-studying-the-source-code/
 
-
 ### Account model
 
 core/state/state_object.go
@@ -814,6 +813,72 @@ func decodePrealloc(data string) GenesisAlloc {
 综上，**RLP** 就是在以太坊中非常核心的**底层数据编码协议**。它以简洁的前缀规则对各类数据进行序列化，为以太坊在网络与存储中的高效数据传输和存储提供了基础。
 
 
+### Connecting via bootnodes
+
+```
+// MainnetBootnodes are the enode URLs of the P2P bootstrap nodes running on
+// the main Ethereum network.
+var MainnetBootnodes = []string{
+	// Ethereum Foundation Go Bootnodes
+	"enode://d860a01f9722d78051619d1e2351aba3f43f943f6f00718d1b9baa4101932a1f5011f16bb2b1bb35db20d6fe28fa0bf09636d26a87d31de9ec6203eeedb1f666@18.138.108.67:30303", // bootnode-aws-ap-southeast-1-001
+	"enode://22a8232c3abc76a16ae9d6c3b164f98775fe226f0917b0ca871128a74a8e9630b458460865bab457221f1d448dd9791d24c4e5d88786180ac185df813a68d4de@3.209.45.79:30303",   // bootnode-aws-us-east-1-001
+	"enode://2b252ab6a1d0f971d9722cb839a42cb81db019ba44c08754628ab4a823487071b5695317c8ccd085219c3a03af063495b2f1da8d18218da2d6a82981b45e6ffc@65.108.70.101:30303", // bootnode-hetzner-hel
+	"enode://4aeb4ab6c14b23e2c4cfdce879c04b0748a20d8e9b59e25ded2a08143e265c6c25936e74cbc8e641e3312ca288673d91f2f93f8e277de3cfa444ecdaaf982052@157.90.35.166:30303", // bootnode-hetzner-fsn
+}
+```
+
+节点启动的时候，会去找相关的启动节点。作用？获取一些必要启动信息？会不会有中心化的问题或者被 DDoS 的问题。暂时不知道具体是做什么的。
+
+### Discovering peers
+
+The discovery protocol relies on a Kademlia-like DHT that stores information about Ethereum nodes.
+
+TODO Kademlia-like DHT 是什么？
+
+```
+// RequestENR sends ENRRequest to the given node and waits for a response.
+func (t *UDPv4) RequestENR(n *enode.Node) (*enode.Node, error) {
+	addr, _ := n.UDPEndpoint()
+	t.ensureBond(n.ID(), addr)
+
+	req := &v4wire.ENRRequest{
+		Expiration: uint64(time.Now().Add(expiration).Unix()),
+	}
+	packet, hash, err := v4wire.Encode(t.priv, req)
+	if err != nil {
+		return nil, err
+	}
+
+	// Add a matcher for the reply to the pending reply queue. Responses are matched if
+	// they reference the request we're about to send.
+	rm := t.pending(n.ID(), addr.Addr(), v4wire.ENRResponsePacket, func(r v4wire.Packet) (matched bool, requestDone bool) {
+		matched = bytes.Equal(r.(*v4wire.ENRResponse).ReplyTok, hash)
+		return matched, matched
+	})
+	// Send the packet and wait for the reply.
+	t.write(addr, n.ID(), req.Name(), packet)
+	if err := <-rm.errc; err != nil {
+		return nil, err
+	}
+	// Verify the response record.
+	respN, err := enode.New(enode.ValidSchemes, &rm.reply.(*v4wire.ENRResponse).Record)
+	if err != nil {
+		return nil, err
+	}
+	if respN.ID() != n.ID() {
+		return nil, errors.New("invalid ID in response record")
+	}
+	if respN.Seq() < n.Seq() {
+		return n, nil // response record is older
+	}
+	if err := netutil.CheckRelayAddr(addr.Addr(), respN.IPAddr()); err != nil {
+		return nil, fmt.Errorf("invalid IP in response record: %v", err)
+	}
+	return respN, nil
+}
+```
+
+### Propagating blocks
 
 
 
