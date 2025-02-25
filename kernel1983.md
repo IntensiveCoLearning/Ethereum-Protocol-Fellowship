@@ -234,4 +234,20 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 接下来去 Denver 进入高压工作状态，学习任务基本进入摸鱼状态。
 尽可能每日打开。
 
+扑热点看了一下 safe 的合约 https://github.com/safe-global/safe-smart-account/blob/main/contracts/Safe.sol 
+想不明白这么重要的合约不应该是可读性第一位的嘛，搞那么多继承，我是不敢用。
+
+    contract Safe is
+        Singleton,
+        NativeCurrencyPaymentFallback,
+        ModuleManager,
+        GuardManager,
+        OwnerManager,
+        SignatureDecoder,
+        SecuredTokenTransfer,
+        ISignatureValidatorConstants,
+        FallbackManager,
+        StorageAccessible,
+        ISafe
+
 <!-- Content_END -->
