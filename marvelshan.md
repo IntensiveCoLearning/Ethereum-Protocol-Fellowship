@@ -1331,4 +1331,31 @@ Bob 透過 Alice 的公鑰 \( P \) 和簽章 \((r, s)\) 來驗證訊息是否正
 
 [Threshold Signature Scheme (ECDSA) 介紹](https://medium.com/taipei-ethereum-meetup/threshold-signature-scheme-ecdsa-%E4%BB%8B%E7%B4%B9-e17923e64d0)
 
+### 2025.02.25
+
+BLS（Boneh-Lynn-Shacham）簽名是一種數位簽名方案，廣泛應用於區塊鏈，特別是以太坊信標鏈（Beacon Chain）。
+
+1. **簽名聚合**：BLS 簽名允許多個簽名聚合成一個簽名，極大提升驗證效率，使信標鏈能夠支援數十萬名驗證者。
+2. **與以太坊的關係**：
+   - 信標鏈使用 BLS 簽名來簽署區塊、發佈認證等。
+   - 執行層（Execution Layer）仍然使用 ECDSA 簽名，但未來的帳戶抽象（Account Abstraction）可能會採用 BLS。
+3. **相比 ECDSA 及 Schnorr**：
+   - ECDSA 需要隨機數來生成簽名，且驗證時需個別驗證每個公鑰，計算成本較高。
+   - Schnorr 簽名支持部分聚合，但仍不如 BLS 簽名高效。
+   - BLS 簽名基於雙線性配對（Bilinear Pairing），具有更短的簽名長度和更強的安全性。
+4. **數學基礎**：
+   - 以太坊使用 BLS12-381 橢圓曲線，其包含兩個子群 \( G_1 \) 和 \( G_2 \)。
+   - 私鑰 \( sk \) 是範圍內的隨機數，公鑰為 \( pk = [sk]g_1 \)。
+   - 簽名過程：消息 \( m \) 透過哈希映射至曲線點 \( H(m) \)，簽名為 \( [sk]H(m) \)。
+   - 驗證時，透過公鑰及簽名計算配對運算，確認簽名真偽。
+5. **以太坊的應用**：
+   - 驗證者擁有私鑰、公鑰、消息與簽名，簽名後的訊息可供網絡驗證。
+   - 信標鏈僅對「簽名根（Signing Root）」進行簽署，這些根是 32 位元字串，用於保證安全性。
+   - 簽名驗證時，只需輸入消息、公鑰及簽名，即可確認其有效性。
+
+補充：
+
+[Ethereum Casper — 認識 BLS signature](https://medium.com/taipei-ethereum-meetup/ethereum-casper-%E8%AA%8D%E8%AD%98-bls-signature-f9fdecf63bb0)
+
+
 <!-- Content_END -->
