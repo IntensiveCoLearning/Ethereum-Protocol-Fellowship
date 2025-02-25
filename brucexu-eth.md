@@ -812,6 +812,7 @@ func decodePrealloc(data string) GenesisAlloc {
 
 综上，**RLP** 就是在以太坊中非常核心的**底层数据编码协议**。它以简洁的前缀规则对各类数据进行序列化，为以太坊在网络与存储中的高效数据传输和存储提供了基础。
 
+# 2025.02.26
 
 ### Connecting via bootnodes
 
