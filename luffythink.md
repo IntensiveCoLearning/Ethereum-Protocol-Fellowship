@@ -245,7 +245,7 @@ The Pectra upgrade (Prague on the execution client side, Electra on the consensu
 ### 2025.02.25
 **学习了解 The Pectra upgrade**
 Key Roadmap Categories (The "Urges"):
-
+![](https://epf.wiki/wiki/research/img/full_roadmap2024_1600x1596.webp)
 - The Merge: This stage, now implemented, represents the transition from Proof-of-Work (PoW) to Proof-of-Stake (PoS). While the initial Merge has been completed, ongoing efforts continue to improve the PoS consensus mechanism and address any issues that arise. The primary goal is to transition into more scalable, environmentally-friendly approach to consensus.
 - The Surge: Focuses on scalability improvements through rollups and data sharding technologies. Rollups are designed to process transactions off-chain, reducing the load on the main Ethereum network, while data sharding aims to split the blockchain's data across multiple nodes, further enhancing throughput.
 - The Scourge: Aims to strengthen Ethereum's resistance to censorship, improve decentralization, and mitigate risks associated with MEV (Miner Extractable Value) and liquid staking/pooling.
@@ -254,5 +254,6 @@ Key Roadmap Categories (The "Urges"):
 - The Splurge: Captures other upgrades that don't neatly fit into the other categories, suggesting a continuous stream of innovations and improvements beyond the main strategic goals.
 
 Ethereum is not viewed as a project with a defined endpoint, but rather as an `"infinite garden" `that requires continuous cultivation and upgrades to thrive. This implies a commitment to long-term development and adaptation.
+
 
 <!-- Content_END -->
