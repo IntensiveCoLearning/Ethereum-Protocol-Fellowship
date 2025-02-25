@@ -654,6 +654,22 @@ def test_invalid_prev_slot_block_transition(spec, state):
     yield 'post', None
 ```
 ### 2025.02.25
+## 开始搭建Geth
 
+> See: https://epf.wiki/#/eps/nodes_workshop
 
+我放弃了对Pyspec的研究，实在是看不懂。
+
+相对的，开始先尝试搭建一个本地链。
+
+## 准备
+
+首先在Linux上搭建，这也是视频中使用的环境。
+
+- 创建一个WSL2版的ubuntu: https://www.youtube.com/watch?v=qPMsV1DSGJY&t=170s
+
+- 根据指引安装：https://geth.ethereum.org/docs/getting-started/installing-geth
+
+  > 下载时间巨长
+### 2025.02.26
 <!-- Content_END -->
