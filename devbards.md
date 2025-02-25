@@ -101,6 +101,7 @@ Pass
 Since I knew nothing about cryptocurrency before this project, I spent a lot of time getting an overview of the entire Ethereum ecosystem. I also tried to catch up on advanced knowledge from lecturers and people who shared during our weekly catch-ups. This has been the busiest period in recent months, and I have had almost no time to sleep, yet I am still making progress in my learning. My goal is to become part of the EPF team and contribute to this CoLearning group. Just keep going!
 
 ### 2025.02.25
+I've just realized that this workshop will finish this week. Since my current job has just ended, I will try my best to catch up with others!
 
 ### 2025.02.26
 
@@ -112,6 +113,6 @@ Since I knew nothing about cryptocurrency before this project, I spent a lot of 
 
 ### 2025.03.02
 
--- EPF week 3 --
+-- End --
 
 <!-- Content_END -->
