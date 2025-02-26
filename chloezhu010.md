@@ -475,4 +475,8 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
     - Release page: https://github.com/ethereum/trin/releases
 - The architecture part is useful to understand Trin's codebase: https://ethereum.github.io/trin/developers/architecture/index.html
 - Had some issue when querying data, need further investigation
+
+### 2025.02.26
+- 重新整理了一下 node workshop 的 notes，方便大家可以不用看视频，直接跟着 setup client pair
+    - https://hackmd.io/QK_4OJQ7Sputq93-Urz_gQ
 <!-- Content_END -->
