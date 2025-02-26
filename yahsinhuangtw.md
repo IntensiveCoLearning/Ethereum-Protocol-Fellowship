@@ -174,4 +174,17 @@ https://medium.com/@RadiantCapital/radiant-post-mortem-fecd6cd38081
 <img width="784" alt="Screenshot 2025-02-24 at 10 04 33 PM" src="https://github.com/user-attachments/assets/76d65503-c00d-4afb-b27e-d654a30d59f7" />
 
 
+### 2025.02.26
+
+<img width="1084" alt="Screenshot 2025-02-26 at 11 53 27 PM" src="https://github.com/user-attachments/assets/fa717f0e-c70e-4295-8ddd-60c975a36c64" />
+
+今日殘酷學習時間又再繼續看了一段 Mario Havel 老師第一週的報告。究竟這一群工程師參與的人數實際有多少？有一百人嗎？這麼多人需要一起決定事情，誰是有最終決定權的資深工程師？我只是好奇。畢竟本日頭條看到 Aya Miyaguchi 長官換了一個職稱叫「President」，而這個詞台灣可能是叫公司的「總經理」或是「會長」。
+
+「I will be closing this chapter as Executive Director of the Ethereum Foundation soon and stepping into a new role as its President」官方網站的說法 https://blog.ethereum.org/2025/02/25/aya-announcement 
+
+我認為應該是要翻為「總經理」較理想，但不知道這代表的意義是什麼？算是降職，還是平移平調，還是升職？這方面感覺也沒人看得明白。現在的局勢像開車上山，午後開始起濃霧，沒人知道路在哪裡，也沒人看得出來車子要往哪裡開，暫時先開往最近的服務區，決定等到濃霧散去再出發。當然這是比喻，意思是彷彿看不清組織到底目前的局勢是，正在行經蜿蜒山路，突然起大霧，還是內部高層早已手握地圖，雙手握住方向盤，覺得此人事轉彎代表大局已定，相信終於在此時此刻遙遙領先，已是勝券在握。我只是旁觀者，只能祝福。
+
+<img width="838" alt="Screenshot 2025-02-26 at 11 25 01 PM" src="https://github.com/user-attachments/assets/4e432943-2979-439e-a895-3ecf04ab817f" />
+
+
 <!-- Content_END -->
