@@ -1357,5 +1357,45 @@ BLS（Boneh-Lynn-Shacham）簽名是一種數位簽名方案，廣泛應用於�
 
 [Ethereum Casper — 認識 BLS signature](https://medium.com/taipei-ethereum-meetup/ethereum-casper-%E8%AA%8D%E8%AD%98-bls-signature-f9fdecf63bb0)
 
+### 2025.02.26
+
+Keccak256 是以太坊區塊鏈廣泛使用的密碼學雜湊函數。
+
+### **背景與歷史**  
+Keccak256 最初是為 NIST 密碼雜湊演算法競賽設計的，目的是取代 SHA-1。由 Guido Bertoni、Joan Daemen、Michaël Peeters 和 Gilles Van Assche 團隊開發。  
+
+### **Keccak 設計與運作**  
+Keccak 採用 **海綿結構（Sponge Construction）**，使其能夠吸收任意長度的輸入數據，並壓縮為固定長度的雜湊值。運作包含兩個階段：  
+
+1. **吸收（Absorption）階段**  
+   - 輸入數據分塊，與內部狀態進行 XOR 運算。  
+   - **比特率（Bitrate, r）**：定義可與輸入數據互動的位數，影響運算效率。  
+   - 每次 XOR 後，應用排列函數（Permutation），確保輸入數據充分混合。  
+
+2. **擠壓（Squeezing）階段**  
+   - 生成輸出雜湊值，可產生任意長度的輸出。  
+
+### **以太坊中的 Keccak256 應用**  
+在 **以太坊虛擬機（EVM）** 中，Keccak256 並沒有專屬的操作碼（Opcode），但可透過 **SHA3 操作碼** 來計算 Keccak256 雜湊。  
+
+以太坊黃皮書（Yellow Paper）提到 Keccak256 的應用：  
+1. **區塊創建與根數據結構**：  
+   - 區塊標頭的 `parentHash`、`stateRoot` 等欄位使用 Keccak256 計算雜湊。  
+   - Merkle Patricia 樹：狀態數據的每個節點以 Keccak256 雜湊識別。  
+2. **帳戶存儲內容編碼**：  
+   - Keccak256 用於雜湊存儲鍵，確保高效數據檢索與安全性。  
+
+### **Keccak256 vs SHA3-256**  
+- SHA3-256 本質上與 Keccak256 相同，**唯一差異在於數據填充（Padding）方式**。  
+- 以太坊在 SHA3 競賽結束前即確定採用 Keccak256，因此沿用了舊版填充方式，而非標準 SHA3-256。  
+
+
+補充：
+
+[虛空境界 8 :SHA3 (Keccak-256) 和環境指令](https://ithelp.ithome.com.tw/articles/10325337)
+
+[keccak256初探](https://blog.csdn.net/qq_50665031/article/details/124214062)
+
+[Solidity Keccak256与SHA3-256](https://blog.csdn.net/mutourend/article/details/128616514)
 
 <!-- Content_END -->
