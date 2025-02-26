@@ -255,5 +255,15 @@ Key Roadmap Categories (The "Urges"):
 
 Ethereum is not viewed as a project with a defined endpoint, but rather as an `"infinite garden" `that requires continuous cultivation and upgrades to thrive. This implies a commitment to long-term development and adaptation.
 
+### 2025.02.26
+学习了解 [aya-announcement](https://blog.ethereum.org/2025/02/25/aya-announcement)
+- Decentralization and Community Ownership
+- Pace Layering and Long-Term Vision
+- Credible Neutrality and Subtractive Design
+- Stewardship, Not Control
+- Purposeful Evolution: focus from `"How can EF execute this?" to "How can Ethereum accomplish this, and what role should EF play?"`
+- The Infinite Garden
+- Devcon and Devconnect as Community Enablers
+
 
 <!-- Content_END -->
