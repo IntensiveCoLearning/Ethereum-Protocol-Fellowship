@@ -54,20 +54,6 @@ Ethereum, on the other hand, is gradually replacing PoW with a PoS mechanism, wh
 
 Understanding these concepts gives me a deeper appreciation of the motivations behind founding this study group—it’s truly fascinating!
 
-### 2025.02.12
-Today was abit late for updating. Will update it late~
-
-### 2025.02.13
-Pass
-
-### 2025.02.14
-After the weekly meeting, it might be a time to adjust the way recording. Would start in next week.
-
-### 2025.02.15
-Still preparing for next week, the record would be update after then.
-
-### 2025.02.16
-
 -- EPF week 1 --
 ### 2025.02.17
 
@@ -76,43 +62,9 @@ Materials in Day 1
 [Ethereum Virtual Machine (Ethereum 101)](https://veridelisi.substack.com/p/understanding-ethereum-virtual-machine-evm])
 [Discord Live Talk](https://discord.com/channels/1205546645496795137/1205546645937463356)
 
-### 2025.02.18
-The topic today is about Validator machanism.
-It still in progress now.
-
-### 2025.02.19
-
-Pass
-
-### 2025.02.20
- Exercution Layer today.
-
-### 2025.02.21
- Network Layer has been updated since the previous study materail published.
-
-### 2025.02.22
- Trace back with the history of cryptocurrency and get some knowhow about why it is now be combined with ethereum.
-
-### 2025.02.23
-Pass
-
--- EPF week 2 --
-### 2025.02.24
-Since I knew nothing about cryptocurrency before this project, I spent a lot of time getting an overview of the entire Ethereum ecosystem. I also tried to catch up on advanced knowledge from lecturers and people who shared during our weekly catch-ups. This has been the busiest period in recent months, and I have had almost no time to sleep, yet I am still making progress in my learning. My goal is to become part of the EPF team and contribute to this CoLearning group. Just keep going!
-
-### 2025.02.25
-I've just realized that this workshop will finish this week. Since my current job has just ended, I will try my best to catch up with others!
-
 ### 2025.02.26
+As this co-learning initiative is coming to an end, I realize that my contributions to the community have been limited. Therefore, I have decided to step back from this challenge for now, though I will continue to follow EPF.
 
-### 2025.02.27
-
-### 2025.02.28
-
-### 2025.03.01
-
-### 2025.03.02
-
--- End --
+I am truly grateful for this Intensive Co-Learning experience and sincerely hope that its spirit will continue to thrive. Wishing everyone the best—keep going!
 
 <!-- Content_END -->
