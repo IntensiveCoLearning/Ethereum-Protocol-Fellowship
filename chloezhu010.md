@@ -469,5 +469,10 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
     ```markdown
     ./lighthouse beacon_node -t ephemery_test_all --execution-endpoint http://localhost:8551 --execution-jwt=/tmp/jwt --boot-nodes=$BOOTNODE_ENR_LIST
     ```
-
+### 2025.02.25
+- Downloaded the latest release fron Trin to play around
+    - Trin book: https://ethereum.github.io/trin/introduction/quickstart.html
+    - Release page: https://github.com/ethereum/trin/releases
+- The architecture part is useful to understand Trin's codebase: https://ethereum.github.io/trin/developers/architecture/index.html
+- Had some issue when querying data, need further investigation
 <!-- Content_END -->

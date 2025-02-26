@@ -552,5 +552,16 @@ EVM 中有一些关键的组件：
         - CALL：直接跨合约调用，状态的修改都发生在被调用的合约
         - CALL 和 DELEGATECALL 有完全相同的输入变量，CALL 会多一个 value 的调用，DELEGATECALL 不需要 value 值输入
 
+### 2025.02.26
+- 在以太坊中，可以通过事件日志来存储数据，这个也相对更便宜一些，事件日志可以用来触发合约中特定事件，节点不需要永久保留日志，可以通过删除日志来节省空间，合约也无法访问日志存储
+    - 在以太坊区块中，除了有 State Root，还有 Transaction Root 和 Receipt Root，其中 TransactionRoot 对应的 Transaction Trie 中记录这这个区块中所有的交易
+    - 但是在 Transaction Trie 中并不会记录任何交易结果的信息，所有的交易结果将会记录到 Receipt Trie 中，包括交易所消耗的 gas、Event logs、logs 对应的布隆过滤器等等
+    - Event logs 通过合约中的 event 来生成，通过 emit 来触发，早期的合约会直接通过 event 来触发
+    - 在 Event 中定义中，如果一个参数被标记为 indexed，然后这个字段会被放入 Log 的结构体的 Tpoics 字段中，以 Transfer(address,address,uint256) 为例，在 Tpoics 中会保存三个值，第一个是函数签名的哈希值，第二个和第三个是分别对应第一个 address 和第二个 address，tpoics 中最多有四个值，也就是最多在 event 中 index 三个参数
+    - Solidity 中可以声明匿名 event，这样 tpoics 中就不用存储函数签名的哈希值，也就能 index 4 个参数了。
+    - 日志中 Data 字段用来存储其他的非索引字段
+    - 这些被索引的字段能够被快速查找主要是因为 Bloom Filter：https://llimllib.github.io/bloomfilter-tutorial/
+        - 它可以判断一个元素绝对不在集合内或者可能在集合内
+
 
 <!-- Content_END -->

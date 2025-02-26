@@ -691,4 +691,73 @@ final BLSPublicKey validator, final Bytes32 genesisValidatorsRoot, final UInt64 
 - 新方法透過 **行級鎖定 (row-level locking)** 移除 synchronized。
 - 透過 `--validator-is-local-slashing-protection-synchronized-enabled` 開關控制。
 
+### 2025.02.26
+
+#### [SGweek8-research](https://epf.wiki/#/eps/week8-research)
+
+今天看 week 8 關於以太坊的**協議（protocol）**
+
+#### **1. 簡介**
+- 2020 年加入以太坊基金會 RIG
+- 主要研究方向：
+  - **PoS 共識**
+  - **EIP-1559 / 費用市場機制**
+  - **MEV / 提案者-建設者分離（PBS）**
+  - **機制設計**
+
+#### **2. 以協議視角看待以太坊**
+##### **2.1 以太坊協議的核心目標**
+- 以太坊的運行由**分佈式社群**決定，採取「**粗略共識**」治理模式
+- 主要目標：提供**去中心化區塊空間**，讓用戶獲得**最大福利**，並**最小化租金費用**
+- **驗證者（Validators）** 負責運行協議
+
+##### **2.2 協議與驗證者的關係**
+- 核心挑戰：如何讓驗證者行為符合協議的目標？
+- 主要機制：
+  - **協議內省（Protocol Introspection）**：透過鏈上狀態獲取環境信號
+  - **協議代理（Protocol Agency）**：根據信號調整獎勵與懲罰
+
+#### **3. 區塊生產服務**
+- **驗證者** 充當區塊生產者，負責交易排序與打包
+- **區塊資源供應受限**，確保低驗證成本
+- **動態定價機制**：
+  - **EIP-1559**：區塊目標 15M Gas，上限 30M Gas
+  - **Gas > 目標值 ⇒ 基礎費（Reserve Price）增加**
+  - **EIP-4844**：引入「**數據可用性 Gas（DA Gas）**」供 Rollups 使用（與執行 Gas 分離）
+
+##### **3.1 區塊構建的權限分配**
+- **現行模式**：
+  - 驗證者可直接構建區塊
+- **提案者-建設者分離（PBS）模式**：
+  - 驗證者可將區塊構建權**委派給建設者**
+  - 透過 MEV-Boost 競標來確保最優區塊選擇
+
+#### **4. 共識服務**
+##### **4.1 驗證者的角色**
+- **確保鏈的最終性（Casper FFG）**
+- **提議區塊（包含共識數據）**
+- **選擇區塊鏈頭部（LMD-GHOST）**
+
+##### **4.2 為何要質押（Staking）？**
+- **提供可信承諾**：「如果 X 事件發生，Y 億美元將被沒收」
+- **質押池（LSP）與 Liquid Staking**
+  - 資本希望流動，出現 Lido 等 LSP
+  - 協議**無法感知**委託（Delegation）狀況
+  - **Rocket Pool** 允許個人質押，並由其他委託者補足剩餘 ETH
+
+#### **5. 包含列表（Inclusion Lists）與審查抵抗**
+##### **5.1 什麼是 Inclusion List？**
+- **讓最去中心化的以太坊驗證者影響區塊內容**
+- 主要提案：
+  - **EIP-7547**：引入包含列表
+  - **ROP-9**：多重機制抵抗審查
+  - **COMIS**（Committee-based Inclusion Sets）：透過委員會強制包含交易
+
+#### **6. 以太坊發行（Issuance）與 Staking 經濟**
+- **高發行量 ⇒ 更多人質押 ⇒ 質押池集中化**
+- **最新提案**：
+  - **Electra Proposal**：調整發行率
+  - **Endgame Staking Economics**：設定 ETH 質押範圍
+- **「彩虹質押」（Rainbow Staking）**：提升個人質押者的可持續性
+
 <!-- Content_END -->

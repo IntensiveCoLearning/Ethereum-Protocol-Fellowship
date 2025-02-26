@@ -413,4 +413,15 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 		- **LMD GHOST**
 		- **Casper FFG**
 		- the combination known as **Gasper**
+### 2025.02.25
+- #efp.wiki
+	- [Consensus Layer Overview](https://epf.wiki/#/wiki/CL/overview?id=consensus-layer-overview)
+		- In Ethereum's PoS, the proposer(leader) is pseudo-randomly selected from active validator set.
+		- In Ethereum's execution chain, block size is limited by the block gas limit.
+		- [Beacon block](https://epf.wiki/#/wiki/CL/beacon-api?id=beaconblockbody) sizes are limited by hard-coded constants.
+		- [Beacon Chain Introduction](https://epf.wiki/#/wiki/CL/overview?id=beacon-chain-introduction)
+			- **Staking ETH**
+			- **Proposing Blocks**
+			- **Attesting Blocks**
+			- **Participating in Consensus**
 <!-- Content_END -->

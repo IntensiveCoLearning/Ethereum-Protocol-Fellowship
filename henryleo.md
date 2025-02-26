@@ -568,4 +568,13 @@ clef newaccount --keystore geth-tutorial/keystore
 ```
 密钥将被保存在`geth-tutorial/keystore`中
 
+
+### 2025.02.25
+
+#### 以太坊路线图
+Vitalik在博客中总结的以太坊路线图：
+![|2025022501](https://domothy.com/images/roadmap.jpg)
+
+
+
 <!-- Content_END -->
