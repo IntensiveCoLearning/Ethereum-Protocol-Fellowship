@@ -1063,7 +1063,7 @@ Pectra 升级通过增加 calldata gas 成本，鼓励项目将 calldata 密集�
 
 做思维导图整理以太坊主要内容（施工中）
 
-飞书施工中：https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink
+飞书施工中：[以太坊整体结构思维导图](https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink)
 
 ```mermaid
 mindmap
@@ -1087,5 +1087,20 @@ root((以太坊))
 
 了解了区块的结构，还是比较复杂的，包含很多的数据，在思维导图中添加了，比md格式更清晰一些
 
-https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink
+[以太坊整体结构思维导图](https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink)
+
+### 2025.02.26
+
+智能合约和传统编程语言的区别：
+
+1. 在以太坊EVM上运行，去中心化和不可篡改。
+
+2. 智能合约一旦部署后，代码就无法更改，充分测试非常重要。
+3. 智能合约强调安全性，提供严格的类型检查和资源管理机制。
+4. 智能合约要尽可能高效地执行，降低交易成本。
+
+完善思维导图，增加了智能合约部分，还有对其他几大板块进行了填充
+
+[以太坊整体结构思维导图](https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink)
+
 <!-- Content_END -->
