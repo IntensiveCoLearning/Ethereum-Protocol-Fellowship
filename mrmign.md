@@ -424,4 +424,8 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 			- **Proposing Blocks**
 			- **Attesting Blocks**
 			- **Participating in Consensus**
+### 2025.02.26
+- Components of the Consensus Layer
+	- Beacon Node
+	- Validator
 <!-- Content_END -->
