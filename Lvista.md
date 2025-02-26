@@ -672,4 +672,35 @@ def test_invalid_prev_slot_block_transition(spec, state):
 
   > 下载时间巨长
 ### 2025.02.26
+在这里不展示具体出现的配置信息。
+
+主要分为三个块，用两个横线分割开。
+
+- 第一个块主要是区块链的本地储存配置
+- 第二个块描述了几个重要的更新，以区块深度来表示其更新的时间点
+- 第三个块与网络相关，包括接口，P2P等
+
+`--help`选项会帮助你了解更多配置相关信息，这里对视频里的配置进行说明：
+
+```bash
+$ geth --holesky --datadir geth-data --syncmode snap --http --http.port 8545 --authrpc.jwtsecret /tmp/jwt
+```
+
+- `--holesky`**Holesky** 是以太坊的一个测试网络，类似于 **Goerli** 或 **Sepolia**，但专门用于 PoS 相关的测试。
+
+- `--datadir geth-data`指定本地data文件夹路径。在这之前我们已经创建好了一个(`~$ mkdir geth-data`)
+
+- `--syncmode snap`快照模式，可选`full`。当然，对目前的你是不会选`full`的
+
+- `--http`：启用 HTTP 服务，允许通过 HTTP 协议访问 JSON-RPC API
+
+  > 启用后，外部应用程序（如钱包、DApps）可以通过 HTTP 与节点交互。
+
+- `--http.port 8545`：http端口
+
+-  `--authrpc.jwtsecret /tmp/jwt`：指定 JWT（JSON Web Token）密钥文件的路径为 `/tmp/jwt`。
+
+  > JWT 用于验证执行层（Geth）和共识层（如 Beacon Chain）之间的通信
+### 2025.02.27
+
 <!-- Content_END -->
