@@ -563,5 +563,22 @@ EVM 中有一些关键的组件：
     - 这些被索引的字段能够被快速查找主要是因为 Bloom Filter：https://llimllib.github.io/bloomfilter-tutorial/
         - 它可以判断一个元素绝对不在集合内或者可能在集合内
 
+### 2025.02.27
+- Verkle Tree = Vector commitment + Merkle Tree
+- Verkle Tree 的目标：让以太坊节点不需要存储大量的状态数据，但同时又不丢失验证区块的能力
+- 验证区块 = 重新执行区块中的所有交易 + 将状态变化持久化道状态树 + 重新计算状态树的树根
+    - 在当前的以太坊客户端中，验证区块需要本地有整个状态数据库
+    - Witness 可以做到要验证一个区块所有必要的数据都包含在这个区块本身
+- Verkle Tree 是以太坊在无状态化这条路径上很关键的一步
+    - 无状态客户端不需要为了验证区块而存储整个状态数据库
+    - 无状态客户端使用状态数据的 witness（见证）来验证区块
+    - 一个 Witness 是执行一组交易所需要依赖的状态数据的集合以及这组状态数据确实属于整个状态数据的加密证明
+    - Witness 数据需要非常小，在一个 slot 时间内能广播到所有的 validator，当前的状态数据结构太大了，不满足这个条件，Verkle Tree 可以用来解决这个问题
+    - Verkle Tree 相比于 MPT 结构的改进
+        - 缩短叶子节点到根节点之间的距离， Verkle Tree 更扁平
+        - 消除提供兄弟节点来验证根哈希的需要
+        - 使用 polynimial commitment （Pedersen）而不是 hash-style vector commitment
+        - Ploynimial commitment 具有固定大小，不会因为要证明的叶子节点的增加而增加
+    - Verkle Tree 的 key 采用分层设计，前 31 字节为词干（Stem）最后一字节为后缀（Suffix），这种设计让相邻存储位置共享同一个词干，仅后缀不同，从而验证的时候只需要处理局部而不是全树
 
 <!-- Content_END -->
