@@ -256,4 +256,9 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 目前看来，对于多签管理资产，应该寻找更加精简的单文件合约，功能要更少，更简单易读。
 
+### 2025.02.26
+
+我们几天前构思的利用 execution-specs 实现的开源项目有了第一个 Pull Request https://github.com/kernel1983/brownievm/pull/1
+感谢开源的贡献者，合作让彼此都有了收获。
+
 <!-- Content_END -->

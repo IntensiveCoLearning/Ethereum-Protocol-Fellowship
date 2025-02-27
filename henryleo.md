@@ -575,6 +575,32 @@ clef newaccount --keystore geth-tutorial/keystore
 Vitalik在博客中总结的以太坊路线图：
 ![|2025022501](https://domothy.com/images/roadmap.jpg)
 
+### 2025.02.26
 
+#### 秘密领袖选举
+对于权益证明而言，区块提议者是公开的，包括他们的IP，那么攻击者就可以提前向他们发动DDoS攻击，使得他们错过区块提议。这对于恶意验证者来说是有利可图的。
+
+>  例如，为时隙`n+1`选择的区块提议者可以对时隙`n`中的提议者进行拒绝服务攻击，使其错过提出区块的机会。 这样可以让发起攻击的区块提议者提取两个时隙的最大可提取价值，或者获取本应分配到两个区块的所有交易，并将它们全部添加到一个区块，从而获得所有相关费用。这对家庭验证者的影响可能比先进的机构验证者更大，机构验证者可以使用更先进的方法来保护自己免受拒绝服务攻击，因此可能推动中心化。
+>  
+>  —— 秘密领袖选举 | EF
+
+为了克服这个缺陷，需要Secret Leader Election SLE 秘密领袖选举，具体又有几种实现方式。
+##### 单一秘密领袖选举
+Single SLE 单一秘密领袖选举希望每一个验证者提交一个盲id（Commitment），然后网络打乱后发布该id，除了被选为领袖的验证者，其他人没办法从签名知道是谁被选中了。
+
+这个算法的实现名叫[Whisk](https://ethresear.ch/t/whisk-a-practical-shuffle-based-ssle-protocol-for-ethereum/11763)：
+- 验证者提交盲id
+- 在某一个Epoch时，会通过RANDAO随机选择一组验证者从16384个盲id中随机抽样
+- 接下来的 8182 个时隙（1 天），区块提议者使用自己的私有熵打乱盲id的子集使其随机化。
+- 之后，使用 RANDAO 创建有序的盲id列表。 该列表映射到一系列Slot
+- 被选为领袖的验证者看到他们的盲id被分配到特定时隙，于是他们就知道自己被选中了
+
+这是一个循环，之后再重复
+
+
+##### Refs
+- [秘密领袖选举 | EF](https://ethereum.org/zh/roadmap/secret-leader-election/)
+- [The Merge | Vitalik](https://vitalik.eth.limo/general/2024/10/14/futures1.html)
+- [单一秘密领袖选举 | Ebunker中文](https://web3caff.com/zh/archives/111097#%E5%8D%95%E4%B8%80%E7%A7%98%E5%AF%86%E9%A2%86%E8%A2%96%E9%80%89%E4%B8%BE)
 
 <!-- Content_END -->

@@ -1357,5 +1357,96 @@ BLS（Boneh-Lynn-Shacham）簽名是一種數位簽名方案，廣泛應用於�
 
 [Ethereum Casper — 認識 BLS signature](https://medium.com/taipei-ethereum-meetup/ethereum-casper-%E8%AA%8D%E8%AD%98-bls-signature-f9fdecf63bb0)
 
+### 2025.02.26
+
+Keccak256 是以太坊區塊鏈廣泛使用的密碼學雜湊函數。
+
+### **背景與歷史**  
+Keccak256 最初是為 NIST 密碼雜湊演算法競賽設計的，目的是取代 SHA-1。由 Guido Bertoni、Joan Daemen、Michaël Peeters 和 Gilles Van Assche 團隊開發。  
+
+### **Keccak 設計與運作**  
+Keccak 採用 **海綿結構（Sponge Construction）**，使其能夠吸收任意長度的輸入數據，並壓縮為固定長度的雜湊值。運作包含兩個階段：  
+
+1. **吸收（Absorption）階段**  
+   - 輸入數據分塊，與內部狀態進行 XOR 運算。  
+   - **比特率（Bitrate, r）**：定義可與輸入數據互動的位數，影響運算效率。  
+   - 每次 XOR 後，應用排列函數（Permutation），確保輸入數據充分混合。  
+
+2. **擠壓（Squeezing）階段**  
+   - 生成輸出雜湊值，可產生任意長度的輸出。  
+
+### **以太坊中的 Keccak256 應用**  
+在 **以太坊虛擬機（EVM）** 中，Keccak256 並沒有專屬的操作碼（Opcode），但可透過 **SHA3 操作碼** 來計算 Keccak256 雜湊。  
+
+以太坊黃皮書（Yellow Paper）提到 Keccak256 的應用：  
+1. **區塊創建與根數據結構**：  
+   - 區塊標頭的 `parentHash`、`stateRoot` 等欄位使用 Keccak256 計算雜湊。  
+   - Merkle Patricia 樹：狀態數據的每個節點以 Keccak256 雜湊識別。  
+2. **帳戶存儲內容編碼**：  
+   - Keccak256 用於雜湊存儲鍵，確保高效數據檢索與安全性。  
+
+### **Keccak256 vs SHA3-256**  
+- SHA3-256 本質上與 Keccak256 相同，**唯一差異在於數據填充（Padding）方式**。  
+- 以太坊在 SHA3 競賽結束前即確定採用 Keccak256，因此沿用了舊版填充方式，而非標準 SHA3-256。  
+
+
+補充：
+
+[虛空境界 8 :SHA3 (Keccak-256) 和環境指令](https://ithelp.ithome.com.tw/articles/10325337)
+
+[keccak256初探](https://blog.csdn.net/qq_50665031/article/details/124214062)
+
+[Solidity Keccak256与SHA3-256](https://blog.csdn.net/mutourend/article/details/128616514)
+
+### 2025.02.27
+
+**後量子密碼學（Post-Quantum Cryptography, PQC）
+
+**1. 傳統密碼學與量子威脅**  
+傳統密碼學基於數學難題（如質因數分解、離散對數、圖同構等）來保護資訊，這些問題被稱為**隱藏子群問題（Hidden Subgroup Problem, HSP）**，其核心是利用「陷門函數（Trapdoor Function）」確保安全性。例如：  
+- **RSA** 安全性基於大數質因數分解的難度。  
+- **ECDSA（橢圓曲線數字簽章演算法）** 安全性基於橢圓曲線離散對數問題。  
+
+然而，**量子計算** 的發展對傳統密碼學構成威脅。**Shor 演算法** 能以指數級速度破解這些數學問題，從而使現有的公鑰密碼學（如 RSA、ECDSA）不再安全。  
+
+**2. 後量子密碼學的發展**  
+後量子密碼學旨在開發即使面對強大量子計算機仍能保持安全的演算法。根據 **2020 年量子威脅時間表報告**：  
+- **2030 年前**，量子電腦破解公鑰密碼學的機率 **<5%**。  
+- **2050 年前**，該機率增至 **50%**。  
+目前最強的量子電腦擁有 **<2000 個物理量子位元（qubits）**，而要在 1 小時內破解比特幣的加密，需要約 **3.17 億個 qubits**。  
+
+**3. 以太坊的後量子風險**  
+以太坊使用 **ECDSA** 進行帳戶安全保護，私鑰經橢圓曲線計算產生公鑰，再透過 **Keccak256** 取得以太坊地址。  
+- 量子攻擊可能直接逆推橢圓曲線運算，取得私鑰，導致所有 **外部擁有帳戶（EOA）** 面臨風險。  
+- 然而，BIP-32 派生密鑰機制增加了破解私鑰的計算成本。  
+
+**應對方案（EthResearch 提案）**  
+- **回滾（Revert）發生攻擊後的區塊**，避免大量資金被盜。  
+- **禁用傳統 EOA 交易**，改為基於智能合約的交易。  
+- **引入 STARK 證明機制**，允許帳戶遷移至更安全的密碼學驗證方式。  
+
+不過，這些方案仍不完美，例如難以偵測量子攻擊，且部分用戶可能仍會損失資產。  
+
+**4. 後量子密碼學研究與標準化**  
+目前，NIST（美國國家標準技術研究院）和其他機構正推動標準化後量子加密演算法。  
+
+🔹 **NIST 選出的後量子演算法（2022 年第三輪）**  
+- **公鑰加密與密鑰協商**：CRYSTALS-KYBER  
+- **數位簽章演算法**：CRYSTALS-DILITHIUM、FALCON、SPHINCS+  
+
+🔹 **其他後量子密碼學推動機構**  
+- **Post-Quantum Cryptography Alliance（PQC 聯盟）**  
+- **Open Quantum Safe（OQS）專案**  
+- **IETF 的 Crypto Forum Research Group（CFRG）**，標準化 **XMSS（擴展 Merkle 簽章方案）**  
+
+🔹 **實際應用案例**  
+- **Anchor Vault**：提供基於 Lamport 簽章的 ERC 代幣安全方案。  
+- **Signal**：已實作「後量子擴展 Diffie-Hellman」密鑰協商協議。  
+- **Chromium 瀏覽器**：支援「Hybrid Kyber KEM」保護資料傳輸。  
+- **Apple iMessage**：實作 PQ3 以防止量子攻擊竊取密鑰。  
+
+補充：
+
+[【專欄】後量子密碼學 Postquantum Cryptography](https://newsletter.sinica.edu.tw/28059/)
 
 <!-- Content_END -->

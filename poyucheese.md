@@ -760,4 +760,56 @@ final BLSPublicKey validator, final Bytes32 genesisValidatorsRoot, final UInt64 
   - **Endgame Staking Economics**：設定 ETH 質押範圍
 - **「彩虹質押」（Rainbow Staking）**：提升個人質押者的可持續性
 
+### 2025.02.27
+
+#### [SGweek9-dev](https://epf.wiki/#/eps/week9-dev)
+
+今天看 week 9 關於以太坊的**測試**
+
+#### 1. **測試挑戰**
+- 需要測試超過 20 種客戶端組合，避免回歸錯誤。
+- 不同客戶端的溝通和除錯困難。
+- 可靠的測試方式尚不明確，傳統測試側重於單一客戶端。
+- 所有未來升級都會繼承這些挑戰。
+
+#### 2. **開發網絡（Devnets）**
+- 為以太坊基層的測試鏡像，包含 EL/CL/驗證者。
+- 可部署分叉和變更，而不影響主網。
+- 提供完全可控的驗證者集，可設計極端測試場景。
+
+#### 3. **當前測試內容**
+- Pectra（即將到來的硬分叉）。
+- Verkle（未來硬分叉）。
+- ILs 和 EIP-7441（Whisk）。
+- 以太坊客戶端優化，如 EthereumJS Snap sync 測試、Blob/驗證者限制測試。
+
+#### 4. **本地測試**
+- 早期需要完整測試網絡，速度慢。
+- 現在使用 **Kurtosis** 來快速迭代測試：
+  - 本地可配置（3s slot time、快速分叉、MEV 測試）。
+  - 可擴展，支援 Kubernetes/Docker。
+
+#### 5. **MEV 測試**
+- 在本地測試最大可提取價值（MEV）。
+
+#### 6. **原型測試**
+- **允許所有內容覆寫**，可快速測試協議變更。
+- 測試新的客戶端或工具，連接到現有網絡即可驗證效果。
+
+#### 7. **影子分叉（Shadowforks）**
+- 可跨所有客戶端測試升級相容性，並模擬真實交易 payload。
+- 影子分叉步驟：
+  1. 取主網 Genesis 文件，添加分叉時間戳。
+  2. 設立新的 Beacon Chain，與 EL 連接。
+  3. 在分叉時間點，所有 EL 和 CL 進入新鏈。
+  4. 新鏈基於主鏈繼續運行。
+
+#### 8. **推薦工具**
+- **Kurtosis**（本地測試環境）。
+- **Assertoor**（驗證網絡的各種測試場景）。
+- **Forky**（分叉可視化工具）。
+- **Tracoor**（區塊追蹤工具）。
+- **Dora**（輕量級 Beacon Chain 瀏覽器）。
+- **Xatu**（以太坊 P2P 數據收集與可視化）。
+
 <!-- Content_END -->

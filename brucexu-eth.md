@@ -879,7 +879,28 @@ func (t *UDPv4) RequestENR(n *enode.Node) (*enode.Node, error) {
 }
 ```
 
+# 2025.02.27
+
 ### Propagating blocks
+
+node 起来之后就需要同步全部的 block，通过使用 total difficulty 来判断 peers 中最长的 chain。
+
+这一部分通过 PoW 的已经过时了。
+
+### State transition
+
+验证交易这里，通过 EIP155 标准实现签名，并且进行验证。使用了 Ecrecover 的加密算法，主要是先验证签名的有效性，然后再根据签名恢复出来公钥和钱包地址，通过判断钱包地址是否是签名的地址来确认当前状态有效。EIP-155 是预防交易在不同链上重放。
+
+签名的核心字段：交易的哈希值由 AccountNonce、Price、GasLimit 等字段以及 chainId 计算得出。
+
+签名恢复过程：通过 V、R 和 S 恢复公钥，进而计算出发送者地址。
+
+错误处理：如果 chainId 不匹配或签名无效，会返回相应的错误。
+
+### Executing code in the EVM
+
+https://gisli.hamstur.is/2020/08/understanding-ethereum-by-studying-the-source-code/
+
 
 
 
