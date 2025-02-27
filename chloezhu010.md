@@ -479,4 +479,24 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
 ### 2025.02.26
 - 重新整理了一下 node workshop 的 notes，方便大家可以不用看视频，直接跟着 setup client pair
     - https://hackmd.io/QK_4OJQ7Sputq93-Urz_gQ
+
+### 2025.02.27
+- Pectra Holesky testnet 升级分叉回顾
+  - 主要问题：三个主要执行层客户端（besu、nethermind、geth）出现 config issue
+    - EL clients had an issue where they forgot to add the correct Deposit contract address, which matters for Pectra Requests Hash calculation
+    - An invalid chain was justified (not finalized!), due to the majority of clients having the bug. 
+    - https://x.com/parithosh_j/status/1894236676567785814
+  - 目前进展
+    - https://x.com/TimBeiko/status/1894472196464197917
+    - EL config issue is fixed, releases out
+    - CL clients struggle to sync, working on patches, some are being tested right now
+    - We expect to save Holesky by building on the minority chain 
+  - 一些核心开发者的反馈
+    - https://x.com/TimBeiko/status/1894177342295244981
+    - https://x.com/vdWijden/status/1894330068668756353
+  - 今晚 ACD call 将讨论如何修复 Holesky 分叉
+  - 针对 Pectra 升级的 $2,000,000 bug bounty 
+    - https://x.com/parithosh_j/status/1894236703667491232
+  - 此前针对 Pectra 升级协调的反思讨论
+    - https://ethereum-magicians.org/t/pectra-retrospective/22637
 <!-- Content_END -->
