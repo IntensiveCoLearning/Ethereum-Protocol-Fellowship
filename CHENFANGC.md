@@ -339,4 +339,9 @@ EOA 可以发起交易，交易类型包括：
 
 啊啊啊， 每天工作都很多，没时间看呐 555
 
+### 2025.02.27
+
+看了执行层的项目，要补 go 语言 T.T,学习成本好高……
+https://github.com/ethereum/go-ethereum
+
 <!-- Content_END -->
