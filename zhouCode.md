@@ -1103,4 +1103,9 @@ root((以太坊))
 
 [以太坊整体结构思维导图](https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink)
 
+### 2025.02.27
+
+思维导图已完工，作为自己对以太坊初步认识的总结
+
+[以太坊整体结构思维导图](https://turoag3plj.feishu.cn/mindnotes/Thw0bLoQqmEDxonaIUHcDUSenAd?from=from_copylink)
 <!-- Content_END -->
