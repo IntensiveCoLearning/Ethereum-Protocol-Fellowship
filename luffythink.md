@@ -265,5 +265,13 @@ Ethereum is not viewed as a project with a defined endpoint, but rather as an `"
 - The Infinite Garden
 - Devcon and Devconnect as Community Enablers
 
+### 2025.02.27
+学习了解 Testing and security
+
+- Notable Mainnet Incidents： highlight the need for rigorous testing, security practices, and continuous improvement.
+- Hive and Kurtosis：testing client implementations under various scenarios, informed by the vulnerabilities uncovered in mainnet incidents.
+- Formal Verification： provides a complementary, mathematical approach to ensure security, proving the absence of specific types of flaws that might be missed by testing alone.
+
+![](https://epf.wiki/wiki/testing/img/fv-and-testing.jpg)
 
 <!-- Content_END -->
