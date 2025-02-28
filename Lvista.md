@@ -798,5 +798,5 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
 
 之后在bash中执行`pytest my_test.py`，即可看到测试结果。
 
-### 2025.03.1
+### 2025.03.01
 <!-- Content_END -->
