@@ -611,4 +611,38 @@ Single SLE 单一秘密领袖选举希望每一个验证者提交一个盲id（C
 - [Ben用Python注释的CL协议](https://eth2book.info/capella/annotated-spec/)
 - [Pyspec 教程](https://github.com/ethereum/consensus-specs/blob/dev/tests/README.md)
 
+
+### 2025.02.28
+ZKP Zero-Knowledge Proof 零知识证明 是让你在**不泄露秘密本身**的情况下，就能让别人确信你知道这个秘密。
+
+#### zk-SNARKs
+Zero-Knowledge Succinct Non-Interactive Argument of Knowledge 
+
+字词拆解：
+- zk 零知识证明
+- Succinct 简洁 证明的过程和结果都非常**小巧**和**快速**。验证起来也非常快
+- Non-Interactive 非交互式 证明过程**不需要证明者和验证者之间进行多次对话**。 证明者一次性生成证明，验证者可以直接验证
+- Argument of Knowledge 知识论证: 证明的目的是为了证明你**确实拥有某种知识**（比如知道秘密、知道答案等等）
+
+#### ZK-STARKs
+Zero-Knowledge Scalable Transparent Argument of Knowledg
+字词拆解：
+- zk 零知识证明
+- Succinct 可扩展: ZK-STARKs 在证明生成和验证方面都具有**更好的扩展性**。 这意味着，随着需要证明的计算变得越来越复杂，ZK-STARKs 的性能下降幅度相对较小，仍然能保持高效。
+- Transparent 透明: ZK-STARKs 的 "透明性" 是它与 zk-SNARKs 的一个重要区别。 "透明" 主要指的是 ZK-STARKs 在设置过程中**不需要 "可信设置" (Trusted Setup)**。
+- Argument of Knowledge 知识论证: 证明的目的是为了证明你**确实拥有某种知识**（比如知道秘密、知道答案等等）
+
+##### 可信机制
+为了让 zk-SNARKs 正常工作，通常需要一个初始的 "可信设置" 阶段。这个阶段会生成一些公开的参数，这些参数是证明和验证过程的基础。 但是，"可信设置" 的问题在于，如果设置过程中存在任何作弊行为，可能会导致整个系统的安全性受到威胁。 “可信” 的含义就是需要信任设置过程的参与者不会作恶。
+
+**ZK-STARKs 的透明性：** ZK-STARKs 使用**公开随机性**来生成必要的参数，而不是依赖于 "可信设置"。 这意味着，任何人都可以验证参数的生成过程，不需要信任任何特定的参与者。 这种 "透明" 的设置方式，大大提高了 ZK-STARKs 的安全性，降低了潜在的风险。
+
+#### zk-SNARK和zk-STARK的比较
+zk-STARK的证明和验证在复杂计算中更具优势，且无需可信设置，而zk-SNARK验证速度非常快
+#### 聚合
+Aggregate 聚合 是把多个 zk-SNARK 证明**聚合**成一个单一的、更小的证明
+
+因为ZK当交易很多的时候会很重，所以聚合起来效率更高，可以提升吞吐量、降低Gas费
+
+
 <!-- Content_END -->
