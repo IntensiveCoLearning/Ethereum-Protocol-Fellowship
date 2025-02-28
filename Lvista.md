@@ -736,4 +736,67 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
 此时CL会开始追踪最新头节点，此过程会持续亿点点时间
 
 ### 2025.02.28
+
+## Consensus specs
+
+### 第一个测试
+
+根据[Pyspec tutorial](<https://github.com/ethereum/consensus-specs/blob/dev/tests/README.md>)，执行第一个测试：
+
+- 找到想要测试的方法：`test_empty_block_transition`
+
+- 将该函数包括依赖复制到一个新的`.py`文件，
+
+- 加入一些测试代码，比如，加入`eth2spec.test.helpers.state`的`next_slot`方法，得到：
+
+  ```py
+  # my_test.py
+  from eth2spec.test.helpers.state import next_slot
+  
+  from eth2spec.test.helpers.state import (
+      get_balance, state_transition_and_sign_block,
+      next_slot, next_epoch, next_epoch_via_block,
+  )
+  from eth2spec.test.helpers.block import (
+      build_empty_block_for_next_slot, build_empty_block,
+      sign_block,
+      transition_unsigned_block,
+  )
+  from eth2spec.test.context import (
+      spec_test, spec_state_test, dump_skipping_message,
+      with_phases, with_all_phases, single_phase,
+      expect_assertion_error, always_bls,
+      with_presets,
+      with_custom_state,
+      large_validator_set,
+  )
+  
+  
+  
+  @with_all_phases
+  @spec_state_test
+  def test_empty_block_transition(spec, state):
+      pre_slot = state.slot
+      pre_eth1_votes = len(state.eth1_data_votes)
+      pre_mix = spec.get_randao_mix(state, spec.get_current_epoch(state))
+  
+      yield 'pre', state
+  
+      next_slot(spec, state)
+  
+      block = build_empty_block_for_next_slot(spec, state)
+  
+      signed_block = state_transition_and_sign_block(spec, state, block)
+  
+      yield 'blocks', [signed_block]
+      yield 'post', state
+  
+      assert len(state.eth1_data_votes) == pre_eth1_votes + 1
+      assert spec.get_block_root_at_slot(state, pre_slot) == signed_block.message.parent_root
+      assert spec.get_randao_mix(state, spec.get_current_epoch(state)) != pre_mix
+  ```
+
+之后在bash中执行`pytest my_test.py`，即可看到测试结果。
+
+### 2025.03.1
 <!-- Content_END -->
