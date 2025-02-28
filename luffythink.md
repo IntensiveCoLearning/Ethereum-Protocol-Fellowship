@@ -274,4 +274,15 @@ Ethereum is not viewed as a project with a defined endpoint, but rather as an `"
 
 ![](https://epf.wiki/wiki/testing/img/fv-and-testing.jpg)
 
+### 2025.02.28
+学习了解 The security and continuous operation of the Ethereum network
+- The Ethereum Community 
+  - EF
+  - Core Protocol Developers and Researchers
+  - Security Auditors and Bug Bounty Hunters
+  - Validators (Stakers)
+    - Lido and Liquid Staking Providers
+    - Solo Stakers
+  - Node Operators
+
 <!-- Content_END -->
