@@ -445,4 +445,6 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 	- Consensus client broadcasts the block over the block gossip protocol.
 	- Other clients validate the block and attest to it.
 	- Once attested by sufficient validators, the block is added to the head of the chain, justified, and finalized.
+ ### 2025.02.28
+ 前面学过的知识点还是散的，没有完整的串起来，今天开始先跟着[Building A simplified blockchain implementation in Golang](https://github.com/Jeiwan/blockchain_go) 走一遍，顺便回忆下前面学习过的概念，理论结合实际。纯理论的东西太枯燥了。
 <!-- Content_END -->
