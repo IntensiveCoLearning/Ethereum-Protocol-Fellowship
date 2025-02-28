@@ -812,4 +812,53 @@ final BLSPublicKey validator, final Bytes32 genesisValidatorsRoot, final UInt64 
 - **Dora**（輕量級 Beacon Chain 瀏覽器）。
 - **Xatu**（以太坊 P2P 數據收集與可視化）。
 
+### 2025.02.28
+
+#### [SGweek10-dev](https://epf.wiki/#/eps/week10-dev)
+
+今天看 week 10 學習 precompile
+
+#### 1. 什麼是 Precompile？
+Precompile（預編譯合約）是以太坊虛擬機（EVM）內部的特殊合約，它們執行特定的加密或數學運算，並且在 EVM 內部以原生方式實現，而不是用 Solidity 或 Vyper 編寫的智能合約。這些合約主要用於提高計算效率，降低 Gas 成本。
+
+#### 2. 為何需要 Precompile？
+如果在 Solidity 中純粹用 EVM 指令實現某些運算（例如 Keccak-256 哈希、橢圓曲線簽名驗證），計算成本非常高。因此，以太坊提供了一組內建 Precompile 來加速這類操作，使其比傳統的智能合約實現更高效。
+
+#### 3. 主要 Precompile 合約（地址 0x01 - 0x0A）
+以太坊目前定義了一些標準的 Precompile，地址範圍為 `0x01` 至 `0x0A`，每個 Precompile 都有特定功能。
+
+| 地址  | Precompile 名稱 | 功能 |
+|--------|----------------|----------------|
+| 0x01   | `ecrecover`    | 用於橢圓曲線數字簽名恢復（ECDSA） |
+| 0x02   | `sha256`       | 計算 SHA-256 雜湊 |
+| 0x03   | `ripemd160`    | 計算 RIPEMD-160 雜湊 |
+| 0x04   | `identity`     | 簡單的身份函數，直接返回輸入數據 |
+| 0x05   | `modexp`       | 進行模指數運算（Modular Exponentiation） |
+| 0x06   | `bn256Add`     | BN256 曲線上的點加運算 |
+| 0x07   | `bn256ScalarMul` | BN256 曲線上的標量乘運算 |
+| 0x08   | `bn256Pairing` | BN256 雙線性配對檢查 |
+| 0x09   | `blake2f`      | Blake2 雜湊函數 |
+| 0x0A   | `curve25519`   | Curve25519 橢圓曲線運算（EIP-2537） |
+
+#### 4. Precompile 的 Gas 計算
+Precompile 的 Gas 費用通常根據輸入數據長度和計算複雜度來確定。例如：
+- `ecrecover` 固定消耗 3000 Gas。
+- `sha256` 根據數據長度收費，每 32 字節收取 12 Gas。
+- `modexp` 依據底數、指數和模數長度計算 Gas 費用，根據 EIP-198 進行優化。
+
+#### 5. Precompile 的擴展與 EIP
+除了以太坊主網內建的 Precompile，不同的 EIP 提議新增 Precompile 來提升計算能力，例如：
+- **EIP-196 / EIP-197**: 引入 BN256 橢圓曲線的點加、標量乘與配對檢查。
+- **EIP-198**: 優化模指數運算，提高 RSA 驗證效率。
+- **EIP-2537**: 添加 BLS12-381 曲線，用於 ZK-SNARKs。
+
+#### 6. 應用場景
+Precompile 主要應用於以下領域：
+- **數字簽名驗證**：`ecrecover` 被廣泛用於驗證交易簽名。
+- **跨鏈橋與 ZK-SNARKs**：BN256、BLS12-381 相關 Precompile 用於零知識證明計算。
+- **高效加密哈希**：`sha256`、`ripemd160`、`blake2f` 提供高效的加密哈希運算。
+
+#### 7. 結論
+Precompile 提供了高效的數學與加密運算，降低 Gas 成本，使智能合約能夠執行複雜運算而不會消耗過多資源。未來，隨著 Layer 2 方案和 zk-SNARKs 的發展，新的 Precompile 可能會繼續加入以提升以太坊的計算能力。
+
 <!-- Content_END -->
