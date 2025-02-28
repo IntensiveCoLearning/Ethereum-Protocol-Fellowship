@@ -285,4 +285,13 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    5. 事件日志：事件数据会摆编码到日志中，会分为 2 部分：主题(topic), 数据 (Data)
    6. abi 工具提供的对应编解码 工具函数：abi.encode、abi.decode 等
 
+### 2025.02.28
+
+1. 链上数据：区块、交易、状态树、交易收据等
+   1. 区块：是区块链的基本组成单元 包含一批交易和其他元数据，每个区块都是通过 hash 值链接前一个区块
+   2. 交易：是用户和合约发起的行为，每个交易都会打包到区块终
+   3. 状态树：所有账户和合约的当前状态，以默克尔树的形式进行存储
+   4. 交易收据：是交易执行后的结果、包含日志事件、Gas 消耗等信息
+   5. 可以使用 JSON-RPC 查询链上数据：eth 命名空间里面的方法：eth_getBlockByNumber、eth_getTransaction、eth_getTransactionReceipt、eth_getLogs 等
+
 <!-- Content_END -->
