@@ -897,13 +897,55 @@ node 起来之后就需要同步全部的 block，通过使用 total difficulty 
 
 错误处理：如果 chainId 不匹配或签名无效，会返回相应的错误。
 
+# 2025.02.28
+
 ### Executing code in the EVM
 
-https://gisli.hamstur.is/2020/08/understanding-ethereum-by-studying-the-source-code/
+TODO EVM 官方技术资料文档 https://ethereum.org/en/developers/docs/evm/
 
+以太坊智能合约是一种底层的 stack-based bytecode 语言，包括一堆 bytes，每个 byte 表示一个操作。
 
+TODO，写一个 byte 对以太坊 EVM 进行调用和计算。
 
+操作作用于下面三种类型的存储：
 
+- The stack，就是运行过程中的堆栈
+- Memory 运行内存，byte array
+- contract long-term storage，长期存储内容
 
+执行的时候没有指定 tx recipient，就会创建一个新合约，代码存储在 contract account state 里面。第一次运行的时候，会调用 contract constructor 然后创建初始 state 并且返回 final contract bytecode，所以 constructors 在 deploy 之后，就不保存了。
+
+合约之间通过 sending messages 来进行相互调用。
+
+通过 gas 消耗来避免 DDoS 攻击。gas price 是 originator 愿意支付的每个 gas 的价格，gas limit 是 upper bound originator 愿意为这个 tx 支付的，避免全部花完了。实际上需要的 gas 是由智能合约执行的具体 opcode 来决定的，是固定的。类比汽车就是我从 A 到 B 走 100KM 需要固定消耗 15L 的汽油，这个 15L 的汽油就是 15L 的汽油，因为必须要走 100KM 的路。然后汽油价格是每个加油站不一样的，你可以选择便宜的汽油型号或者加油站，也可以选择贵的。那么实际的支出就是 15L x 汽油价格，你可以限制最多花费的价格，比如 100 刀这样最多只能到 100 刀。假如此时 1L 油价 10 刀，那么 100 刀的 Limit 只能跑 10L 对应的距离，也就是无法达到 100KM 的距离，此时在 EVM 里面就会因为 gas 不足，终止这项工作，因为走不到终点。但是由于确实存在运算，或者在路上跑了一段时间，gas 也确实消耗掉了，所以已经消耗的 gas 就不退还了。
+
+需要付出成本，也是阻止滥用的一种方案。
+
+```
+core/vm/contract.go
+
+// UseGas attempts the use gas and subtracts it and returns true on success
+func (c *Contract) UseGas(gas uint64) (ok bool) {
+	if c.Gas < gas {
+		return false
+	}
+	c.Gas -= gas
+	return true
+}
+```
+
+### Transacting
+
+Ethereum uses the ECDSA signature scheme for the secp256k1 elliptic curve. 
+
+Ethereum使用secp256k1椭圆曲线的ECDSA签名方案。加密模块为crypto.Sign提供两种实现，一种依赖用纯Go编写的椭圆曲线密码库，另一种依赖用C编写并通过cgo调用的libsecp256k1。ECDSA签名以一对整数(r,s)的形式返回，每个值的范围为[1,2^256-1]，其中r是随机点R=k*G的x坐标，s=k^-1*(h+r*privKey)是签名者知道消息h=hash(msg)和私钥privKey的证明。对于已签名的交易，节点会按上述方式将其中继到点对点网络。
+
+最关键的是 ECDSA signature scheme allows the public key to be recovered from the signed message together with the signature，通过对比 signature 还原出来的 public key 来验证当前用户是否真正有 private key。
+
+---
+
+对 EVM 感兴趣，后面的时间深入研究下 https://ethereum.org/en/developers/docs/evm/
+
+debug 下代码：https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm
 
 <!-- Content_END -->

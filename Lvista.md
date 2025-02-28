@@ -702,5 +702,38 @@ $ geth --holesky --datadir geth-data --syncmode snap --http --http.port 8545 --a
 
   > JWT 用于验证执行层（Geth）和共识层（如 Beacon Chain）之间的通信
 ### 2025.02.27
+## CL note部署
 
+- `openssl rand -hex 32 | tr -d "\n" | sudo tee /secrets/jwt.hex`创建一个jwt密匙
+- EL note保持打开状态
+
+```bash
+./lighthouse bn --network holesky --execution-endpoint http://localhost:8551  --execution-jwt /tmp/jwt --http
+```
+
+## Ephemery testnet
+
+接下来基于ephemery testnet构建一个测试网
+ephemery会隔一段时间回滚（目前是28天），所以整体比较小，适合于测试
+
+从[ephemery repo](<https://github.com/ephemery-testnet/ephemery-resources?tab=readme-ov-file>)中下载`testnet-all.tar.gz`放在文件夹中并解压。
+
+- `genesis.json`：记录ephemery区块的信息
+- `nodevars_env.txt`：包含了该测试链的基本信息，包括`CHAIN_ID`, `BOOTNODE_ENR`等
+
+按照[Run a node](https://github.com/ephemery-testnet/ephemery-resources?tab=readme-ov-file#run-a-node)的指引，设定相关参数：
+
+```bash
+$ geth --datadir ephemery --authrpc.jwtsecret=/tmp/jwt --bootnodes $BOOTNODE_ENODE --networkid $CHAIN_ID
+```
+
+接下来重启CL：
+
+```bash
+$ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --execution-jwt=/tmp/jwt --boot-nodes=$BOOTNODE_ENR_LIST
+```
+
+此时CL会开始追踪最新头节点，此过程会持续亿点点时间
+
+### 2025.02.28
 <!-- Content_END -->

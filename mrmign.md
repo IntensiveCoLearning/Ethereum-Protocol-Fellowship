@@ -428,4 +428,21 @@ Learn [Inevitable Ethereum - World Computer](https://inevitableeth.com/home/ethe
 - Components of the Consensus Layer
 	- Beacon Node
 	- Validator
+### 2025.02.27
+- **When the consensus client is not the block producer:**
+	- Receives a block via the block gossip protocol.
+	- Pre-validates the block.
+	- Sends transactions in the block to the execution layer as an execution payload.
+	- Execution layer executes transactions and validates the block state.
+	- Execution layer sends validation data back to the consensus layer.
+	- Consensus layer adds the block to its blockchain and attests to it, broadcasting the attestation over the network.
+- **When the consensus client is the block producer:**
+	- Receives notice of being the next block producer.
+	- Calls the create block method in the execution client.
+	- Execution layer accesses the transaction mempool.
+	- Execution client bundles transactions into a block, executes them, and generates a block hash.
+	- Consensus client adds transactions and block hash to the beacon block.
+	- Consensus client broadcasts the block over the block gossip protocol.
+	- Other clients validate the block and attest to it.
+	- Once attested by sufficient validators, the block is added to the head of the chain, justified, and finalized.
 <!-- Content_END -->

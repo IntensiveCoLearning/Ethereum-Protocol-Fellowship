@@ -603,4 +603,12 @@ Single SLE 单一秘密领袖选举希望每一个验证者提交一个盲id（C
 - [The Merge | Vitalik](https://vitalik.eth.limo/general/2024/10/14/futures1.html)
 - [单一秘密领袖选举 | Ebunker中文](https://web3caff.com/zh/archives/111097#%E5%8D%95%E4%B8%80%E7%A7%98%E5%AF%86%E9%A2%86%E8%A2%96%E9%80%89%E4%B8%BE)
 
+
+### 2025.02.27
+今天在周会上了解到一些很有趣的东东，我记录在这里：
+- [Trin](https://ethereum.github.io/trin/introduction/quickstart.html) 一个可以限制硬盘使用空间的客户端
+- [@parithosh_j](https://x.com/parithosh_j/status/1894236676567785814)详细Pectra升级出现问题的原因
+- [Ben用Python注释的CL协议](https://eth2book.info/capella/annotated-spec/)
+- [Pyspec 教程](https://github.com/ethereum/consensus-specs/blob/dev/tests/README.md)
+
 <!-- Content_END -->
