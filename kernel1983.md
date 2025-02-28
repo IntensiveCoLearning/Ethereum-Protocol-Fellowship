@@ -261,4 +261,8 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 我们几天前构思的利用 execution-specs 实现的开源项目有了第一个 Pull Request https://github.com/kernel1983/brownievm/pull/1
 感谢开源的贡献者，合作让彼此都有了收获。
 
+### 2025.02.27
+
+在 Denver BD，继续摸鱼
+
 <!-- Content_END -->
