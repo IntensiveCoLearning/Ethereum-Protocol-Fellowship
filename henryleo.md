@@ -644,5 +644,12 @@ Aggregate 聚合 是把多个 zk-SNARK 证明**聚合**成一个单一的、更�
 
 因为ZK当交易很多的时候会很重，所以聚合起来效率更高，可以提升吞吐量、降低Gas费
 
+### 2025.03.01
+
+#### The Surge
+![|202503011](https://pbs.twimg.com/media/GCnvGPqXsAAelB3?format=jpg&name=large)
+以太坊的Scaling 扩容的目标一直是分片，让每个验证者负责一个小区块链而不是整个区块链。但这非常困难，且就算实现了，Rollup也应该会更成熟、更能达成扩容的目标，所以目前以太坊开发暂时不会考虑分片。
+
+
 
 <!-- Content_END -->
