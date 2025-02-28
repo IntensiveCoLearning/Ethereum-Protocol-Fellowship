@@ -499,4 +499,12 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
     - https://x.com/parithosh_j/status/1894236703667491232
   - 此前针对 Pectra 升级协调的反思讨论
     - https://ethereum-magicians.org/t/pectra-retrospective/22637
+
+### 2025.02.27
+- 今天没有学习啥新知识，列一些准备做的 Todo
+    - 梳理这一个月以来的知识，参考优秀残酷学友 zhouCode 的思维导图：https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/zhouCode.md
+    - 研究去年 EPF cohort5 core dev 列的一些项目：https://github.com/eth-protocol-fellows/cohort-five/blob/main/projects/project-ideas.md
+    - 看本周四 ACD 针对 Pectra 升级 holesky 分叉的讨论：
+        - ACDE call 2.27: https://www.youtube.com/watch?v=tlezpGztpi8
+        - Holesky Validator Incident Response Call: https://www.youtube.com/watch?v=ksr-6iuSvrg
 <!-- Content_END -->
