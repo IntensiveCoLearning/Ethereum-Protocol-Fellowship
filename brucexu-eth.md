@@ -946,5 +946,6 @@ Ethereum使用secp256k1椭圆曲线的ECDSA签名方案。加密模块为crypto.
 
 对 EVM 感兴趣，后面的时间深入研究下 https://ethereum.org/en/developers/docs/evm/
 
+debug 下代码：https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm
 
 <!-- Content_END -->
