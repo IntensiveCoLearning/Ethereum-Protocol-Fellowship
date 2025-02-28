@@ -1449,4 +1449,137 @@ Keccak 採用 **海綿結構（Sponge Construction）**，使其能夠吸收任�
 
 [【專欄】後量子密碼學 Postquantum Cryptography](https://newsletter.sinica.edu.tw/28059/)
 
+### 2025.02.28
+
+#### Pectra 硬分叉升級筆記（2025年3月）
+
+## 一、Pectra 升級總覽
+
+**Pectra**預計2025年3月上線，包含 **11個EIP**，涵蓋**質押優化、帳戶升級、Blob處理與成本調整**等重點。  
+
+### 📑 11項EIP清單：
+| EIP編號 | 名稱/摘要 |
+|---|---|
+| EIP-2537 | BLS12-381曲線操作預編譯 |
+| EIP-2935 | State保存歷史區塊哈希 |
+| EIP-6110 | 鏈上validator deposits（質押存款） |
+| EIP-7002 | 執行層觸發退出 |
+| EIP-7251 | MAX_EFFECTIVE_BALANCE上限提升 |
+| EIP-7549 | 把committee索引移到驗證之外 |
+| EIP-7623 | Calldata成本調整 |
+| EIP-7685 | 通用執行層請求標準 |
+| EIP-7691 | Blob吞吐量提升 |
+| EIP-7702 | EOA帳戶代碼設置（變身合約帳戶） |
+| EIP-7840 | EL配置檔案加入Blob計劃 |
+
+---
+
+## 二、質押優化相關EIP（Staking Improvements）
+
+### 1️⃣ EIP-6110：鏈上validator deposits
+- **目標**：簡化質押流程，縮短等待時間（從10小時→最快13分鐘）。
+- **改變**：執行層Deposit合約直接記錄質押資料，CL無需再透過eth1data投票決定要參考哪個EL區塊。
+- **好處**：更快生效、更少錯誤空間。
+
+---
+
+### 2️⃣ EIP-7002：執行層觸發退出
+- **目標**：允許用Withdrawal Credential直接操作**退出質押**或**部分提領**。
+- **改變**：新增`Withdraw`合約，直接接受退出/提領請求。
+- **影響**：
+    - 丟失Validator Key也能自救。
+    - 第三方質押服務（如Lido）風險降低。
+- **手續費**：
+    - 合約Withdrawal Credential：可查詢預估Gas。
+    - EOA Withdrawal Credential：需離線估算，並付超額Gas（多餘不退還）。
+- **前提**：Withdrawal Credential需先從BLS換成EL地址格式。
+
+---
+
+### 3️⃣ EIP-7251：MAX_EFFECTIVE_BALANCE提升
+- **目標**：減少過多Validator數量，提升質押彈性與網路效率。
+- **改變**：
+    - MAX_EFFECTIVE_BALANCE從32 ETH上調到2048 ETH。
+    - 同一Validator可直接累積質押額度，不需多次拆分。
+- **額外功能**：新增**合併押金合約**（Consolidation Contract），允許合併多個Validator至單一Validator。
+- **操作流程**：
+    - Withdrawal Credential簽名發起合併請求。
+    - 需支付合併手續費。
+
+---
+
+### 4️⃣ EIP-7685：通用執行層請求
+- **目標**：EL→CL建立標準化溝通管道，讓質押/退出/合併都更方便。
+- **範例**：
+    - 質押請求（EIP-6110）：Deposit合約（0x000…fa）
+    - 退出請求（EIP-7002）：Withdraw合約（0x0c15…AA）
+    - 合併請求（EIP-7251）：Consolidation合約（0x0043…Bb）
+
+---
+
+## 三、提升使用體驗相關EIP（UX Improvements）
+
+### 5️⃣ EIP-7702：EOA帳戶變身合約帳戶
+- **目標**：EOA獲得合約帳戶能力，享受批次交易、多重簽名、Recovery等功能。
+- **流程**：
+    - 簽名內容：`Chain ID`、`目標合約地址`、`Nonce`。
+    - 變身Safe等合約帳戶。
+    - 支援隨時切回EOA模式。
+- **注意事項**：
+    1. **EOA私鑰仍有效**：即便變身合約，EOA原本的簽名權限仍在。
+    2. **Storage不重置**：合約存儲資料不會自動清除。
+    3. **沒有初始化步驟**：需防範前置攻擊（frontrun）。
+- **安全性提醒**：
+    - 變身後，帳戶安全性仍取決於EOA私鑰安全度。
+
+---
+
+## 四、執行層效能與成本相關EIP
+
+### 6️⃣ EIP-7623：Calldata成本調整
+- **目標**：調整Calldata手續費，優化區塊空間利用率。
+
+---
+
+### 7️⃣ EIP-7691：Blob吞吐量提升
+- **目標**：提升Blob處理能力，配合Danksharding長遠發展。
+
+---
+
+## 五、其他技術性EIP
+
+### 8️⃣ EIP-2537：BLS12-381曲線預編譯
+- **目標**：支援BLS12-381加密運算，強化驗證效率（特別是Layer2或ZKP應用）。
+
+---
+
+### 9️⃣ EIP-2935：State保存歷史區塊哈希
+- **目標**：方便合約查詢歷史區塊哈希，提升某些應用場景便利性。
+
+---
+
+### 🔟 EIP-7549：Committee索引移到驗證之外
+- **目標**：簡化共識層的驗證流程，提升效能。
+
+---
+
+### 1️⃣1️⃣ EIP-7840：EL配置檔案加入Blob計劃
+- **目標**：把Blob Gas規則等設定納入EL配置檔，方便升級管理。
+
+---
+
+## Pectra升級亮點
+
+| 類別 | 重點功能 | 主要EIP |
+|---|---|---|
+| 質押 | 簡化流程、降低風險、提高上限 | EIP-6110、7002、7251、7685 |
+| UX | EOA變合約、批次交易、Recovery | EIP-7702 |
+| 效能 | Blob處理、Calldata成本 | EIP-7623、7691 |
+| 其他 | BLS預編譯、歷史區塊哈希 | EIP-2537、2935、7549、7840 |
+
+[以太坊開放社群：加速部署新硬分叉，Pectra升級預計4月8日上線](https://news.cnyes.com/news/id/5863006)
+
+[Ethereum Pectra 硬分叉介紹](https://followin.io/zh-Hant/feed/16526223)
+
+
 <!-- Content_END -->
