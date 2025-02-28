@@ -737,6 +737,10 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
 
 ### 2025.02.28
 
+> ❓无法使用`--checkpoint-sync-url=https://checkpointz.bordel.wtf`来加速节点同步
+
+更多同步节点：<https://eth-clients.github.io/checkpoint-sync-endpoints/>
+
 ## Consensus specs
 
 ### 第一个测试
@@ -751,6 +755,7 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
 
   ```py
   # my_test.py
+  #-------------copy from build\lib\eth2spec\test\phase0\sanity\test_blocks.py---------------
   from eth2spec.test.helpers.state import next_slot
   
   from eth2spec.test.helpers.state import (
@@ -770,27 +775,31 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
       with_custom_state,
       large_validator_set,
   )
-  
+  #----------------------------
   
   
   @with_all_phases
   @spec_state_test
   def test_empty_block_transition(spec, state):
+      # 记录前个节点的信息
       pre_slot = state.slot
       pre_eth1_votes = len(state.eth1_data_votes)
       pre_mix = spec.get_randao_mix(state, spec.get_current_epoch(state))
   
       yield 'pre', state
+  	# 推进到下一个时隙
+      next_slot(spec, state) # 添加代码
   
-      next_slot(spec, state)
-  
+      # 构建空区块
       block = build_empty_block_for_next_slot(spec, state)
   
+      # 执行状态转换并签署区块
       signed_block = state_transition_and_sign_block(spec, state, block)
   
       yield 'blocks', [signed_block]
       yield 'post', state
   
+      # 验证新区块的合法性
       assert len(state.eth1_data_votes) == pre_eth1_votes + 1
       assert spec.get_block_root_at_slot(state, pre_slot) == signed_block.message.parent_root
       assert spec.get_randao_mix(state, spec.get_current_epoch(state)) != pre_mix
