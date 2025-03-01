@@ -294,4 +294,23 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
    4. 交易收据：是交易执行后的结果、包含日志事件、Gas 消耗等信息
    5. 可以使用 JSON-RPC 查询链上数据：eth 命名空间里面的方法：eth_getBlockByNumber、eth_getTransaction、eth_getTransactionReceipt、eth_getLogs 等
 
+### 2025.03.01
+
+1. ERC (Ethereum Request for Comments) 是以太坊社区提出的标准协议，用户定义智能合约的接口和行为
+   1. ERC-20: 同质化代币 (Token) 标准。定义了代币的基础功能和行为
+      1. 转账 transfer
+      2. 从代币持有者转账 transferFrom
+      3. 查询余额 balanceOf
+      4. 授权第三方账户操作的代币部分代币 approve
+      5. 返回代币持有者允许被第三方账户操作的剩余代币数量 allowance
+      6. 事件通知, 定义了 2 个核心事件
+         1. Transfer 代币转账的时候触发
+         2. Approval 代币授权给第三方账户的时候触发
+      7. 返回的代币的总供应量 totalSupply
+   2. ERC-721：非同质化代币 (NFT) 标准
+      1. 查询 NFT tokenId 归属 ownerOf
+      2. 转移 transferFrom
+   3. ERC-1155: 支持同质化和非同质化代币的混合管理
+未来还会有更多
+
 <!-- Content_END -->
