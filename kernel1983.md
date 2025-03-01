@@ -265,4 +265,8 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 在 Denver BD，继续摸鱼
 
+### 2025.03.01
+
+结束 Denver 行程，这两天遇到的不少人都对被盗事件很关注，但是还是没看到一个 Safe 代替品。应该可以讨论一下。
+
 <!-- Content_END -->
