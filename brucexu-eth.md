@@ -948,4 +948,25 @@ Ethereum使用secp256k1椭圆曲线的ECDSA签名方案。加密模块为crypto.
 
 debug 下代码：https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm
 
+# 2025.03.01
+
+## https://ethereum.org/en/developers/docs/evm/
+
+![image](https://github.com/user-attachments/assets/5033f9d6-3b68-44d1-9665-76dcfad20383)
+
+- PC 是什么？怎么运行的
+
+Instead of a distributed ledger, Ethereum is a distributed state machine(opens in a new tab). Ethereum's state is a large data structure which holds not only all accounts and balances, but a machine state, which can change from block to block according to a pre-defined set of rules, and which can execute arbitrary machine code.
+
+State 通过 MPT 存储的庞大数据结构，通过 Hash 将所有账户连接起来并且有一个 root hash。
+
+有两种 txs：1. message calls 2. create contract
+
+合约的创建就是把 smart contract bytecode 进行编码，然后创建了一个 account 将其进行存储。之后有其他的 account 调用 message call 就是执行这个上面的 bytecode。
+
+EVM 的 stack machine 深度是 1024 items，每一个 item 是 256-bit word，这样比较容易适配 256-bit cryptography，例如 Keccak-256 hashes 或者 secp256k1 signatures。
+
+
+
+
 <!-- Content_END -->
