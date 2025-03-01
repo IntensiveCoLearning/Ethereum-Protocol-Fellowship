@@ -861,4 +861,74 @@ Precompile 主要應用於以下領域：
 #### 7. 結論
 Precompile 提供了高效的數學與加密運算，降低 Gas 成本，使智能合約能夠執行複雜運算而不會消耗過多資源。未來，隨著 Layer 2 方案和 zk-SNARKs 的發展，新的 Precompile 可能會繼續加入以提升以太坊的計算能力。
 
+### 2025.03.01
+
+#### [SGweek10-research](https://epf.wiki/#/eps/week10-research)
+
+今天看 week 10 學習 Gasper 共識機制與改進方案
+
+#### 1. Gasper 共識機制回顧
+Gasper 是 LMD-GHOST 和 Casper-FFG 的結合，作為以太坊共識機制的一部分。
+- **LMD-GHOST (Latest Message Driven - Greediest Heaviest Observed SubTree)**：
+  - 依照最新的訊息進行權重計算，選擇最重的子樹作為主鏈。
+- **Casper-FFG (Friendly Finality Gadget)**：
+  - 用於提供最終性 (finality)，透過投票機制確保區塊不會被重組 (reorg)。
+
+
+#### 2. LMD-GHOST 的問題
+- **簡單的 ex-ante reorg** (先驗重組攻擊)
+  - 惡意節點可以隱藏區塊和部分驗證人投票，導致誠實節點不知情地在舊鏈上繼續挖掘。
+  - 當惡意節點釋出隱藏的區塊與投票時，誠實節點會轉而支持這條鏈，導致原本的誠實鏈被重組。
+- **提案者增益 (Proposer Boost)**
+  - 新區塊在提出時獲得額外 40% 權重，以減少重組攻擊風險。
+  - 但若攻擊者控制多個連續提案者，仍能成功發動攻擊。
+
+
+#### 3. Casper-FFG 與最終性
+- 以太坊目前的共識機制透過 Casper-FFG 在 32 個 slot 內進行一次完整投票，確保區塊的最終性。
+- **問題**：
+  - 當網路同步性變差時，誠實節點可能會受到惡意節點操控，導致最終性確認受到影響。
+
+
+#### 4. 改進方案
+##### (1) **RLMD-GHOST (Recent LMD-GHOST)**
+- **主要改進**：
+  - **View-Merge**：
+    - 讓所有誠實驗證人在下一輪投票前“凍結”當前視圖，防止惡意節點突然釋出隱藏投票。
+  - **移除 Committees**：
+    - 讓所有誠實驗證人每個 slot 都能投票，確保誠實鏈不會被重組。
+  - **投票過期機制 (Vote Expiry)**：
+    - 限制歷史投票的影響，確保投票權重隨時間降低，以防止長期攻擊。
+
+##### (2) **SSF 協議 (Single Slot Finality Protocol)**
+- **目標**：
+  - 在單個 slot 內提供區塊的快速確認 (fast confirmation)。
+- **機制**：
+  - 若某個區塊獲得 2/3 驗證人投票，則所有誠實節點都會視其為最終確認的區塊。
+  - 減少最終性確認所需的時間，提高交易安全性。
+
+##### (3) **ePBS (Enshrined Proposer-Builder Separation)**
+- **目標**：
+  - 減少區塊提案者 (proposer) 和構建者 (builder) 之間的影響，提高 MEV 抑制能力。
+- **挑戰**：
+  - ePBS 可能會增加惡意節點發動 ex-ante reorg 攻擊的可能性。
+  - 需要搭配 PTC (Payload Timeliness Committee) 機制，確保區塊 payload 及時發佈。
+
+##### (4) **PeerDAS (Data Availability Sampling)**
+- **目標**：
+  - 減少全節點 (full nodes) 需要下載的數據量，透過抽樣驗證區塊數據的可用性。
+- **機制**：
+  - 透過抽樣檢查 50% 以上的數據是否可用，以確保整個區塊數據的可用性。
+  - 在 fork-choice 規則中加入數據可用性檢查，以防止無法獲取完整數據的區塊成為主鏈的一部分。
+
+
+#### 5. 以太坊未來發展方向
+- **SSF 協議**：
+  - 確保快速交易確認，降低交易延遲。
+  - 提高 L2 (Layer 2) 互通性，加速跨鏈資產轉移。
+- **ePBS (強化 MEV 控制)**：
+  - 減少 MEV (最大可提取價值) 濫用，確保區塊提案機制的公平性。
+- **PeerDAS (去中心化數據可用性)**：
+  - 允許輕量級節點參與共識，提高整體系統安全性。
+
 <!-- Content_END -->
