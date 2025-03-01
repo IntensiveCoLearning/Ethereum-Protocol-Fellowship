@@ -1652,4 +1652,20 @@ Pectra讓質押更快速、更靈活、更自主，無論是大額質押者、�
 
 [以太坊下一波爆發點在哪？解析路線圖、DevCon 和 Pectra 升級](https://www.blocktempo.com/opportunities-in-the-ethereum-roadmap/)
 
+### 2025.03.02
+
+參考此新聞：
+
+[Ethereum’s Pectra upgrade passes audit, remains on track for launch](https://crypto.news/ethereums-pectra-upgrade-passes-audit-remains-on-track-for-launch/)
+
+以太坊基金會宣布，Pectra 系統合約的審計已經完成，並解決了所有已發現的重要問題。  
+
+這次審計針對 Pectra 升級中的 11 項 EIP，其中涵蓋了 EIP-2935、EIP-7002 和 EIP-7251，主要目的是確認合約是否存在漏洞，並確保合約邏輯符合提案設計。  
+
+Pectra 升級已於 2 月 24 日部署到 Holesky 測試網，但未能如期最終確定（finalize）。這次升級的關鍵提案 EIP-7702，目標是為錢包引入智能合約功能，推動以太坊帳戶抽象（Account Abstraction）。  
+
+另一項重要提案 EIP-7251，則是將單個驗證者的最大質押額從 32 ETH 提高到 2,048 ETH，減少大額質押者需要拆分為多個驗證者的麻煩。  
+
+下一次測試將於 3 月 5 日在 Sepolia 測試網進行，但可能會因 Holesky 測試中遇到的問題而延後。不過，由於合約審計已確認重要問題都已解決，目前 Pectra 升級仍預計在 4 月 8 日上線主網。
+
 <!-- Content_END -->
