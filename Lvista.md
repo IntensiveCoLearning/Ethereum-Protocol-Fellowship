@@ -808,4 +808,65 @@ $ ./lighthouse bn -t Downloads/ --execution-endpoint http://localhost:8551 --exe
 之后在bash中执行`pytest my_test.py`，即可看到测试结果。
 
 ### 2025.03.01
+### 参数state
+
+在`tests\core\pyspec\eth2spec\phase0\mainnet.py`中有关于参数`state`的具体定义，`state`是当前BeaconChain的世界状态：
+
+> from DeepSeek
+
+```python
+class BeaconState(Container):
+    # Versioning
+    genesis_time: uint64 # 创世时间（以秒为单位），表示信标链的启动时间。
+    genesis_validators_root: Root # 创世验证者集合的Merkle根
+    slot: Slot # 当前时隙（slot）
+    fork: Fork # 当前的分叉（fork）信息，用于处理协议升级和分叉。
+    # History
+    latest_block_header: BeaconBlockHeader
+    block_roots: Vector[Root, SLOTS_PER_HISTORICAL_ROOT] # 见后面的解释
+    state_roots: Vector[Root, SLOTS_PER_HISTORICAL_ROOT] # 见后面的解释
+    historical_roots: List[Root, HISTORICAL_ROOTS_LIMIT] # 见后面的解释
+    # Eth1
+    eth1_data: Eth1Data # ?
+    eth1_data_votes: List[Eth1Data, EPOCHS_PER_ETH1_VOTING_PERIOD * SLOTS_PER_EPOCH] # ?
+    eth1_deposit_index: uint64 # ?
+    # Registry
+    validators: List[Validator, VALIDATOR_REGISTRY_LIMIT] # 一个列表，存储所有注册的验证者信息（如公钥、状态、余额等）
+    balances: List[Gwei, VALIDATOR_REGISTRY_LIMIT] # 一个列表，存储每个验证者的余额（以Gwei为单位）
+    # Randomness
+    randao_mixes: Vector[Bytes32, EPOCHS_PER_HISTORICAL_VECTOR] # 一个固定长度的向量，存储最近 EPOCHS_PER_HISTORICAL_VECTOR 个周期的RANDAO混合值。RANDAO用于生成随机数，随机选择验证者。
+    # Slashings
+    slashings: Vector[Gwei, EPOCHS_PER_SLASHINGS_VECTOR]  # Per-epoch sums of slashed effective balances
+    # Attestations
+    previous_epoch_attestations: List[PendingAttestation, MAX_ATTESTATIONS * SLOTS_PER_EPOCH] # 上一个周期的证明列表，验证者对区块的投票记录。
+    current_epoch_attestations: List[PendingAttestation, MAX_ATTESTATIONS * SLOTS_PER_EPOCH] # 当前周期的证明列表。
+    # Finality
+    justification_bits: Bitvector[JUSTIFICATION_BITS_LENGTH]  # Bit set for every recent justified epoch
+    previous_justified_checkpoint: Checkpoint  # Previous epoch snapshot
+    current_justified_checkpoint: Checkpoint
+    finalized_checkpoint: Checkpoint
+```
+
+对其中几个关键字段进行解释：
+
+- **`block_roots`**：一个固定长度的向量，存储最近 `SLOTS_PER_HISTORICAL_ROOT` 个时隙的区块根（Merkle根）。
+- **`state_roots`**:  一个固定长度的向量，存储最近 `SLOTS_PER_HISTORICAL_ROOT` 个时隙的状态根（Merkle根）。
+- **`historical_roots`**:  一个列表，存储历史状态和区块的Merkle根，用于长期历史记录。
+
+具体来说，`block_roots`记录的是局部，`state_roots`记录的是全局，二者保证了链连续向前。`historical_roots`又将二者联合，可作为长期的历史验证。
+
+我们回到[第一个测试](#第一个测试)，这个测试是关于创建一个新block的简单实现，其过程如下：
+
+```mermaid
+graph LR;
+    A[记录pre-slot的信息] --> B[推进到下一个时隙];
+    B --> C[构建block];
+    C --> D[执行状态转换并签署区块];
+    D --> E[验证新区块的合法性];
+    A -->|传入| E
+```
+
+> 关于yield的作用，这段代码并没有体现出来
+
+### 2025.03.02
 <!-- Content_END -->
