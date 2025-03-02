@@ -269,4 +269,8 @@ https://etherscan.io/block/3 研究叔块的 reward 机制 https://medium.com/@j
 
 结束 Denver 行程，这两天遇到的不少人都对被盗事件很关注，但是还是没看到一个 Safe 代替品。应该可以讨论一下。
 
+### 2025.03.02
+
+跑会结束恢复中。今天 review 一下 PR https://github.com/kernel1983/brownievm/pull/1
+
 <!-- Content_END -->
