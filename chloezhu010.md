@@ -507,4 +507,23 @@ https://ab9jvcjkej.feishu.cn/mindnotes/IfABbVTMfmg5IFnqinEcmcDqnFe#mindmap
     - 看本周四 ACD 针对 Pectra 升级 holesky 分叉的讨论：
         - ACDE call 2.27: https://www.youtube.com/watch?v=tlezpGztpi8
         - Holesky Validator Incident Response Call: https://www.youtube.com/watch?v=ksr-6iuSvrg
+
+### 2025.03.02
+- Watched the video of ACDE call: https://www.youtube.com/watch?v=tlezpGztpi8
+    - Pectra holesky fork update
+        - altho new validators are coming online to support the correct head of holesky, most validators on holesky are still in the existing process (slashed for their incorrect block proposal or suffer an inactivity leak for not proposing to the correct chain)
+        - block production has recovered to 44% success rate on holesky
+    - Holesky next step
+        - plan to coordinate a mass slashing for all validators attesting to the incorrect head of the chain to force holesky into a state of finalization
+    - Sepolia fork timing
+        - still scheduled for March 5th
+    - Other holesky initiatives
+        - upgrade CL clients so taht they can checkpoint sync from a socially coordinated epoch or block, rather than a finalized one
+        - agree on a single EL genesis/ fork config format to avoid issue of misconfig system contract address
+        - use a fork ID to coordinate client team on system contract config btw forks
+    - EIP 4444 (didn't have time to be discussed on this call)
+        - scheduled to be implemented on May 1st, 2025
+        - allow for dropping of block bodies and receipts from pre-merge blocks by clients
+        - prev. agreed by all major clients( Besu, EthereumJS, Erigon, Geth, Nethermind, Nimbus, Reth)
+
 <!-- Content_END -->
