@@ -869,4 +869,54 @@ graph LR;
 > 关于yield的作用，这段代码并没有体现出来
 
 ### 2025.03.02
+
+### Tests Designed to Fail
+
+```python
+@with_all_phases
+@spec_state_test
+def test_invalid_prev_slot_block_transition(spec, state):
+    # Go to clean slot 进入一个干净的slot: slot A
+    spec.process_slots(state, state.slot + 1)
+    # Make a block for it
+    block = build_empty_block(spec, state, slot=state.slot)
+    # 记录该新区块的proposer
+    proposer_index = spec.get_beacon_proposer_index(state)
+    # Transition to next slot, above block will not be invalid on top of new state.
+    # slot B
+    spec.process_slots(state, state.slot + 1)
+
+    yield 'pre', state
+    # State is beyond block slot, but the block can still be realistic when invalid.
+    # Try the transition, and update the state root to where it is halted. Then sign with the supposed proposer.
+    expect_assertion_error(lambda: transition_unsigned_block(spec, state, block))
+    block.state_root = state.hash_tree_root()
+    signed_block = sign_block(spec, state, block, proposer_index=proposer_index)
+    yield 'blocks', [signed_block]
+    yield 'post', None
+```
+
+```mermaid
+timeline
+    section slot A
+        build_empty_block 
+        get_beacon_<br>proposer_index
+    section slot B
+        expect_assertion_error : 加入一个触发器 lambda函数唤起时触发<br>error
+        block.state_root = state.hash_tree_root() : 欺骗协议， 让它匹配当前状态
+        sign_block :  将之前获得的签名 重新放进去
+
+```
+
+这个测试代码构建了这么一个场景：
+一个在slot A的区块在已经过时的情况下(beacon chain的state已经推进到slot B)，依然尝试欺骗协议来接受这个区块。
+
+> `expect_assertion_error(lambda: transition_unsigned_block(spec, state, block))`
+> 并不会立刻触发error，而是当`transition_unsigned_block`被调用时触发error
+
+## 总结
+
+总结一下这次学习，受到一位学友的启发，我也使用思维导图来总结
+
+https://gitmind.com/app/docs/makhujl4
 <!-- Content_END -->
