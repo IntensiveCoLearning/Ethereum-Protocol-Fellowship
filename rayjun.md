@@ -633,5 +633,17 @@ EVM 中有一些关键的组件：
         - 以太坊状态增长问题
         - 等等
 
-
+### 2025.03.02
+- 推荐一些常见的以太坊学习资料：
+    - 以太坊官网：https://ethereum.org/en/
+    - Ethereum Protocol Fellowship：https://epf.wiki/#/README
+    - 共识层规范：https://github.com/ethereum/consensus-specs
+    - 执行层规范：https://github.com/ethereum/execution-specs
+    - eth2book：https://eth2book.info/
+        - 对以太坊协议系统地讲解，但目前只更新到上海升级，虽然缺了不少内容，但是可以根据目录的提纲进行学习
+    - 以太坊关键信息：https://etheralpha.org/
+        - 对以太坊很多关键信息，包括客户端多样性等等各类以太坊关键信息披露
+    - Vitalik blog：https://vitalik.eth.limo/
+    - 以太坊研究论坛：https://ethresear.ch/
+    - EIP 和 ERC 讨论的论坛：https://ethereum-magicians.org/
 <!-- Content_END -->
