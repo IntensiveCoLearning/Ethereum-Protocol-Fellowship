@@ -1909,4 +1909,128 @@ bytes32 hash = keccak256(abi.encodePacked("Hello, Ethereum"));
 
   证明我们知道该多项式在某点 `x = a` 处的取值 `f(a)`，而不透露多项式系数。
 
+
+
+### 2025.03.01
+
+#### 密码学假设与初始化
+
+---
+
+##### **密码学假设**
+1. **离散对数问题 (DLP)**  
+   - 定义：给定 $g$ 和 $g^a$，计算 $a$ 不可行  
+   - 示例：$g=3 \mod 7$，$g^a=2$，求 $a=6$  
+
+2. **强 Diffie-Hellman (SDH)**  
+   - 定义：给定 $g^a$、$g^b$，无法区分 $g^{ab}$ 与随机值  
+   - 类比：两种食谱混合后无法推测味道  
+
+---
+
+##### **配对函数 (Pairing)**
+1. **定义与性质**  
+   - 双线性映射：$e: G_1 \times G_2 \rightarrow G_T$  
+   - 性质：  
+     $$
+     e(g^a, h^b) = e(g, h)^{ab}, \quad e(g, g) \neq 1  
+     $$
+   - 示例：$e(x, y) = xy \mod 7$，$e(3^2, 3^3) = 3^6 \mod 7 = 1$  
+
+---
+
+##### **KZG 初始化**
+1. **可信设置 (Trusted Setup)**  
+   - 步骤：  
+     1. 随机选秘密 $a \in \mathbb{F}_p$  
+     2. 生成 CRS：$\{g, a \cdot g, a^2 \cdot g, ..., a^t \cdot g\}$  
+     3. **销毁 $a$**（否则可构造虚假承诺）  
+
+2. **承诺生成**  
+   - 多项式 $f(x) = \sum_{i=0}^t f_i x^i$  
+   - 承诺计算：  
+     $$
+     C_f = \sum_{i=0}^t f_i \cdot (a^i \cdot g) = f(a) \cdot g  
+     $$
+   - 示例：$p=11$，$a=3$，$f(x)=3x^2+5x+7$  
+     $$
+     C_f = 7 \cdot 2 + 5 \cdot 6 + 3 \cdot 7 = 10 \mod 11
+     $$
+
+---
+
+
+
+### 2025.03.02
+
+#### 验证流程与高级应用
+
+---
+
+##### **KZG 验证流程**
+1. **打开阶段 (Opening)**  
+   - 验证者选点 $b$，要求证明 $f(b) = d$  
+   - 商多项式：  
+     $$
+     Q(x) = \frac{f(x) - d}{x - b}  
+     $$
+   - 承诺生成：$C_Q = Q(a) \cdot g$  
+
+2. **验证方程**  
+   - 核心等式：  
+     $$
+     (a - b) \cdot C_Q = C_f - d \cdot g  
+     $$
+   - 配对验证：  
+     $$
+     e(C_Q, a \cdot g - b \cdot g) = e(C_f - d \cdot g, g)  
+     $$
+
+3. **示例验证**  
+   - $b=1$，$f(1)=4$，$Q(x)=3x+8$  
+   - 计算 $C_Q = (3 \cdot 6 + 8 \cdot 2) \mod 11 = 1$  
+   - 验证：  
+     $$
+     e(1, 6 - 2) = e(10 - 8, 2) \Rightarrow 4 \equiv 4 \mod 11  
+     $$
+
+---
+
+##### **批处理模式 (Batch Mode)**
+1. **多点验证**  
+   - 输入：点集 $B = \{b_1, ..., b_n\}$，值集 $D = \{d_1, ..., d_n\}$  
+   - 构造多项式：  
+     $$
+     P(x) = \prod_{i=1}^n (x - b_i), \quad f(x) = P(x)Q(x) + R(x)  
+     $$
+   - 验证方程：  
+     $$
+     e(C_f - C_R, g) = e(C_Q, C_P)  
+     $$
+     其中 $C_P = P(a) \cdot g$，$C_R = R(a) \cdot g$  
+
+---
+
+##### **安全性与实践**
+1. **安全风险**  
+   - 可信设置泄露 $a \Rightarrow$ 可构造冲突承诺  
+   - 解决方案：多方计算（MPC）降低信任依赖  
+
+2. **实际案例**  
+   - **Filecoin**：存储证明的 KZG 验证  
+   - **Scroll zkRollup**：多项式承诺压缩计算  
+   - **以太坊 KZG 仪式**：1700+参与者生成安全 CRS  
+
+```python
+# 批处理验证伪代码
+def batch_verify(Cf, CQ_list, CP_list, points, values):
+    R = interpolate(points, values)  # 插值计算 R(x)
+    CR = commit(R)
+    CP = commit(prod(x - b_i for b_i in points))
+    assert pairing(Cf - CR, g) == pairing(CQ, CP)
+    return True
+```
+
+
+
 <!-- Content_END -->
