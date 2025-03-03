@@ -966,7 +966,7 @@ State 通过 MPT 存储的庞大数据结构，通过 Hash 将所有账户连接
 
 EVM 的 stack machine 深度是 1024 items，每一个 item 是 256-bit word，这样比较容易适配 256-bit cryptography，例如 Keccak-256 hashes 或者 secp256k1 signatures。
 
-
+TODO EVM 这边，还需要把 https://ethereumjs.readthedocs.io/en/latest/introduction.html 和对应源代码跑一下，这样就算彻底搞懂了。
 
 
 <!-- Content_END -->
