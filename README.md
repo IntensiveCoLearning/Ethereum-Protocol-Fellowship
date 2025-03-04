@@ -1106,11 +1106,11 @@ Telegram：https://t.me/ETHPandaOrg/5427
 <!-- STATISTICALDATA_START -->
 ## 统计数据
 
-- 总参与人数: 0
-- 完成人数: 0
-- 完成用户: 
-- 全勤用户: 
-- 淘汰人数: 0
-- 淘汰率: 0.00%
-- Fork人数: 0
+- 总参与人数: 90
+- 完成人数: 17
+- 完成用户: Brucexu-eth, chloezhu010, luffythink, henryleo, ghx1104, StarryDeserts, k66, kernel1983, marvelshan, jjeejj, Lvista, CHENFANGC, dundun930326
+- 全勤用户: zhouCode, mrmign, rayjun, poyucheese
+- 淘汰人数: 73
+- 淘汰率: 81.1%
+- Fork人数: 92
 <!-- STATISTICALDATA_END -->
