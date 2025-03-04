@@ -170,4 +170,51 @@ Refs:
 - https://eips.ethereum.org/EIPS/eip-2930
 - https://www.rareskills.io/post/eip-2930-optional-access-list-ethereum
 
+
+### 2025.02.18
+- 学习merkle patricia tree这种压缩前缀树的实现机制
+
+
+### 2025.02.19
+- 学习merkle patricia tree这种压缩前缀树的实现机制，并写了个[简单的demo](https://github.com/dajuguan/lab/blob/main/eth/golang/mpt_trie_test.go)
+
+### 2025.02.20
+学习[以太坊的数据结构](https://s1na.substack.com/p/the-tale-of-5-dbs-24-07-26),主要包括5种DB:
+- ethdb: 定义了持久层的接口和leveldb/pebbledb/memorydb/remotedb对其接口的具体实现
+- triedb: 介于trie和持久成之间，包括两种后端
+    - hashdb: key为node的hash，value为node的值
+    - pathdb: key为节点的path
+- statedb: 在执行一个区块交易的时候需要从ethdb或triedb中读取contract和storage trie，他提供了一个thin layer来读取这些数据
+    - 生命周期为一个区块
+    - L2魔改EVM主要就是要修改statedb
+- rawdb: 可以看做KV数据的schema，他定义了实际的数据在DB中的key具体是如何定义的
+```
+var CodePrefix = []byte("c") // CodePrefix + code hash -> account code
+
+// codeKey = CodePrefix + hash
+func codeKey(hash common.Hash) []byte {
+ return append(CodePrefix, hash.Bytes()...)
+}
+
+// ReadCodeWithPrefix retrieves the contract code of the provided code hash.
+func ReadCodeWithPrefix(db ethdb.KeyValueReader, hash common.Hash) []byte {
+ data, _ := db.Get(codeKey(hash))
+ return data
+}
+```
+
+### 2025.02.21
+- 仔细研究了`pathdb`和`hashdb`的[区别](https://github.com/ethereum/go-ethereum/issues/23427)
+- [path-based state scheme的具体实现和benchmark](https://github.com/ethereum/go-ethereum/pull/25963)
+
+### 2025.02.22
+- 继续深入学习`pathdb`和`hashdb`的相关代码
+    - hashdb实际上存的是hash=> value，所以实际上不同合约地址如果存储相同的storage，那么他们有可能会引用相同的key及相应的数据(即使他们的contract地址不一样!，因为不是按照前缀地址存储数据的)，这样导致不好删除数据，即使一个合约destroy了，他内部的hash对应的数据可能被其他合约引用，导致没法直接删除，所以即使是full node也可能会保存不需要的过期数据(比如hash对应的parent root已经被gc了)
+    - pathdb则在具体的合约上加了contract address前缀，这样不同的合约确保不会引用相同的hash对应的数据，更容易prune，所以在内存和实际数据库中(fullnode)只需要维护一个trie即可
+    - 因此pathdb没法做archive node，因为他需要维护所有的增量数据，这个成本很高
+
+### 2025.02.23
+- 学习了EVM合约的contract storage slot的基本原理，及其相应的key存在哪里
+- [Solidity layout and access of storage state variables simply explained](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738)
+
 <!-- Content_END -->
