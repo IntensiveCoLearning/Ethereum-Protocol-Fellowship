@@ -101,17 +101,17 @@ Telegram：https://t.me/ETHPandaOrg/5427
 <!-- START_COMMIT_TABLE -->
 | Name | 2.06 | 2.07 | 2.08 | 2.09 | 2.10 | 2.11 | 2.12 | 2.13 | 2.14 | 2.15 | 2.16 | 2.17 | 2.18 | 2.19 | 2.20 | 2.21 | 2.22 | 2.23 | 2.24 | 2.25 | 2.26 | 2.27 | 2.28 | 3.01 | 3.02 |
 | ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| [brucexu-eth](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/brucexu-eth.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |
+| [brucexu-eth](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/brucexu-eth.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   |
 | [PayFv](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/PayFv.md) | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | |
-| [chloezhu010](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/chloezhu010.md) | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | ✅ |
+| [chloezhu010](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/chloezhu010.md) | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ |
 | [coratann](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/coratann.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
-| [luffythink](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/luffythink.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ |   | ⭕️ |
+| [luffythink](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/luffythink.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   |
 | [Henry](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Henry.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [d0d0d9](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/d0d0d9.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ❌ | | | |
-| [henryleo](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/henryleo.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |
+| [henryleo](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/henryleo.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   |
 | [zhouCode](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/zhouCode.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [mrmign](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/mrmign.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [ghx1104](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/ghx1104.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | ⭕️ |
+| [ghx1104](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/ghx1104.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   |
 | [Coooder-Crypto](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Coooder-Crypto.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 | [rayjun](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/rayjun.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [CJC824](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/CJC824.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
@@ -138,7 +138,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [chyyynh](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/chyyynh.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [frankmint2024](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/frankmint2024.md) | ✅ | ⭕️ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
 | [Amberrrrrr](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Amberrrrrr.md) | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
-| [yahsinhuangtw](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yahsinhuangtw.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ |   | ❌ |
+| [yahsinhuangtw](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yahsinhuangtw.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | |
 | [0xKarl98](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/0xKarl98.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [marvelshan](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/marvelshan.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [rogers3333](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/rogers3333.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
@@ -165,7 +165,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [zt2](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/zt2.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
 | [yiwen4](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/yiwen4.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
 | [affe](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/affe.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
-| [dundun930326](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/dundun930326.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | ✅ |
+| [dundun930326](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/dundun930326.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ |
 | [Echocipher](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Echocipher.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | |
 | [poyucheese](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/poyucheese.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [amandakelake](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/amandakelake.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
@@ -1163,14 +1163,15 @@ Telegram：https://t.me/ETHPandaOrg/5427
 
 
 
+
 <!-- STATISTICALDATA_START -->
 ## 统计数据
 
 - 总参与人数: 90
-- 完成人数: 19
-- 完成用户: brucexu-eth, jjeejj, k66, kernel1983, henryleo, Lvista, chloezhu010, luffythink, ghx1104, rayjun, poyucheese, CHENFANGC, liuxulife, mrmign, dundun930326, yahsinhuangtw, marvelshan, zhouCode, StarryDeserts
+- 完成人数: 18
+- 完成用户: brucexu-eth, jjeejj, k66, kernel1983, henryleo, Lvista, chloezhu010, luffythink, ghx1104, rayjun, poyucheese, CHENFANGC, liuxulife, mrmign, dundun930326, marvelshan, zhouCode, StarryDeserts
 - 全勤用户: rayjun, poyucheese, mrmign, zhouCode
-- 淘汰人数: 71
-- 淘汰率: 78.89%
+- 淘汰人数: 72
+- 淘汰率: 80.00%
 - Fork人数: 91
 <!-- STATISTICALDATA_END -->
