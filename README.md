@@ -131,7 +131,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 | [armada2013](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/armada2013.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [realgu](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/realgu.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | |
 | [Eizz0](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/Eizz0.md) | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | |
-| [kernel1983](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/kernel1983.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ |   | ✅ | ✅ |
+| [kernel1983](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/kernel1983.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |
 | [JC13043DB](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/JC13043DB.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | |
 | [GuoyangLiu24](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/GuoyangLiu24.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | | | | | | | | | | | | |
 | [cooper](https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship/blob/main/cooper.md) | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ❌ | | | | | | | | | | | | | | | |
@@ -1252,6 +1252,7 @@ Telegram：https://t.me/ETHPandaOrg/5427
 
 
 
+
 <!-- STATISTICALDATA_START -->
 ## 统计数据
 
@@ -1261,5 +1262,5 @@ Telegram：https://t.me/ETHPandaOrg/5427
 - 全勤用户: rayjun, poyucheese, mrmign, zhouCode
 - 淘汰人数: 73
 - 淘汰率: 81.11%
-- Fork人数: 90
+- Fork人数: 0
 <!-- STATISTICALDATA_END -->
