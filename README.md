@@ -1715,13 +1715,14 @@ Telegram：https://t.me/ETHPandaOrg/5427
 
 
 
+
 <!-- STATISTICALDATA_START -->
 ## 统计数据
 
 - 总参与人数: 89
 - 完成人数: 17
-- 完成用户: zhouCode, k66, kernel1983, CHENFANGC, luffythink, ghx1104, dundun930326, chloezhu010, poyucheese, marvelshan, rayjun, mrmign, henryleo, brucexu-eth, jjeejj, Lvista, StarryDeserts
-- 全勤用户: zhouCode, poyucheese, rayjun, mrmign
+- 完成用户: CHENFANGC, kernel1983, henryleo, ghx1104, k66, chloezhu010, StarryDeserts, Lvista, jjeejj, dundun930326, luffythink, zhouCode, brucexu-eth, rayjun, marvelshan, poyucheese, mrmign
+- 全勤用户: zhouCode, rayjun, poyucheese, mrmign
 - 淘汰人数: 72
 - 淘汰率: 80.90%
 - Fork人数: 88
